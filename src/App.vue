@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-red-500">
-   <h1 class="text-3xl">Hello W</h1>
+   <h1 class="text-3xl">Hello Wo</h1>
   </div>
 </template>
 
