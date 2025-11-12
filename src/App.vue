@@ -4,6 +4,7 @@ import { ref } from "vue";
 const message = ref("Salom Vue!");
 const counter = ref(0);
 const image = ref("https://vuejs.org/images/logo.png");
+const ism = ref("");
 
   function pls(){
     counter.value++
@@ -21,4 +22,6 @@ const image = ref("https://vuejs.org/images/logo.png");
     <button class="bg-slate-600" @click="pls">Bos</button>
     <button class="bg-slate-600" @click="mns">Matn uzgaradi</button>
   </div>
+  <img v-bind:src="image" alt="dfs">
+  <input v-model="ism" placeholder="ismingizni kiriting" type="text">
 </template>
