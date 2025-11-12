@@ -9,6 +9,8 @@ const counter = ref(0);
   }
 </script>
 
+
+<div class="">0</div>
 <template>
   <h1>{{ message }}</h1>
   <p>Click: {{ counter }}</p>
