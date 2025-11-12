@@ -7,11 +7,17 @@ const counter = ref(0);
   function pls(){
     counter.value++
   }
+  function mns(){
+    counter.value = "Matn uzgardi"
+  }
 </script>
 
 
 <template>
+  <div class="flex justify-between">
+    <button class="bg-slate-600" @click="pls">Bos</button>
+    <button class="bg-slate-600" @click="mns">Matn uzgaradi</button>
+  </div>
   <h1>{{ message }}</h1>
   <p>Click: {{ counter }}</p>
-  <button class="bg-slate-600" @click="pls">Bos</button>
 </template>
