@@ -7,5 +7,5 @@ const counter = ref(0);
 
 <template>
   <h1>{{ message }}</h1>
-  <button @click="counter.value++">Click: {{ counter }}</button>
+  <button class="bg-slate-600" @click="counter.value++">Click: {{ counter }}</button>
 </template>
