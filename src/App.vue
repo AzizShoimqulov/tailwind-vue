@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref } from "vue";
 
 const message = ref("Salom Vue!");
@@ -24,4 +24,4 @@ const ism = ref("");
   </div>
   <img v-bind:src="image" alt="dfs">
   <input v-model="ism" placeholder="ismingizni kiriting" type="text">
-</template>
+</template> -->
