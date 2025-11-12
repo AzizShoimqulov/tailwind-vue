@@ -3,6 +3,7 @@ import { ref } from "vue";
 
 const message = ref("Salom Vue!");
 const counter = ref(0);
+const image = ref("https://vuejs.org/images/logo.png");
 
   function pls(){
     counter.value++
