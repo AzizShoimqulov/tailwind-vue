@@ -8,16 +8,16 @@ const counter = ref(0);
     counter.value++
   }
   function mns(){
-    counter.value = "Matn uzgardi"
+    message.value = "Matn uzgardi"
   }
 </script>
 
 
 <template>
-  <div class="flex justify-between">
+  <h1>{{ message }}</h1>
+  <p>Click: {{ counter }}</p>
+  <div class="flex gap-4 mb-4">
     <button class="bg-slate-600" @click="pls">Bos</button>
     <button class="bg-slate-600" @click="mns">Matn uzgaradi</button>
   </div>
-  <h1>{{ message }}</h1>
-  <p>Click: {{ counter }}</p>
 </template>
