@@ -32,6 +32,8 @@ const ism = ref("");
   <div>
     <h2 v-if="isOnlayn">Siz onlaynsiz</h2>
     <h2 v-else>Siz oflaynsiz</h2>
+
+    <button ds>Holatni uzgartir</button>
   </div>
 </template>
 
