@@ -46,5 +46,5 @@ const ism = ref("");
 <script setup>
   import { ref } from 'vue';
   const isOnlayn = ref(true)
-  const age = ref(15)
+  const age = ref(1)
 </script>
