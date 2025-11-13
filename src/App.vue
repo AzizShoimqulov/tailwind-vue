@@ -35,10 +35,16 @@ const ism = ref("");
 
     <button @click="isOnlayn = !isOnlayn">Holatni uzgartir</button>
   </div>
+  <div>
+    <p v-if="age>=18">Kattalar uchun</p>
+    <p v-else-if="age>=13">Bolalar uchun</p>
+    <p v-else>Yosh bolalar uchun</p>
+  </div>
 </template>
 
 
 <script setup>
   import { ref } from 'vue';
   const isOnlayn = ref(true)
+  const age = ref(15)
 </script>
