@@ -10,18 +10,20 @@ const ism = ref("");
     counter.value++
   }
   function mns(){
-    message.value = "Matn uzgardi"
+    message.value = "Matn uzgardi ree"
   }
 </script>
 
 
 <template>
-  <h1>{{ message }}</h1>
-  <p>Click: {{ counter }}</p>
-  <div class="flex gap-4 mb-4">
-    <button class="bg-slate-600" @click="pls">Bos</button>
-    <button class="bg-slate-600" @click="mns">Matn uzgaradi</button>
+  <div class="p-4 flex flex-col items-center">
+    <h1>{{ message }}</h1>
+    <p>Click: {{ counter }}</p>
+    <div class="flex gap-4 mb-4">
+      <button class="bg-slate-600" @click="pls">Bos</button>
+      <button class="bg-slate-600" @click="mns">Matn uzgaradi</button>
+    </div>
+    <img v-bind:src="image" alt="dfs">
+    <input v-model="ism" placeholder="ismingizni kiriting" type="text">
   </div>
-  <img v-bind:src="image" alt="dfs">
-  <input v-model="ism" placeholder="ismingizni kiriting" type="text">
 </template>
