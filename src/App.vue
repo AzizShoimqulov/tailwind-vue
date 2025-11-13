@@ -37,7 +37,7 @@ const ism = ref("");
   </div>
   <div>
     <p v-if="age>=18">Kattalar uchun</p>
-    <p v-else-if="age>=13">Bolalar uchun</p>
+    <p v-else-if="age>=13">Usmirlar uchun</p>
     <p v-else>Yosh bolalar uchun</p>
   </div>
 </template>
