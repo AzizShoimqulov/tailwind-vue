@@ -29,16 +29,18 @@ const ism = ref("");
 </template> -->
 
 <template>
-  <div>
-    <h2 v-if="isOnlayn">Siz onlaynsiz</h2>
-    <h2 v-else>Siz oflaynsiz</h2>
-
-    <button @click="isOnlayn = !isOnlayn">Holatni uzgartir</button>
-  </div>
-  <div>
-    <p v-if="age>=18">Kattalar uchun</p>
-    <p v-else-if="age>=13">Usmirlar uchun</p>
-    <p v-else>Yosh bolalar uchun</p>
+  <div class="bg-black">
+    <div>
+      <h2 v-if="isOnlayn">Siz onlaynsiz</h2>
+      <h2 v-else>Siz oflaynsiz</h2>
+  
+      <button @click="isOnlayn = !isOnlayn">Holatni uzgartir</button>
+    </div>
+    <div>
+      <p v-if="age>=18">Kattalar uchun</p>
+      <p v-else-if="age>=13">Usmirlar uchun</p>
+      <p v-else>Yosh bolalar uchun</p>
+    </div>
   </div>
 </template>
 
