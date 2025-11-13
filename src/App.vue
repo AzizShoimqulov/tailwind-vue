@@ -30,11 +30,13 @@ const ism = ref("");
 
 <template>
   <div>
-    
+    <h2 v-if="isOnlayn">Siz onlaynsiz</h2>
+    <h2 v-else>Siz oflaynsiz</h2>
   </div>
 </template>
 
 
 <script setup>
-
+  import { ref } from 'vue';
+  const isOnlayn = ref(true)
 </script>
