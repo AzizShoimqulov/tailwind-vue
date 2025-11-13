@@ -10,7 +10,7 @@ const ism = ref("");
     counter.value++
   }
   function mns(){
-    message.value = "Matn uzgdsaardi refdfdsadsse"
+    message.value = "Matn uzgardi refdfdsadsse"
   }
 </script>
 
