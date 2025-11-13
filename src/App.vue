@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref } from "vue";
 
 const message = ref("Salom Vue!");
@@ -26,4 +26,21 @@ const ism = ref("");
     <img v-bind:src="image" alt="dfs">
     <input v-model="ism" placeholder="ismingizni kiriting" type="text">
   </div>
+</template> -->
+
+<template>
+  <div>
+    <h2 v-if="isLoggedIn">Xush kelibsiz, Azizbek!</h2>
+    <h2 v-else>Avval ro‘yxatdan o‘ting!</h2>
+
+    <button @click="isLoggedIn = !isLoggedIn">
+      Holatni o‘zgartir ({{ isLoggedIn ? 'Chiqish' : 'Kirish' }})
+    </button>
+  </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+const isLoggedIn = ref(false)
+</script>
