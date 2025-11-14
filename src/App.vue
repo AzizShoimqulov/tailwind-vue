@@ -105,27 +105,25 @@ const ism = ref("");
 -->
 
 
+<template>
+  <ul>
+    <li v-for="user in adultUsers" :key="user.id">
+      {{ user.name }} ({{ user.age }})
+    </li>
+  </ul>
+</template>
+
 <script setup>
-import { reactive, computed, watch } from "vue";
+import { ref, computed } from 'vue'
 
-const user = reactive({
-  name: "Azizbek",
-  age: 15
-});
+const users = ref([
+  { id: 1, name: "Ali", age: 15 },
+  { id: 2, name: "Vali", age: 20 },
+  { id: 3, name: "Malika", age: 18 }
+])
 
-const yoshStatus = computed(() => {
-  return user.age >= 18 ? "Katta" : "Kichik";
-});
-
-watch(
-  () => user.age,
-  (yangi) => {
-    console.log("Yosh o‘zgardi:", yangi);
-  }
-);
+const adultUsers = computed(() => {
+  return users.value.filter(u => u.age >= 18)
+})
 </script>
 
-<template>
-  <p>{{ user.age }} yosh — {{ yoshStatus }}</p>
-  <button @click="user.age++">Yoshni oshir</button>
-</template>
