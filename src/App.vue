@@ -1,3 +1,4 @@
+<!-----
 <script setup>
 import { ref } from "vue";
 
@@ -102,3 +103,18 @@ const ism = ref("");
   <h2>Salom, {{ ism }}</h2>
 </template>
 -->
+
+<script setup>
+import { ref, watch } from "vue";
+
+const message = ref("");
+
+watch(message, (yangi, eski) => {
+  console.log("Eski:", eski);
+  console.log("Yangi:", yangi);
+});
+</script>
+
+<template>
+  <input v-model="message" placeholder="Nimadir yoz..." />
+</template>
