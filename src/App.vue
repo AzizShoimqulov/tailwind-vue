@@ -104,17 +104,28 @@ const ism = ref("");
 </template>
 -->
 
+
 <script setup>
-import { ref, watch } from "vue";
+import { reactive, computed, watch } from "vue";
 
-const message = ref("");
-
-watch(message, (yangi, eski) => {
-  console.log("Eski:", eski);
-  console.log("Yangi:", yangi);
+const user = reactive({
+  name: "Azizbek",
+  age: 18
 });
+
+const yoshStatus = computed(() => {
+  return user.age >= 18 ? "Katta" : "Kichik";
+});
+
+watch(
+  () => user.age,
+  (yangi) => {
+    console.log("Yosh o‘zgardi:", yangi);
+  }
+);
 </script>
 
 <template>
-  <input v-model="message" placeholder="Nimadir yoz..." />
+  <p>{{ user.age }} yosh — {{ yoshStatus }}</p>
+  <button @click="user.age++">Yoshni oshir</button>
 </template>
