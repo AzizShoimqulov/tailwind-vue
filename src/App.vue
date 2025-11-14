@@ -110,7 +110,7 @@ import { reactive, computed, watch } from "vue";
 
 const user = reactive({
   name: "Azizbek",
-  age: 18
+  age: 15
 });
 
 const yoshStatus = computed(() => {
