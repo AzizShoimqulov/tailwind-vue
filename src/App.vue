@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import { ref } from "vue";
 
 const message = ref("Salom Vue!");
@@ -26,14 +26,24 @@ const ism = ref("");
     <img v-bind:src="image" alt="dfs">
     <input v-model="ism" placeholder="ismingizni kiriting" type="text">
   </div>
-</template> -->
+</template>
+
+
+
+
+
+
+
+
+
+
+<!---   >>>>>>>>>>>>>> v-if, v-else-if, v-else, v-show, v-for<<<<<<<<<<<<<<<<<<
 
 <template>
-  <div class="bg-black">
+  <div class="p-4 flex flex-col items-center gap-4">
     <div>
       <h2 v-if="isOnlayn">Siz onlaynsiz</h2>
       <h2 v-else>Siz oflaynsiz</h2>
-  
       <button @click="isOnlayn = !isOnlayn">Holatni uzgartir</button>
     </div>
     <div>
@@ -41,6 +51,23 @@ const ism = ref("");
       <p v-else-if="age>=13">Usmirlar uchun</p>
       <p v-else>Yosh bolalar uchun</p>
     </div>
+    <div>
+      <h2 v-show="isVs">|||</h2>
+      <button @click="isVs = !isVs">Kurasat\Yashir</button>
+    </div>
+
+    <div>
+      <ul>
+        <li v-for="(meva, index) in mevalar" :key="index">
+          {{ index + 1 }}. {{ meva }}
+        </li>
+      </ul>
+    </div>
+
+    <div v-for= "user in users" :key="user.id">
+      <p>{{ user.name }} - {{ user.age }} yosh</p>
+    </div>
+
   </div>
 </template>
 
@@ -48,5 +75,16 @@ const ism = ref("");
 <script setup>
   import { ref } from 'vue';
   const isOnlayn = ref(true)
-  const age = ref(1)
+  const age = ref(10)
+  const isVs = ref(true)
+
+  const mevalar = ref(['Olma', 'Banan', 'Anor', 'Nok', 'Behi'])
+
+  const users=ref([
+    { id: 1, name: 'Azizbek', age: 20 },
+    { id: 2, name: 'Madina', age: 17 },
+    { id: 3, name: 'Sardor', age: 25 },
+    { id: 4, name: 'Laylo', age: 15 },
+  ])
 </script>
+-->
