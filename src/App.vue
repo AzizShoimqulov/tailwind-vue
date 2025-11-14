@@ -1,3 +1,4 @@
+<!------
 <script setup>
 import { ref } from "vue";
 
@@ -88,3 +89,14 @@ const ism = ref("");
   ])
 </script>
 -->
+
+<script setup>
+import { ref } from "vue";
+
+const ism = ref("");
+</script>
+
+<template>
+  <input v-model="ism" placeholder="Ismingni yoz..." />
+  <h2>Salom, {{ ism }}</h2>
+</template>
