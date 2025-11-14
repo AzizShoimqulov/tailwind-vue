@@ -116,7 +116,7 @@ const ism = ref("");
 <script setup>
 import { ref, computed } from 'vue'
 
-const users = ref([
+const users = ref([ 
   { id: 1, name: "Ali", age: 15 },
   { id: 2, name: "Vali", age: 20 },
   { id: 3, name: "Malika", age: 18 }
