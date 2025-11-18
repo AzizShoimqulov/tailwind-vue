@@ -71,7 +71,7 @@ const ism = ref("");
 
 
 <!---   >>>>>>>>>>>>>> v-if, v-else-if, v-else, v-show, v-for<<<<<<<<<<<<<<<<<<
-
+-->
 <template>
   <div class="p-4 flex flex-col items-center gap-4">
     <div>
@@ -118,10 +118,9 @@ const ism = ref("");
     { id: 2, name: 'Madina', age: 17 },
     { id: 3, name: 'Sardor', age: 25 },
     { id: 4, name: 'Laylo', age: 15 },
-  ])
+  ]);
 </script>
 
--->
 
 
 
