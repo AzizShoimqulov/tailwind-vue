@@ -31,9 +31,41 @@ const ism = ref("");
 
 
 
+<template>
+  <ul>
+    <li v-for="user in adultUsers" :key="user.id">
+      {{ user.name }} ({{ user.age }})
+    </li>
+  </ul>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const users = ref([ 
+  { id: 1, name: "Ali", age: 15 },
+  { id: 2, name: "Vali", age: 20 },
+  { id: 3, name: "Malika", age: 18 }
+])
+
+const adultUsers = computed(() => {
+  return users.value.filter(u => u.age >= 18)
+})
+</script>
 
 
 
+<<<<<<<<<<< V-model >>>>>>>>>>
+<script setup>
+import { ref } from "vue";
+
+const ism = ref("");
+</script>
+
+<template>
+  <input v-model="ism" placeholder="Ismingni yoz..." />
+  <h2>Salom, {{ ism }}</h2>
+</template>
 
 
 
@@ -89,42 +121,9 @@ const ism = ref("");
   ])
 </script>
 
-
-
-<<<<<<<<<<< V-model >>>>>>>>>>
-<script setup>
-import { ref } from "vue";
-
-const ism = ref("");
-</script>
-
-<template>
-  <input v-model="ism" placeholder="Ismingni yoz..." />
-  <h2>Salom, {{ ism }}</h2>
-</template>
-
 -->
 
-<template>
-  <ul>
-    <li v-for="user in adultUsers" :key="user.id">
-      {{ user.name }} ({{ user.age }})
-    </li>
-  </ul>
-</template>
 
-<script setup>
-import { ref, computed } from 'vue'
 
-const users = ref([ 
-  { id: 1, name: "Ali", age: 15 },
-  { id: 2, name: "Vali", age: 20 },
-  { id: 3, name: "Malika", age: 18 }
-])
-
-const adultUsers = computed(() => {
-  return users.value.filter(u => u.age >= 18)
-})
-</script>
 
 
