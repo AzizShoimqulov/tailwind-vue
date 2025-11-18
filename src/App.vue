@@ -103,7 +103,7 @@ const ism = ref("");
   <h2>Salom, {{ ism }}</h2>
 </template>
 
-
+-->
 
 <template>
   <ul>
@@ -127,4 +127,4 @@ const adultUsers = computed(() => {
 })
 </script>
 
--->
+
