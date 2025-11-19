@@ -93,7 +93,7 @@ const ism = ref("");
       <ul>
         <li v-for="(meva, index) in mevalar" :key="index">
           {{ index + 1 }}. {{ meva }}
-        </li>
+        </li>  
       </ul>
     </div>
 
