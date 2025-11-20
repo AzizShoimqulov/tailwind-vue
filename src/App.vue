@@ -30,7 +30,7 @@ const ism = ref("");
 </template>
 
 
-
+<!-----
 <template>
   <ul>
     <li v-for="user in adultUsers" :key="user.id">
@@ -38,7 +38,7 @@ const ism = ref("");
     </li>
   </ul>
 </template>
-<!-----
+
 <script setup>
 import { ref, computed } from 'vue'
 
@@ -71,7 +71,7 @@ const ism = ref("");
 
 
 <!--  >>>>>>>>>>>>> v-if, v-else-if, v-else, v-show, v-for<<<<<<<<<<<<<<<<<<
--->
+
 <template>
   <div class="p-4 flex flex-col items-center gap-4">
     <div>
@@ -121,7 +121,7 @@ const ism = ref("");
   ]);
 </script>
 
-
+-->
 
 
 
