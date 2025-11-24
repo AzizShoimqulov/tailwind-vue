@@ -133,8 +133,3 @@ const ism = ref("");
 <script setup>
 
 </script>
-
-<style>
-  
-</style>
-
