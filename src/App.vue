@@ -132,6 +132,6 @@ const ism = ref("");
 
 <script setup>
   async fetchMovie(){
-    const = await
+    const = await axios.get()
   }
 </script>
