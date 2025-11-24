@@ -131,5 +131,7 @@ const ism = ref("");
 </template>
 
 <script setup>
-
+  async fetchMovie(){
+    const = await
+  }
 </script>
