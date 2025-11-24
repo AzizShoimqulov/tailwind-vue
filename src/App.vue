@@ -27,7 +27,7 @@ const ism = ref("");
     <img v-bind:src="image" alt="dfs">
     <input v-model="ism" placeholder="ismingizni kiriting" type="text">
   </div>
-</template>
+</template>  
 
 
 <!-----
