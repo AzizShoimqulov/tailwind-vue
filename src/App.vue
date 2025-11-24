@@ -132,6 +132,10 @@ const ism = ref("");
 
 <script setup>
   async fetchMovie(){
-    const = await axios.get()
+    try{
+  const = await axios.get('https://jsonplaceholder.typicode.com/posts');
+}catch(error){
+  console.log("Xatolik yuz berdi", error);
   }
+}
 </script>
