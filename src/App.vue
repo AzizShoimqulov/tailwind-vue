@@ -30,7 +30,7 @@ const ism = ref("");
 </template>  
 
 
-<!-----
+
 <template>
   <ul>
     <li v-for="user in adultUsers" :key="user.id">
