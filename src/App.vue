@@ -138,7 +138,7 @@ const posts = ref([]);
 
   async function fetchMovie(){
     try{
-  const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+  const res = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
   posts.value = res.data;
   console.log(res.data);
 }catch(error){
