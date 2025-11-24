@@ -131,9 +131,7 @@ const ism = ref("");
 </template>
 
 <script setup>
-  async function fetchMovie() {
-    
-  } fetchMovie(){
+  async function fetchMovie(){
     try{
   const = await axios.get('https://jsonplaceholder.typicode.com/posts');
 }catch(error){
