@@ -126,7 +126,7 @@ const ism = ref("");
 
 <template>
   <div>
-    <button>Click</button>
+    <button @click="fetchMovie">Click</button>
   </div>
 </template>
 
