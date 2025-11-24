@@ -131,6 +131,9 @@ const ism = ref("");
 </template>
 
 <script setup>
+import { ref } from "vue";
+import axios from "axios"; 
+
   async function fetchMovie(){
     try{
   const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
