@@ -12,7 +12,7 @@ const ism = ref("");
   }
   function mns(){
     message.value = "Matn uzgardi"
-  }
+  } 
 </script>
 
 
