@@ -134,9 +134,13 @@ const ism = ref("");
 import { ref } from "vue";
 import axios from "axios"; 
 
+const posts = ref([]);
+
   async function fetchMovie(){
     try{
   const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+  posts.value = res.data;
+  console.log(res.data);
 }catch(error){
   console.log("Xatolik yuz berdi", error);
   }
