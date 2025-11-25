@@ -147,4 +147,21 @@ const posts = ref([]);
 -->
 
 
+<template>
+  <div>
+    <input type="number" v-model="a" />
+    <input type="number" v-model="b" />
+
+    <p>Yig‘indi: {{ sum }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const a = ref(0)
+const b = ref(0)
+
+const sum = computed(() => a.value + b.value)
+</script>
 
