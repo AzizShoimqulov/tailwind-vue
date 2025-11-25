@@ -161,7 +161,7 @@ import { ref, computed } from 'vue';
  const a = ref(0);
  const b = ref(0);
 
- const sum = computed(()=> a.value = b.value);
+ const sum = computed(()=> a.value + b.value);
 
 </script>
 
