@@ -152,7 +152,7 @@ const posts = ref([]);
     <input type="number" v-model="a" />
     <input type="number" v-model="b" />
 
-    <p>Yig‘indi: {{ sum }}</p>
+    <p>Yigindi: {{ sum }}</p>
   </div>
 </template>
 
