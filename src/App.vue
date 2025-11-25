@@ -149,7 +149,7 @@ const posts = ref([]);
 
 <template>
   <div>
-    <input type="number" v-model="">
+    <input type="number" v-model="a">
   </div>
 </template>
 
