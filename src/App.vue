@@ -104,7 +104,7 @@ const ism = ref("");
   </div>
 </template>
 
-sddssds
+sdds
 
 <script setup>
   import { ref } from 'vue';
