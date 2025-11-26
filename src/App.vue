@@ -148,12 +148,14 @@ const posts = ref([]);
 
 
 <template>
-  <div>
-    <input type="number" v-model="a">
-    <input type="number" v-model="b">
-
-    <p>{{ sum }}</p>
-  </div>
+  <main class="bg-black">
+    <div class="bg-gray-200 p-4">
+      <input type="number" v-model="a">
+      <input type="number" v-model="b">
+  
+      <p>{{ sum }}</p>
+    </div>
+  </main>
 </template>
 
 <script setup>
