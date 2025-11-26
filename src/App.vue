@@ -148,7 +148,7 @@ const posts = ref([]);
 
 
 <template>
-    <div class="bg-black w-full h-full p-4">
+    <div>
       <div>
         <input type="number" v-model="a">
         <input type="number" v-model="b">
