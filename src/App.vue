@@ -104,7 +104,7 @@ const ism = ref("");
   </div>
 </template>
 
-sdaasddsadsasdaas
+sdaasddsadsasdsda
 <script setup>
   import { ref } from 'vue';
   const isOnlayn = ref(true)
