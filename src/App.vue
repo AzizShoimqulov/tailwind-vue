@@ -168,3 +168,18 @@ import { ref, computed } from 'vue';
 
 </script>
 -->
+<script setup>
+import { ref, watch } from "vue"
+
+const count = ref(0)
+
+watch(count, (newVal, oldVal) => {
+  console.log("Old:", oldVal)
+  console.log("New:", newVal)
+})
+</script>
+
+<template>
+  <button @click="count++">+1</button>
+  {{ count }}
+</template>
