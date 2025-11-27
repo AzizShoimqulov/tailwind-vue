@@ -121,7 +121,6 @@ const ism = ref("");
   ]);
 </script>
 
-dsa
 
 <template>
   <div>
