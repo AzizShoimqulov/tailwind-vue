@@ -121,7 +121,7 @@ const ism = ref("");
   ]);
 </script>
 
-dsasdasa
+dsa
 <template>
   <div>
     <button @click="fetchMovie">Click</button>
