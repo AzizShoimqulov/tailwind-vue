@@ -120,8 +120,7 @@ const ism = ref("");
     { id: 4, name: 'Laylo', age: 15 },
   ]);
 </script>
-
-dsadadsa
+sd
 <template>
   <div>
     <button @click="fetchMovie">Click</button>
