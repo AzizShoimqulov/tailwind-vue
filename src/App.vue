@@ -191,20 +191,22 @@ watch(count, (newVal, oldVal) => {
       <img class="object-fill h-[925px] w-full" src="../src/img/image.png" alt="Bu yerda rasm bor">
     </div>
 
-    <div class="w-1/2 flex flex-col justify-center items-center gap-7">
-        <p class="text-slate-600 ">Start for free</p>
+    <div class="w-1/2 flex flex-col items-center justify-center gap-7 px-12">
+      <div>
+        <h6 href="" class="text-slate-600">Start for free</h6>
         <h1 class="font-semibold text-3xl">Sing In to Dashboard</h1>
         <form>
-          <div class="flex flex-col gap-3 mb-3">
+          <div class="flex flex-col gap-2 mt-5 mb-2">
             <label for="Login">Login</label>
-            <input type="text" id="Login" placeholder="Login kiriting">
+            <input class="border-gray-300 border cursor-pointer rounded-md p-2" type="text" id="Login" placeholder="Login kiriting">
           </div>
-          <div class="flex flex-col gap-3 mb-3">
+          <div class="flex flex-col gap-2 mb-5">
             <label for="parol">Parol</label>
-            <input type="text" id="parol" placeholder="Parol kiriting">
+            <input class="border-gray-300 border cursor-pointer rounded-md p-2" type="text" id="parol" placeholder="Parol kiriting">
           </div>
-          <button>Kirish</button>
+          <button class="border cursor-pointer rounded-md py-2 border-none text-white bg-blue-500 px-[120px]">Kirish</button>
         </form>
+      </div>
     </div>
   </section>
 </template>
