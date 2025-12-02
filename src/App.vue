@@ -186,9 +186,24 @@ watch(count, (newVal, oldVal) => {
 -->
 
 <template>
-  <main>
+  <main class="flex">
+    <div class="w-1/2">
+      <img class="object-fill h-[925px] w-full" src="../src/img/image.png" alt="Bu yerda rasm bor">
+    </div>
     <div>
-      <img src="" alt="">
+      <div>
+        <p>Start for free</p>
+        <h2>Sing In to Dashboard</h2>
+        <form>
+          <div>
+            <label for="Login">Login</label>
+            <input type="text" id="Login" placeholder="Login kiriting">
+          </div>
+          <label for="Login">Login</label>
+            <input type="text" id="Login" placeholder="Login kiriting">
+          </div>
+        </form>
+      </div>
     </div>
   </main>
 </template>
