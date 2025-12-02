@@ -185,7 +185,7 @@ watch(count, (newVal, oldVal) => {
 </template>
 -->
 
-<template lang="">
+<template>
   <div>
     
   </div>
