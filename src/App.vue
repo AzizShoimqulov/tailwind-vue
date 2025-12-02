@@ -183,7 +183,6 @@ watch(count, (newVal, oldVal) => {
   <button @click="count++">+1</button>
   {{ count }}
 </template>
--->
 
 <template>
   <section class="flex font-inter">
@@ -214,3 +213,4 @@ watch(count, (newVal, oldVal) => {
 <script setup>
 </script>
 
+-->
