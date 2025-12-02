@@ -195,7 +195,7 @@ export default {
   
 }
 </script>
-<style lang="">
+<style>
   
 </style>
 
