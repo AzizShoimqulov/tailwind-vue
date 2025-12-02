@@ -187,7 +187,9 @@ watch(count, (newVal, oldVal) => {
 
 <template>
   <main>
-    
+    <div>
+      <img src="" alt="">
+    </div>
   </main>
 </template>
 
