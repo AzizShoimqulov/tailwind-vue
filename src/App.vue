@@ -196,10 +196,10 @@ watch(count, (newVal, oldVal) => {
         <p class="text-slate-600 font-normal">Start for free</p>
         <h1 class="font-medium text-3xl">Sing In to Dashboard</h1>
         <form>
-          <div class="flex flex-col gap-1 mt-5 mb-2">
+          <div class="flex flex-col gap-1 mt-5 mb-2"> 
             <label for="Login">Login</label>
             <input class="border-gray-300 border cursor-pointer rounded-md p-2" type="text" id="Login" placeholder="Login kiriting">
-          </div>
+          </div> 
           <div class="flex flex-col gap-1 mb-5">
             <label for="parol">Parol</label>
             <input class="border-gray-300 font border cursor-pointer rounded-md p-2" type="text" id="parol" placeholder="Parol kiriting">
