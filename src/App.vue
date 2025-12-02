@@ -191,11 +191,5 @@ watch(count, (newVal, oldVal) => {
   </div>
 </template>
 <script>
-export default {
-  
-}
 </script>
-<style>
-  
-</style>
 
