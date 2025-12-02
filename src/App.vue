@@ -186,9 +186,9 @@ watch(count, (newVal, oldVal) => {
 -->
 
 <template>
-  <div>
+  <main>
     
-  </div>
+  </main>
 </template>
 
 <script setup>
