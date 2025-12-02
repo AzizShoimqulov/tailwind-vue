@@ -204,7 +204,7 @@ watch(count, (newVal, oldVal) => {
             <label for="parol">Parol</label>
             <input class="border-gray-300 font border cursor-pointer rounded-md p-2" type="text" id="parol" placeholder="Parol kiriting">
           </div>
-          <button class="border cursor-pointer rounded-md py-2 border-none text-white bg-blue-500 px-[120px]">Kirish</button>
+          <button class="border text-[15px] cursor-pointer rounded-md py-2 border-none text-white bg-blue-500 px-[130px]">Kirish</button>
         </form>
       </div>
     </div>
