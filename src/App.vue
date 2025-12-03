@@ -176,13 +176,16 @@ const count = ref(0)
 watch(count, (newVal, oldVal) => {
   console.log("Old:", oldVal)
   console.log("New:", newVal)
-})
+})ha
 </script>
 
 <template>
   <button @click="count++">+1</button>
   {{ count }}
 </template>
+
+-->
+
 
 <template>
   <section class="flex font-inter">
@@ -213,4 +216,3 @@ watch(count, (newVal, oldVal) => {
 <script setup>
 </script>
 
--->
