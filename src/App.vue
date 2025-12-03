@@ -176,7 +176,7 @@ const count = ref(0)
 watch(count, (newVal, oldVal) => {
   console.log("Old:", oldVal)
   console.log("New:", newVal)
-})ha
+})
 </script>
 
 <template>
