@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const newTodo = ref('')
 const todos = ref([])
@@ -69,12 +69,27 @@ function addTodo() {
   newTodo.value = ''
 }
 
-function toggleTodo(id) {
-  const todo = todos.value.find(t => t.id === id)
+function toggleTodo(todo) {
   todo.done = !todo.done
 }
 
 function removeTodo(id) {
   todos.value = todos.value.filter(t => t.id !== id)
 }
+
+watch(
+  todos,
+  (newTodos) => {
+    localStorage.setItem('todos', JSON.stringify(newTodos))
+  },
+  { deep: true }
+)
+
+onMounted(() => {
+  const saved = localStorage.getItem('todos')
+  if (saved) {
+    todos.value = JSON.parse(saved)
+  }
+})
 </script>
+
