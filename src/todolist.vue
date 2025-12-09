@@ -6,7 +6,6 @@
         Todo List
       </h1>
 
-      <!-- Todo qo‘shish -->
       <div class="flex gap-2 mb-4">
         <input
           v-model="newTodo"
@@ -23,7 +22,6 @@
         </button>
       </div>
 
-      <!-- Todo ro‘yxat -->
       <ul class="space-y-2">
         <li
           v-for="todo in todos"
