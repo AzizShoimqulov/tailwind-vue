@@ -3,7 +3,7 @@
     <div class="w-full max-w-md bg-white rounded-xl shadow p-6">
       
       <h1 class="text-2xl font-bold text-center mb-4">
-        ✅ Todo List
+        Todo List
       </h1>
 
       <!-- Todo qo‘shish -->
