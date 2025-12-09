@@ -163,11 +163,11 @@ fdsdf
 import { ref, computed } from 'vue';
  const a = ref(0);
  const b = ref(0);
-
+ 
  const sum = computed(()=> a.value + b.value);
 
 </script>
-
+ 
 <script setup>
 import { ref, watch } from "vue"
 
@@ -187,6 +187,7 @@ watch(count, (newVal, oldVal) => {
 
 
 <template>
+  <!---
   <section class="flex font-inter">
     <div class="w-1/2">
       <img class="object-fill h-[925px] w-full" src="../src/img/image.png" alt="Bu yerda rasm bor">
@@ -210,8 +211,14 @@ watch(count, (newVal, oldVal) => {
       </div>
     </div>
   </section>
+-->
+  <div>
+    <Todolist />
+  </div>
 </template>
 
 <script setup>
+import Todolist from './todolist.vue';
+
 </script>
 
