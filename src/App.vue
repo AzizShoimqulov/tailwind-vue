@@ -299,7 +299,7 @@ function addTodo() {
 function toggleTodo(todo) {
   todo.done = !todo.done
 }
-/
+//
 function removeTodo(id) {
   todos.value = todos.value.filter(t => t.id !== id)
 }
