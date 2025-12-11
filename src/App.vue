@@ -303,7 +303,7 @@ function toggleTodo(todo) {
 function removeTodo(id) {
   todos.value = todos.value.filter(t => t.id !== id)
 }
-/
+
 watch(
   todos,
   (newTodos) => {
