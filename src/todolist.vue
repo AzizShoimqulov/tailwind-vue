@@ -38,8 +38,7 @@
 
           <button
             @click="removeTodo(todo.id)"
-            class="text-red-500 hover:text-red-700"
-          >
+            class="text-red-500 hover:text-red-700">
             ✕
           </button>
         </li>
