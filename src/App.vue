@@ -187,7 +187,7 @@ watch(count, (newVal, oldVal) => {
 
 
 <template>
-  <!---///////
+  <!---/////////////
   <section class="flex font-inter">
     <div class="w-1/2">
       <img class="object-fill h-[925px] w-full" src="../src/img/image.png" alt="Bu yerda rasm bor">
