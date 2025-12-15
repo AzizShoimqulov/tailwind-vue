@@ -32,7 +32,9 @@
 
 
 <script setup>
-import { Icon } from '@iconify/vue';
+// Icon component is registered globally in `src/main.js` as 'Icon'.
+import { ref } from 'vue'
+
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 </script>
