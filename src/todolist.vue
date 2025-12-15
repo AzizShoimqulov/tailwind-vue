@@ -34,10 +34,13 @@
                   flex items-center justify-center">3</span>
               </button>
                 <button class="relative p-2 text-gray-700 hover:text pink-600" aria-label="Wishlist">
-                <Icon icon="mdi:heart-outline" class="w-5 h-5" />
+                <Icon icon="mdi:cart-outline" class="w-5 h-5" />
                 <span 
                   class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5
-                  flex items-center justify-center">3</span>
+                  flex items-center justify-center">5</span>
+              </button>
+                <button class="relative p-2 text-gray-700 hover:text pink-600" aria-label="Wishlist">
+                <Icon icon="mdi:account-outline" class="w-5 h-5" />
               </button>
             </aside>
 
