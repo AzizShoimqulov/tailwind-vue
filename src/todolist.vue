@@ -24,5 +24,5 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 const isScrolled = ref(false);
-
+const isMobileMenuOpen = ref(false);
 </script>
