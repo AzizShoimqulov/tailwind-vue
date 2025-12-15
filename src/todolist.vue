@@ -14,7 +14,7 @@
           <!-- Search Bar -->
           <form class="w-full md:flex-1 max-w-sm" role="search" aria-label="Site search">
             <label class="relative w-full">
-              <input type="text" placeholder="Search..." class="w-full px-3 py-2 text-xs border border-gray-300 rounded-full focus:outline-none
+              <input type="text" placeholder="Search..." class="w-full px-3 py-2 text-[15px] border border-gray-300 rounded-full focus:outline-none
               focus:ring-2 focus:ring-indigo-500">
 
               <button type="submit"
