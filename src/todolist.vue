@@ -32,7 +32,6 @@
 
 
 <script setup>
-// Icon component is registered globally in `src/main.js` as 'Icon'.
 import { ref } from 'vue'
 
 const isScrolled = ref(false);
