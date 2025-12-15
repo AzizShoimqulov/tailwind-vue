@@ -23,6 +23,6 @@
 
 <script setup>
 import { Icon } from '@iconify/vue';
-
+const isScrolled = ref(false);
 
 </script>
