@@ -46,6 +46,7 @@
         </div>
       </div>
     </section>
+    <!-- Navbar bar-->
     <nav class="bg-pink-950" aria-label="Main navigation">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ul class="hiddin md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
