@@ -43,10 +43,16 @@
                 <Icon icon="mdi:account-outline" class="w-5 h-5" />
               </button>
             </aside>
-
         </div>
       </div>
     </section>
+    <nav class="bg-pink-950" aria-label="Main navigation">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ul>
+
+        </ul>
+      </div>
+    </nav>
   </header>
 </template>
 
