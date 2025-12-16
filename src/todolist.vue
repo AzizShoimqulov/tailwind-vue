@@ -58,7 +58,8 @@
         <section v-if="isMobileMenuOpen"
         class="md:hidden mt-2 bg-white rounded-lg shadow-md p-4 space-y-3 text-[#5D4037] text-center"
         aria-label="Mobile Navigation">
-        <a v-for="item in navItems" :href="item.link" :key="item.id">{{ item.name }}</a>
+        <a v-for="item in navItems" :href="item.link" :key="item.id"
+        class="block hover:text-amber-600 text-sm font-medium">{{ item.name }}</a>
       </section>
       </div>
     </nav>
