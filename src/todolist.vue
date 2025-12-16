@@ -2,7 +2,7 @@
   <header class="sticky top-0 z-50 transition-all duration-300">
     <section :class="['w-full', isScrolled ? 'bg-gray-100/95 backdrop-blur shadow-md py-2' : 'bg-gray-100 py-4']">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between gap-3 md:gap-6">
+        <div class="flex flex-col items-center justify-between gap-3 md:gap-6 md:flex-row">
 
           <div class="flex justify-between items-center w-full md:w-auto">
             <a href="/" class="text-2xl font-bold text-pink-600">ShopEase</a>
@@ -49,7 +49,7 @@
     <!-- Navbar bar-->
     <nav class="bg-pink-950" aria-label="Main navigation">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
+        <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
           <li v-for="item in navItems" :key="item.id">
             <a :href="item.link" class="hover:text-pink-300 transition-colors">{{ item.name }}</a>
           </li>
