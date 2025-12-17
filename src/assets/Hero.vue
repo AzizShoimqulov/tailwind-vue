@@ -11,6 +11,14 @@
                         Exclisiuve discounts and special offers on evrything you love. Shop now and be the first 
                         to grab the latest trends at unbeatable prices!
                     </p>
+                    <div class="flex justify-center lg:justify-center gap-4">
+                        <a href="/products"
+                        class="px-6 py-3 bg-pink-900 text-white text-sm font-semibold rounded-lg shadow 
+                        hover:bg-pink-600 transition">shop Now</a>
+                        <a href="/products"
+                        class="px-6 py-3 bg-pink-500 text-sm font-semibold rounded-lg shadow 
+                        hover:bg-pink-600 transition">shop Now</a>
+                    </div>
                 </div>
             </div>
         </section>
