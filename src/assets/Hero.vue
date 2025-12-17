@@ -16,7 +16,7 @@
                         class="px-6 py-3 bg-pink-900 text-white text-sm font-semibold rounded-lg shadow 
                         hover:bg-pink-600 transition">shop Now</a>
                         <a href="/products"
-                        class="px-6 py-3 bg-pink-500 text-sm font-semibold rounded-lg shadow 
+                        class="px-6 py-3 bg-pink-500 text-pink-500 text-sm font-semibold rounded-lg shadow 
                         hover:bg-pink-600 transition">shop Now</a>
                     </div>
                 </div>
