@@ -14,15 +14,15 @@
                     <div class="flex justify-center lg:justify-center gap-4">
                         <a href="/products"
                         class="px-6 py-3 bg-pink-900 text-white text-sm font-semibold rounded-lg shadow 
-                        hover:bg-pink-600 transition">shop Now</a>
+                        hover:bg-pink-600 transition">Shop Now</a>
                         <a href="/products"
-                        class="px-6 py-3 bg-pink-500 text-pink-500 text-sm font-semibold rounded-lg
+                        class="px-6 py-3 bg-pink-500 text-pink-900 text-sm font-semibold rounded-lg
                         hover:bg-pink-200 transition">View offers</a>
                     </div>
                 </div>
                 <!--Right Image-->
                 <div class="w-full lg:w-1/2 flex justify-center">
-                    <img src="../img/image copy.png" alt="Hero Image" class="w-2/4 lg:w-full max-w-md mx-auto rounded"/>
+                    <img src="../img/image copy 2.png" alt="Hero Image" class="w-2/4 lg:w-full max-w-md mx-auto rounded-lg"/>
 
                 </div>
             </div>
