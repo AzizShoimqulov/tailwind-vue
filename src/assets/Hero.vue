@@ -22,7 +22,7 @@
                 </div>
                 <!--Right Image-->
                 <div class="w-full lg:w-1/2 flex justify-center">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN8C7Q9vyU70HMJhgRU1q3WBw6fRCUtYtdJg&s" alt="Hero Image" class="w-3/4 lg:w-full max-w-md mx-auto rounded"/>
+                    <img src="" alt="Hero Image" class="w-3/4 lg:w-full max-w-md mx-auto rounded"/>
 
                 </div>
             </div>
