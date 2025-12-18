@@ -63,8 +63,8 @@
             </section>
 
             <nav class="flex justify-center mt-6 space-x-2" aria-label="Carousel pagination">
-                <button v-for>
-
+                <button >
+                    30:30
                 </button>
             </nav>
         </main>
