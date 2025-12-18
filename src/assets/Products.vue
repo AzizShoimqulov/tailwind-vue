@@ -2,7 +2,7 @@
 <section class="py-12 scroll-mt-20 bg-gray-50" id="products">
     <main class="container mx-auto px-4">
         <header class="flex justify-between items-center mb-8">
-            <h2 class="">Feartured Products</h2>
+            <h2 class="md:text-3xl text-2xl font-bold text-amber-900">Feartured Products</h2>
         </header>
     </main>
 </section>
