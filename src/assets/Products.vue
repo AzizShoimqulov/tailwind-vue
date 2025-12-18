@@ -17,7 +17,9 @@
             </nav>
         </header>
 
-        
+        <section class="relative overflow-hidden">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></ul>
+        </section>
 
     </main>
 </section>
