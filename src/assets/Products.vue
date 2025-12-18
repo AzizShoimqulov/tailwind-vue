@@ -7,7 +7,7 @@
                 <button 
                 class="p-2 rounded-full bg-white shadow-md hover:bg-pink-100
                 text-pink-600 transition-colors" aria-label="Previous slide">
-                    
+                    <Icon icon="line-md:arrow-small-left" width="24" height="24"/>
                 </button>
             </nav>
         </header>
@@ -17,4 +17,6 @@
 
 
 <script setup>
+import { Icon } from '@iconify/vue';
+
 </script>
