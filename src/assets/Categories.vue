@@ -1,5 +1,13 @@
 <template>
-    
+    <section id="categories" class="py-16 scroll-mt-20 bg-white">
+        <div class="container mx-auto px-4">
+            <!--Section Header-->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-amber-950 mb-3">Explore Our Fragrance Collections</h2>
+                <p></p>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script setup>
