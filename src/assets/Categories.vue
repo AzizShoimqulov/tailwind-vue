@@ -4,7 +4,10 @@
             <!--Section Header-->
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-amber-950 mb-3">Explore Our Fragrance Collections</h2>
-                <p></p>
+                <p class="text-lg text-gray-800 max-w-2xl mx-auto">
+                    Discover scents that match your personality
+                    33:50
+                </p>
             </div>
         </div>
     </section>
