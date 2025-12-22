@@ -63,17 +63,16 @@
             </section>
 
             <nav class="flex justify-center mt-6 space-x-2" aria-label="Carousel pagination">
-                <button >
-                    30:30
-                </button>
+                <button v-for="index in totalSlides" :key="index" @click="currentSlide = index-1"
+                :class="['w-3 h-3 rounded-full',currentSlide===index-1? 'bg-pink-900':'bg-gray-400']"/>
             </nav>
-        </main>
+        </main> 
     </section>
 </template>
 
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, handleError } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { Icon } from '@iconify/vue';
 
 const currentSlide = ref(0);
@@ -81,22 +80,51 @@ const productsPerPage = ref(4);
 
 const products = [
     {
-        id: 1, name: 'Product 1', price: 29.99, image: 'https://via.placeholder.com/300x200'
+        id: 1, name: 'Product 1',
+        price: 29.99, 
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.5,
+        discount: 10
     },
     {
-        id: 2, name: 'Product 2', price: 39.99, image: 'https://via.placeholder.com/300x200'
+        id: 2, 
+        name: 'Product 2', 
+        price: 39.99, 
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.0,
+        discount: 15
     },
     {
-        id: 3, name: 'Product 3', price: 19.99, image: 'https://via.placeholder.com/300x200'
+        id: 3,
+        name: 'Product 3',
+        price: 19.99, 
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.2,
+        discount: 50
     },
     {
-        id: 4, name: 'Product 4', price: 49.99, image: 'https://via.placeholder.com/300x200'
+        id: 4,
+        name: 'Product 4',
+        price: 49.99, 
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.8,
+        discount: 20
     },
     {
-        id: 5, name: 'Product 5', price: 59.99, image: 'https://via.placeholder.com/300x200'
+        id: 5,
+        name: 'Product 5',
+        price: 59.99,
+        image: 'https://via.placeholder.com/300x200',
+        rating: 3.9,
+        discount: 1
     },
     {
-        id: 6, name: 'Product 6', price: 24.99, image: 'https://via.placeholder.com/300x200'
+        id: 6, 
+        name: 'Product 6', 
+        price: 24.99, 
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.3,
+        discount: 5
     },
 ]
 
@@ -110,15 +138,15 @@ const nextSlide = () => {
     currentSlide.value = currentSlide.value === totalSlides.value - 1 ? 0 : currentSlide.value + 1;
 }
 const prevSlide = () => {
-    currentSlide.value = currentSlide.value === totalSlides.value - 1 ? 0 : currentSlide.value - 1;
+    currentSlide.value = currentSlide.value === 0 ? totalSlides.value - 1 : currentSlide.value - 1;
 }
 
-consthandleResize = () => {
-    if (width < 640) {
+const handleResize = () => {
+    if (window.innerWidth < 640) {
         productsPerPage.value = 1;
-    } else if (width < 768) {
+    } else if ( window.innerWidth < 768) {
         productsPerPage.value = 2;
-    } else if (width < 1024) {
+    } else if (window.innerWidth < 1024) {
         productsPerPage.value = 3;
     } else {
         productsPerPage.value = 4;
