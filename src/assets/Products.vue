@@ -18,8 +18,9 @@
             <section class="relative overflow-hidden">
                 <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     <li v-for="product in visibleProducts" :key="product.id" class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300
-                hover:scale-105">
+                hover:scale-95">
                         <article>
+                            
                             <figure class="relative">
                                 <img :src="product.image" :alt="product.name" class="w-full h-64 object-cover" />
                                 <figcaption v-if="product.discount > 0"
@@ -80,49 +81,50 @@ const productsPerPage = ref(4);
 
 const products = [
     {
-        id: 1, name: 'Product 1',
+        id: 1, 
+        name: 'FRENCH ESSENCE CHARM',
         price: 29.99, 
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://www.frenchessence.com/cdn/shop/files/30ML-CHARM-2.jpg?v=1758783530',
         rating: 4.5,
         discount: 10
     },
     {
         id: 2, 
-        name: 'Product 2', 
+        name: 'TOBACCO HONEY', 
         price: 39.99, 
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://www.guerlain.com/on/demandware.static/-/Sites-GSA_US_Catalog/default/dw98164960/HeroBanner_NewTemplate/Fragrance/BEST_SELLERS/AM_HEADER-BANNER_PLP_DESKTOP_TOBACCO.jpg',
         rating: 4.0,
         discount: 15
     },
     {
         id: 3,
-        name: 'Product 3',
+        name: 'Victorias Secret',
         price: 19.99, 
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://cdn.platform.next/common/items/default/default/itemimages/3_4Ratio/product/lge/R81396s.jpg',
         rating: 4.2,
         discount: 50
     },
     {
         id: 4,
-        name: 'Product 4',
+        name: 'ABSOLUS ALLEGRIA',
         price: 49.99, 
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://res.cloudinary.com/dkbnpozos/image/upload/v1760360184/faces/Site/2025/brands_packages_visibility/october/GUERLAIN_SILVER/Desktop_750x500.jpg',
         rating: 4.8,
         discount: 20
     },
     {
         id: 5,
-        name: 'Product 5',
+        name: 'COOL WATER',
         price: 59.99,
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://alhaseeb.pk/cdn/shop/files/cool_water_perfume_by_alhaseeb.png?v=1753014298',
         rating: 3.9,
         discount: 1
     },
     {
         id: 6, 
-        name: 'Product 6', 
+        name: 'GODFATHER EDP', 
         price: 24.99, 
-        image: 'https://via.placeholder.com/300x200',
+        image: 'https://beardo.in/cdn/shop/files/Beardo_Godfather_EDP_A__Banner_2160_x_2160_04.jpg?v=1758612605&width=1946',
         rating: 4.3,
         discount: 5
     },
