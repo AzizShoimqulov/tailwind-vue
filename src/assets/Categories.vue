@@ -1,10 +1,6 @@
 <template>
-    <div>
-        
-    </div>
-</template>
-<script>
-export default {
     
-}
+</template>
+
+<script setup>
 </script>
