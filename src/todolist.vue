@@ -61,6 +61,18 @@
         <a v-for="item in navItems" :href="item.link" :key="item.id"
         class="block hover:text-amber-600 text-sm font-medium">{{ item.name }}</a>
       </section>
+                <form class="w-full md:flex-1 max-w-sm" role="search" aria-label="Site search">
+            <label class="relative w-full">
+              <input type="text" placeholder="Search..." class="w-full px-3 py-2 text-[15px] border border-gray-300 rounded-full focus:outline-none
+              focus:ring-2 focus:ring-indigo-500">
+
+              <button type="submit"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-600"
+                aria-label="Search button">
+                <Icon icon="mdi:magnify" class="w-4 h-4" />
+              </button>
+            </label>
+          </form>
       </div>
     </nav>
   </header>
