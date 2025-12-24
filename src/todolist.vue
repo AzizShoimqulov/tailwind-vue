@@ -9,8 +9,8 @@
               <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-black">
               <li v-for="item in navItems" :key="item.id">
                <a :href="item.link" class="hover:text-pink-800 transition-colors">{{ item.name }}</a>
-          </li>
-        </ul>
+              </li>
+              </ul>
 
         <section v-if="isMobileMenuOpen"
         class="md:hidden mt-2 bg-white rounded-lg shadow-md p-4 space-y-3 text-[#5D4037] text-center"
@@ -92,11 +92,10 @@ const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 const navItems=[
   {id:1, name:'Home', link:'#home'},
-  {id:2, name:'Products', link:'#products'},
-  {id:3, name:'Categories', link:'#categories'},
-  {id:4, name:'Offers', link:'#offers'},
-  {id:5, name:'About', link:'#about'},
-  {id:6, name:'Contact', link:'#contact'},
+  {id:2, name:'Menu', link:'#products'},
+  {id:3, name:'PAGES', link:'#categories'},
+  {id:4, name:'BLOG', link:'#offers'},
+  {id:5, name:'SHOP', link:'#about'},
 ]
 
 const handleScroll = () => {
