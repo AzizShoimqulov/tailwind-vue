@@ -23,20 +23,23 @@
           </nav>
 
           <div class="flex justify-between items-center w-full md:w-auto">
-            <a href="/" class="text-2xl font-bold text-pink-600">Beyoglu Karshi</a>
+            <a href="/" class="text-2xl text-center flex font-bold text-pink-600"><img class="w-full h-16 object-cover rounded-3xl" src="./img/image copy 3.png" alt="Bu yerda rasm bor">Beyoglu Karshi</a>
             <button class="md:hidden text-gray-700 hover:text-indigo-600" aria-label="Toggle mobile menu"
               @click="isMobileMenuOpen = !isMobileMenuOpen">
-              <Icon icon="mdi:menu" class="w-6 h-6" />
+              <!-- Use Tailwind width/height classes or Iconify width/height props; `size` is not a valid prop here -->
+              <Icon icon="mdi:menu" class="w-7 h-7" />
             </button>
           </div>
           
           <!-- Icons-->
           <aside class="flex item-center justify-end space-x-4 w-full md:w-auto">
             <button class="relative p-2 text-gray-700 hover:text-pink-600" aria-label="Wishlist">
-              <Icon icon="mdi:heart-outline" class="w-5 h-5" />
-              <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5
-              flex items-center justify-center">3</span>
+              <Icon icon="mdi:call-outline" class="w-5 h-5"/>
             </button>
+            <div>
+              <p class="">HOT LINE</p>
+              <p class="font-extrabold">+998 90 123 45 67</p>
+            </div>
             <button class="relative p-2 text-gray-700 hover:text-pink-600" aria-label="Wishlist">
               <Icon icon="mdi:cart-outline" class="w-5 h-5" />
               <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5
