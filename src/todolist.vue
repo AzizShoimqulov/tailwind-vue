@@ -5,10 +5,10 @@
         <div class="flex flex-col items-center justify-between gap-3 md:gap-6 md:flex-row">
 
           <nav class="bg-pink-950" aria-label="Main navigation">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
-          <li v-for="item in navItems" :key="item.id">
-            <a :href="item.link" class="hover:text-pink-300 transition-colors">{{ item.name }}</a>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
+              <li v-for="item in navItems" :key="item.id">
+               <a :href="item.link" class="hover:text-pink-300 transition-colors">{{ item.name }}</a>
           </li>
         </ul>
 
