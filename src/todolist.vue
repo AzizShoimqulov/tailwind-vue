@@ -4,11 +4,11 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col items-center justify-between gap-3 md:gap-6 md:flex-row">
 
-          <nav class="bg-pink-950" aria-label="Main navigation">
+          <nav class="" aria-label="Main navigation">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-white">
+              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-sm font-medium text-black">
               <li v-for="item in navItems" :key="item.id">
-               <a :href="item.link" class="hover:text-pink-300 transition-colors">{{ item.name }}</a>
+               <a :href="item.link" class="hover:text-pink-800 transition-colors">{{ item.name }}</a>
           </li>
         </ul>
 
@@ -23,7 +23,7 @@
     </nav>
 
           <div class="flex justify-between items-center w-full md:w-auto">
-            <a href="/" class="text-2xl font-bold text-pink-600">ShopEase</a>
+            <a href="/" class="text-2xl font-bold text-pink-600">Beyoglu Karshi</a>
             <button class="md:hidden text-gray-700 hover:text-indigo-600" aria-label="Toggle mobile menu"
               @click="isMobileMenuOpen = !isMobileMenuOpen">
               <Icon icon="mdi:menu" class="w-6 h-6" />
