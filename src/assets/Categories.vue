@@ -11,8 +11,8 @@
         </div>
 
         <!--Categories Grid-->
-         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6>
-            <div></div>
+         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="(category) in categories" :key="index"></div>
          </div>
     </section>
 </template>
