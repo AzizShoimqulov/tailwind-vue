@@ -1,8 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <Todolist />
-    <Hero />
-    <Products />
   </div>
 </template>
 
