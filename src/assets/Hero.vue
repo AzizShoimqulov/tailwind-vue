@@ -1,34 +1,35 @@
 <template>
-    <div>
-        <section id="home" class="bg-amber-50 scroll-mt-20 py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-10">
-                <!--Left Content  16:25-->
-                <div class="text-center lg:text-left max-w-xl">
-                    <h1 class="text-4xl sm:text-5xl font-bold text-amber-950 leading-tight mb-4">
-                        Discover the Best Deals on Top Products
-                    </h1>
-                    <p class="text-green-700 text-base sm:text-lg mb-6">
-                        Exclisiuve discounts and special offers on evrything you love. Shop now and be the first 
-                        to grab the latest trends at unbeatable prices!
-                    </p>
-                    <div class="flex justify-center lg:justify-center gap-4">
-                        <a href="/products"
-                        class="px-6 py-3 bg-pink-900 text-white text-sm font-semibold rounded-lg shadow 
-                        hover:bg-pink-600 transition">Shop Now</a>
-                        <a href="/products"
-                        class="px-6 py-3 border border-pink-500 text-pink-900 text-sm font-semibold rounded-lg
-                        hover:bg-pink-200 transition">View offers</a>
-                    </div>
-                </div>
-                <!--Right Image-->
-                <div class="w-full lg:w-1/2 flex justify-center">
-                    <img src="../img/image copy 2.png" alt="Hero Image" class="w-2/4 lg:w-full max-w-md mx-auto rounded-lg"/>
-
-                </div>
-            </div>
-        </section>
-    </div>
+  <div class="relative w-full h-[400px] overflow-hidden rounded-xl">
+    <img
+      :src="images[currentIndex]"
+      class="w-full h-full object-cover transition-all duration-700"
+      alt="slider"
+    />
+  </div>
 </template>
 
+
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const images = [
+  '/images/1.jpg',
+  '/images/2.jpg',
+  '/images/3.jpg'
+]
+
+const currentIndex = ref(0)
+let interval = null
+
+onMounted(() => {
+  interval = setInterval(() => {
+    currentIndex.value =
+      (currentIndex.value + 1) % images.length
+  }, 5000)
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
+</script>
 </script>
