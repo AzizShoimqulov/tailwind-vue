@@ -1,6 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-[#F4EDDD]">
     <Todolist />
+    <Hero />
   </div>
 </template>
 

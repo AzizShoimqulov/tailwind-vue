@@ -1,5 +1,5 @@
 <template>
-    <section class="py-12 scroll-mt-20 bg-gray-50" id="products">
+    <section class="py-12 scroll-mt-20 bg-[#F4EDDD]" id="products">
         <main class="container mx-auto px-4">
             <header class="flex justify-between items-center mb-8">
                 <h2 class="md:text-3xl text-2xl font-bold text-amber-900">Feartured Products</h2>
@@ -20,7 +20,6 @@
                     <li v-for="product in visibleProducts" :key="product.id" class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300
                 hover:scale-95">
                         <article>
-                            
                             <figure class="relative">
                                 <img :src="product.image" :alt="product.name" class="w-full h-64 object-cover" />
                                 <figcaption v-if="product.discount > 0"
@@ -30,7 +29,6 @@
 
                                 <button class="absolute top-3 left-3 p-2 bg-white rounded-full shadow-md hover:bg-pink-100
                             text-gray-700" aria-label="Add to wishlist">
-                                    <Icon icon="line-md:heart" width="18" height="18" />
                                 </button>
                             </figure>
                             <section class="p-4">

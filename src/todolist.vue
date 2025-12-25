@@ -1,6 +1,6 @@
 <template>
-  <header class="sticky top-0 z-50 transition-all duration-300">
-    <section :class="['w-full', isScrolled ? 'bg-gray-100/95 backdrop-blur shadow-md py-2' : 'bg-[#F3EDDF] py-4']">
+  <header class="sticky top-0 z-50">
+    <section :class="['w-full', isScrolled ? 'bg-[#F4EDDD] shadow-md py-2 transition-colors duration-300' : 'bg-[#F3EDDF] py-4 transition-colors duration-300']">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col items-center justify-between gap-3 md:gap-6 md:flex-row">
           <div class="flex justify-between items-center w-full md:w-auto">
@@ -79,8 +79,9 @@ const navItems = [
   { id: 5, name: 'SHOP', link: '#about' },
 ]
 
+// increase threshold to avoid rapid toggles while scrolling small amounts
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 10;
+  isScrolled.value = window.scrollY > 50;
 }
 
 onMounted(() => {
