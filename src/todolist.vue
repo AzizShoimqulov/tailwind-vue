@@ -13,17 +13,19 @@
 
           <nav class="" aria-label="Main navigation">
             <div class="md:max-w-10xl min-w-72 mx-auto px-4 sm:px-6 lg:px-8">
-              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-6 text-base font-serif font-semibold text-black">
-                <li v-for="item in navItems" :key="item.id">
+              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-8 md:gap-x-10 text-lg md:text-xl font-serif font-semibold text-black items-center">
+                <li v-for="(item, index) in navItems" :key="item.id" class="flex items-center">
+                  <!-- show a subtle vertical divider before items except the first -->
+                  <span v-if="index > 0" class="hidden md:inline-block h-6 border-l border-gray-300 mr-4"></span>
                   <a :href="item.link" class="hover:text-pink-800 transition-colors">{{ item.name }}</a>
                 </li>
               </ul>
 
               <section v-if="isMobileMenuOpen"
-                class="md:hidden mt-2 bg-white rounded-lg shadow-md p-4 space-y-3 text-[#5D4037] text-center"
+                class="md:hidden w-80 mt-2 bg-white rounded-lg shadow-md p-4 space-y-4 text-[#5D4037] text-center"
                 aria-label="Mobile Navigation">
                 <a v-for="item in navItems" :href="item.link" :key="item.id"
-                  class="block hover:text-amber-600 text-sm font-medium">{{ item.name }}</a>
+                  class="block hover:text-amber-600 text-lg font-semibold py-3 border-t border-gray-200 first:border-t-0">{{ item.name }}</a>
               </section>
 
             </div>
