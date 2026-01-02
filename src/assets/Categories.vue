@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <p></p>
-        <div>Biz odamlarga eng yaxshi oyoqni iste'mol qilishning eng yaxshi usulini taklif qilamiz</div>        
+    <div class="flex items-center justify-center my-10">
+        <div>
+            <p class="text-center font-sans font-semibold text-red-700 text-2xl">Türk mutfağının en lezzetli yemeklerini en iyi şekilde sunuyoruz.</p>
+            <h1 class="text-center font-sans text-slate-700 font-semibold text-4xl">Biz sizga turk taomlaridan bahramand bo‘lishning <br>Eng mazali va qulay usulini taklif qilamiz.</h1>
+        </div>
     </div>
 </template>
 
