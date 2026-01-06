@@ -12,15 +12,14 @@
 
 
 <script setup>
-import menuImg from '../img/image copy.png'
-
+import Menemen from '../img/image copy.png'
 const menuItems = [
     {
         id: 1,
         name: 'Menemen',
         select: 'Nonushta',
         price: '39.000 so`m',
-        image: menuImg,
+        image: Menemen,
     },
 ];
 </script>
