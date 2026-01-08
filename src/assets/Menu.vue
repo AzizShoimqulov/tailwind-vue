@@ -464,11 +464,46 @@ const menuItems = [
     },
     {
         id:60,
-        name: 'Qo',
+        name: 'Qo`y Go`shtli Perzola',
         select: 'Ikkinchi Ovqat',
-        price: '179.000 so`m',
-        image: KuzuTandir,
-    }
+        price: '140.000 so`m',
+        image: KuyGoshtliPerzola,
+    },
+    {
+        id:61,
+        name: 'Bonfile Steyk',
+        select: 'Ikkinchi Ovqat',
+        price: '147.000 so`m',
+        image: BonfileSteyk,
+    },
+    {
+        id:62,
+        name: 'Kasab Kofta',
+        select: 'Ikkinchi Ovqat',
+        price: '89.000 so`m',
+        image: KasabKofta,
+    },
+    {
+        id:63,
+        name: 'Kasarli Kofta',
+        select: 'Ikkinchi Ovqat',
+        price: '89.000 so`m',
+        image: KasarliKofta,
+    },
+    {
+        id:64,
+        name: 'Go`shtli Cho`p Shish',
+        select: 'Ikkinchi Ovqat',
+        price: '102.000 so`m',
+        image: GoshtliChopShish,
+    },
+    {
+        id:65,
+        name: 'Kebab Jigar',
+        select: 'Ikkinchi Ovqat',
+        price: '55.000 so`m',
+        image: KebabJigar,
+    },
 
 ];
 </script>
