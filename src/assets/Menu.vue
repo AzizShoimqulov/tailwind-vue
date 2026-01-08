@@ -262,7 +262,8 @@ const menuItems = [
         select: 'Salat',
         price: '48.000 so`m',
         image: SalatRoko,
-    }
+    },
+    
 
 ];
 </script>
