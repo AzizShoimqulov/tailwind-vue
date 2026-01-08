@@ -43,7 +43,41 @@ import EzmeSalat from '../menu_img/image copy 26.png'
 import Yaponskiy from '../menu_img/image copy 27.png'
 import OLIVYE from '../menu_img/image copy 28.png'
 import MevsimSalat from '../menu_img/image copy 29.png'
-import SalatRoko from '../menu_img/image copy 30.png'  
+import SalatRoko from '../menu_img/image copy 30.png' 
+import ChechevechniyShorva from '../menu_img/image copy 31.png'
+import EzogelinShorva from '../menu_img/image copy 32.png'
+import TilShorva from '../menu_img/image copy 33.png'
+import QoziqorinliShorva from '../menu_img/image copy 34.png'
+import IskanderKebab150g from '../menu_img/image copy 35.png'
+import GoshtliDonar150g from '../menu_img/image copy 36.png'
+import BeyogluYaproqBeti from '../menu_img/image copy 37.png'
+import PilavUstuDoner from '../menu_img/image copy 38.png'
+import Sarma from '../menu_img/image copy 39.png'
+import BeyogluIskandar from '../menu_img/image copy 40.png'
+import BeyogluDonar200g from '../menu_img/image copy 41.png'
+import ValiKebab from '../menu_img/image copy 42.png'
+import KuzuTandir from '../menu_img/image copy 43.png'  
+import TovuqKebabKarashik from '../menu_img/image copy 44.png'
+import TovuqShish from '../menu_img/image copy 45.png'
+import TovuqChopShish from '../menu_img/image copy 46.png'
+import GoshtliSachTava from '../menu_img/image copy 47.png'
+import GoshtliSote from '../menu_img/image copy 48.png'
+import TovuqliSote from '../menu_img/image copy 49.png'
+import TovuqQanotlari from '../menu_img/image copy 50.png'
+import TovuqliPerzola from '../menu_img/image copy 51.png'
+import AlinazikKefirBilan from '../menu_img/image copy 52.png'
+import ShashlikMolGoshti from '../menu_img/image copy 53.png'
+import ShashlikAdana from '../menu_img/image copy 54.png'
+import GoshtliShashlikAssorti from '../menu_img/image copy 55.png'
+import ShashlikUrfa from '../menu_img/image copy 56.png'
+import Antrikot from '../menu_img/image copy 57.png'
+import BonfilePiyozBilanTerSaryogida from '../menu_img/image copy 58.png'
+import KuyGoshtliPerzola from '../menu_img/image copy 59.png'
+import BonfileSteyk from '../menu_img/image copy 60.png'
+import KasabKofta from '../menu_img/image copy 61.png'
+import KasarliKofta from '../menu_img/image copy 62.png'
+import GoshtliChopShish from '../menu_img/image copy 63.png'
+import KebabJigar from '../menu_img/image copy 64.png'  
 const menuItems = [
     {
         id: 1,
@@ -504,6 +538,55 @@ const menuItems = [
         price: '55.000 so`m',
         image: KebabJigar,
     },
-
+    //Yangilik Ikkinchi ovqat
+    {
+        id:66,
+        name: 'Pishloqli Kotlet',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '63.000 so`m',
+        image: PishloqliKotlet,
+    },
+    {
+        id:67,
+        name: 'Bolognese Pasta',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '55.000 so`m',
+        image: BolognesePasta,
+    },
+    {
+        id:68,
+        name: 'Qo`ziqorinli til',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '63.000 so`m',
+        image: QoziqorinliTil,
+    },
+    {
+        id:69,
+        name: 'Medalion',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '145.000 so`m',
+        image: Medalion,
+    },
+    {
+        id:70,
+        name: 'Qo`ziqorinli go`sht',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '93.000 so`m',
+        image: QoziqorinliGosht,
+    },
+    {
+        id:71,
+        name: 'Koreyka',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '153.000 so`m',
+        image: Koreyka,
+    },
+    {
+        id:72,
+        name: 'Xitoycha go`sht',
+        select: 'Yangilik Ikkinchi Ovqat',
+        price: '93.000 so`m',
+        image: XitoychaGosht,
+    }
 ];
 </script>
