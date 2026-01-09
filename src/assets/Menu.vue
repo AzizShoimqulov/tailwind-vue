@@ -660,5 +660,7 @@ const menuItems = [
         price: '500.000 so`m',
         image: Donar1kg,
     },
+    //Assorti Kebab
+    
 ];
 </script>
