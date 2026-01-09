@@ -77,7 +77,14 @@ import BonfileSteyk from '../menu_img/image copy 60.png'
 import KasabKofta from '../menu_img/image copy 61.png'
 import KasarliKofta from '../menu_img/image copy 62.png'
 import GoshtliChopShish from '../menu_img/image copy 63.png'
-import KebabJigar from '../menu_img/image copy 64.png'  
+import KebabJigar from '../menu_img/image copy 64.png' 
+import PishloqliKotlet from '../menu_img/image copy 66.png'
+import BolognesePasta from '../menu_img/image copy 67.png'
+import QoziqorinliTil from '../menu_img/image copy 68.png'
+import Medalion from '../menu_img/image copy 69.png'
+import QoziqorinliGosht from '../menu_img/image copy 70.png'
+import Koreyka from '../menu_img/image copy 71.png'
+import XitoychaGosht from '../menu_img/image copy 72.png'
 const menuItems = [
     {
         id: 1,
