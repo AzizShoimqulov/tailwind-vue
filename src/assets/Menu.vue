@@ -135,6 +135,9 @@ import Koreyka from '../menu_img/image copy 71.png'
 import XitoychaGosht from '../menu_img/image copy 72.png'
 import Donar500g from '../menu_img/image copy 73.png'
 import Donar1kg from '../menu_img/image copy 74.png'
+import AssortiKebab2x from '../menu_img/image copy 75.png'
+import AssortiKebab4x from '../menu_img/image copy 76.png'
+import AssortiKebab6x from '../menu_img/image copy 77.png'
 const menuItems = [
     {
         id: 1,
@@ -661,6 +664,26 @@ const menuItems = [
         image: Donar1kg,
     },
     //Assorti Kebab
-    
+    {
+        id:75,
+        name: 'Assorti Kebab 2x',
+        select: 'Assorti Kebab',
+        price: '267.000 so`m',
+        image: AssortiKebab2x,
+    },
+    {
+        id:76,
+        name: 'Assorti Kebab 4x',
+        select: 'Assorti Kebab',
+        price: '497.000 so`m',
+        image: AssortiKebab4x,
+    },
+    {
+        id:77,
+        name: 'Assorti Kebab 6x',
+        select: 'Assorti Kebab',
+        price: '657.000 so`m',
+        image: AssortiKebab6x,
+    },
 ];
 </script>
