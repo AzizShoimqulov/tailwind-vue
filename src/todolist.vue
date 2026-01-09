@@ -4,25 +4,28 @@
       <div class="max-w-[1400px] m-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col items-center gap-3 md:gap-6 md:flex-row md:items-center">
           <div class="flex justify-between items-center w-full md:w-auto md:mr-6">
-            <a href="/" class="md:text-2xl text-center flex font-bold text-pink-600"><img class="md:h-16 w-full h-10 object-cover rounded-3xl" src="./img/image copy 3.png" alt="Bu yerda rasm bor">Beyoglu Karshi</a>
-            <button class="md:hidden text-gray-700 hover:text-indigo-600" aria-label="Toggle mobile menu"
+            <a href="/" class="md:text-2xl text-center flex items-center gap-3 font-bold text-pink-600">
+              <img class="h-10 md:h-16 w-auto object-cover rounded-3xl" src="./img/image copy 3.png" alt="Bu yerda rasm bor" />
+              <span>Beyoglu Karshi</span>
+            </a>
+            <button class="lg:hidden text-gray-700 hover:text-indigo-600" aria-label="Toggle mobile menu"
               @click="isMobileMenuOpen = !isMobileMenuOpen">
               <Icon icon="mdi:menu" class="w-7 h-7" />
             </button>
           </div>
 
-          <nav class="md:flex-1 justify-center" aria-label="Main navigation">
+          <nav class="md:flex-1 flex justify-center" aria-label="Main navigation">
             <div class="px-4 sm:px-6 lg:px-8">
-              <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-8 md:gap-x-10 text-lg md:text-xl font-serif font-semibold text-black items-center">
+              <ul class="hidden lg:flex justify-center py-3 gap-x-8 md:gap-x-10 text-lg md:text-xl font-serif font-semibold text-black items-center">
                 <li v-for="(item, index) in navItems" :key="item.id" class="flex items-center">
                   <!-- show a subtle vertical divider before items except the first -->
-                  <span v-if="index > 0" class="hidden md:inline-block h-6 border-l border-gray-300 mr-4"></span>
+                  <span v-if="index > 0" class="hidden lg:inline-block h-6 border-l border-gray-300 mr-4"></span>
                   <a :href="item.link" class="hover:text-pink-800 transition-colors">{{ item.name }}</a>
                 </li>
               </ul>
 
               <section v-if="isMobileMenuOpen"
-                class="md:hidden w-80 mt-2 bg-white rounded-lg shadow-md p-4 space-y-4 text-[#5D4037] text-center"
+                class="lg:hidden w-80 mt-2 bg-white rounded-lg shadow-md p-4 space-y-4 text-[#5D4037] text-center"
                 aria-label="Mobile Navigation">
                 <a v-for="item in navItems" :href="item.link" :key="item.id"
                   class="block hover:text-amber-600 text-lg font-semibold py-3 border-t border-gray-200 first:border-t-0">{{ item.name }}</a>
