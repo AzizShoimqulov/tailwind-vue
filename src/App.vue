@@ -9,7 +9,6 @@
 
 <script setup>
 import Todolist from './todolist.vue'
-import Products from './assets/Products.vue'
 import Hero from './assets/Hero.vue'
 import Categories from './assets/Categories.vue';
 import Menu from './assets/Menu.vue';

@@ -1,9 +1,9 @@
 <template>
   <header class="sticky top-0 z-50">
     <section :class="['w-full', isScrolled ? 'bg-[#F4EDDD] shadow-md py-2 transition-colors duration-300' : 'bg-[#F3EDDF] py-4 transition-colors duration-300']">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col items-center justify-between gap-3 md:gap-6 md:flex-row">
-          <div class="flex justify-between items-center w-full md:w-auto">
+      <div class="max-w-[1400px] m-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center gap-3 md:gap-6 md:flex-row md:items-center">
+          <div class="flex justify-between items-center w-full md:w-auto md:mr-6">
             <a href="/" class="md:text-2xl text-center flex font-bold text-pink-600"><img class="md:h-16 w-full h-10 object-cover rounded-3xl" src="./img/image copy 3.png" alt="Bu yerda rasm bor">Beyoglu Karshi</a>
             <button class="md:hidden text-gray-700 hover:text-indigo-600" aria-label="Toggle mobile menu"
               @click="isMobileMenuOpen = !isMobileMenuOpen">
@@ -11,8 +11,8 @@
             </button>
           </div>
 
-          <nav class="" aria-label="Main navigation">
-            <div class="md:max-w-10xl min-w-72 mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="md:flex-1 justify-center" aria-label="Main navigation">
+            <div class="px-4 sm:px-6 lg:px-8">
               <ul class="hidden md:flex justify-center py-3 flex-wrap gap-x-8 md:gap-x-10 text-lg md:text-xl font-serif font-semibold text-black items-center">
                 <li v-for="(item, index) in navItems" :key="item.id" class="flex items-center">
                   <!-- show a subtle vertical divider before items except the first -->
@@ -33,7 +33,7 @@
 
           
           <!-- Search Bar -->
-          <form class="w-full md:flex-1 max-w-sm" role="search" aria-label="Site search">
+          <form class="w-full md:w-[150px] md:max-w-2xl max-w-sm" role="search" aria-label="Site search">
             <label class="relative w-full">
               <input type="text" placeholder="Search..." class="w-full
                px-3 py-2 text-[15px] border border-gray-300 rounded-full focus:outline-none
@@ -47,7 +47,7 @@
             </label>
           </form>
           <!-- Icons-->
-          <aside class="flex items-center justify-center sm:justify-end space-x-4 w-full md:w-auto">
+          <aside class="flex items-center justify-center sm:justify-end space-x-4 w-full md:w-auto md:ml-auto">
             <button class="relative p-2 text-gray-700 hover:text-pink-600" aria-label="Wishlist">
               <!-- Force exact size: set width/height props AND inline px styles to override any CSS that may affect the SVG -->
               <Icon icon="mdi:call-outline" width="20" height="20" style="width:20px;height:20px;display:inline-block;" />
