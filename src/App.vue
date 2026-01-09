@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#F4EDDD]">
+  <div class="min-h-screen">
     <Todolist />
     <Hero />
     <Categories />

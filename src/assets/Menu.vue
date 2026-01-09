@@ -1,14 +1,62 @@
+
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-3 mx-28 gap-6">
-        <div v-for="item in menuItems" :key="item.id" class="bg-white w-[500px] rounded-lg shadow-sm overflow-hidden">
-            <img :src="item.image" :alt="item.name" class="w-full h-56 md:h-64 object-cover" />
-            <div class="p-4">
-                <h3 class="text-lg font-semibold">{{ item.name }}</h3>
-                <p class="text-sm text-gray-600">{{ item.select }}</p>
-                <p class="mt-2 text-pink-600 font-bold">{{ item.price }}</p>
+  <div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Bizning Menyular</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <div 
+          v-for="item in menuItems" 
+          :key="item.id" 
+          class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col"
+        >
+          <!-- Rasm Qismi -->
+          <div class="relative h-64 overflow-hidden">
+            <img 
+              :src="item.image" 
+              :alt="item.name" 
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
+            />
+            
+            <!-- Tag (Yorliq - masalan: "Yangi" yoki "Chegirma") -->
+            <span v-if="item.tag" class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-800 shadow-sm">
+              {{ item.tag }}
+            </span>
+          </div>
+
+          <!-- Matn Qismi -->
+          <div class="p-6 flex flex-col flex-grow">
+            <!-- Sarlavha -->
+            <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-1">{{ item.name }}</h3>
+            
+            <!-- Tavsif -->
+            <p class="text-gray-500 text-sm mb-4 line-clamp-2">{{ item.description }}</p>
+
+            <!-- Pastki qism: Narx va Tugma -->
+            <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+              <div class="flex flex-col">
+                <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Price</span>
+                <span class="text-2xl font-bold text-gray-900">{{ item.price }}</span>
+              </div>
+              
+              <button 
+                @click="addToCart(item)"
+                class="flex items-center gap-2 bg-[#F3E8FF] text-[#9333EA] px-6 py-3 rounded-xl font-semibold hover:bg-[#9333EA] hover:text-white transition-all duration-300 active:scale-95 shadow-sm hover:shadow-md"
+              >
+                <!-- Savatcha SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Add to Cart
+              </button>
             </div>
+          </div>
         </div>
+
+      </div>
     </div>
+  </div>
 </template>
 
 
