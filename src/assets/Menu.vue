@@ -133,6 +133,8 @@ import Medalion from '../menu_img/image copy 69.png'
 import QoziqorinliGosht from '../menu_img/image copy 70.png'
 import Koreyka from '../menu_img/image copy 71.png'
 import XitoychaGosht from '../menu_img/image copy 72.png'
+import Donar500g from '../menu_img/image copy 73.png'
+import Donar1kg from '../menu_img/image copy 74.png'
 const menuItems = [
     {
         id: 1,
@@ -642,6 +644,21 @@ const menuItems = [
         select: 'Yangilik Ikkinchi Ovqat',
         price: '93.000 so`m',
         image: XitoychaGosht,
-    }
+    },
+    // Donar
+    {
+        id:73,
+        name: 'Donar 0.5kg',
+        select: 'Donar',
+        price: '250.000 so`m',
+        image: Donar500g,
+    },
+    {
+        id:74,
+        name: 'Donar 1kg',
+        select: 'Donar',
+        price: '500.000 so`m',
+        image: Donar1kg,
+    },
 ];
 </script>
