@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 
-// Tarjimalar bazasi
+
 const messages = {
   en: {
     nav: {
