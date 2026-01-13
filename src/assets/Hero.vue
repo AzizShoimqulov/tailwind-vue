@@ -26,7 +26,6 @@ onBeforeUnmount(() => clearInterval(interval));
 </script>
 
 <template>
-  <!-- pt-24 (mobile), md:pt-28 (tablet), lg:pt-32 (desktop) -> Navbar joyi uchun padding -->
   <div class="bg-[#F4EDDD] pb-8 pt-24 md:pt-28 lg:pt-28">
     
     <div 
@@ -35,10 +34,7 @@ onBeforeUnmount(() => clearInterval(interval));
       @mouseleave="startAutoPlay"
     >
       
-      <!-- Slayder Oynasi -->
       <div class="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-300 hover:scale-[1.01]">
-        
-        <!-- Rasmlar harakati -->
         <div
           class="flex h-full transition-transform duration-700 ease-in-out"
           :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
@@ -50,10 +46,8 @@ onBeforeUnmount(() => clearInterval(interval));
           >
             <img :src="slide.image" class="w-full h-full object-cover" alt="Slide" />
             
-            <!-- Qora fon (Matn ko'rinishi uchun) -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
 
-            <!-- Matn -->
             <div class="absolute bottom-8 left-6 md:bottom-16 md:left-12 max-w-[90%] md:max-w-[600px] text-white">
                <h2 class="text-2xl md:text-5xl font-bold font-serif mb-2 drop-shadow-lg">{{ slide.title }}</h2>
                <p class="text-sm md:text-lg text-gray-200 font-medium line-clamp-2 drop-shadow-md mb-4">{{ slide.subtitle }}</p>
@@ -64,7 +58,6 @@ onBeforeUnmount(() => clearInterval(interval));
           </div>
         </div>
 
-        <!-- O'ng va Chap tugmalar -->
         <button @click="prev" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white text-white hover:text-gray-800 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300">
           <Icon icon="mdi:chevron-left" class="w-6 h-6 md:w-8 md:h-8" />
         </button>
@@ -73,7 +66,6 @@ onBeforeUnmount(() => clearInterval(interval));
           <Icon icon="mdi:chevron-right" class="w-6 h-6 md:w-8 md:h-8" />
         </button>
 
-        <!-- Nuqtalar -->
         <div class="absolute bottom-4 right-4 flex gap-2">
           <button v-for="(slide, i) in slides" :key="i" @click="goTo(i)" class="transition-all duration-300 rounded-full shadow-sm border border-white/50" :class="currentIndex === i ? 'w-6 h-2 bg-pink-500' : 'w-2 h-2 bg-white/60'"></button>
         </div>
