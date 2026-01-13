@@ -11,7 +11,7 @@ const messages = {
       shop: 'Shop'
     },
     search: 'Search...',
-    
+
     hotline: 'HOT LINE',
     contact_us: 'Contact Us',
     select_lang: 'Select Language'
@@ -45,9 +45,9 @@ const messages = {
 }
 
 const i18n = createI18n({
-  legacy: false, // Vue 3 Composition API uchun false bo'lishi shart
-  locale: 'uz', // Boshlang'ich til
-  fallbackLocale: 'en', // Agar tarjima topilmasa ingliz tiliga o'tadi
+  legacy: false,
+  locale: 'uz',
+  fallbackLocale: 'en',
   messages
 })
 
