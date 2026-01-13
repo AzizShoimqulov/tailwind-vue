@@ -11,6 +11,7 @@ const messages = {
       shop: 'Shop'
     },
     search: 'Search...',
+    
     hotline: 'HOT LINE',
     contact_us: 'Contact Us',
     select_lang: 'Select Language'
