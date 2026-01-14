@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
+import { searchTerm } from './searchStore'
 
 
 const { t, locale } = useI18n()
@@ -101,10 +102,10 @@ onUnmounted(() => {
 
         <div class="flex items-center gap-2 sm:gap-3">
           
-          <div class="hidden xl:block relative group">
-             <input type="text" :placeholder="t('search')" class="pl-9 pr-4 py-2 w-32 focus:w-48 rounded-full border border-gray-300 focus:border-pink-500 outline-none transition-all duration-300 bg-white/50 text-sm">
-             <Icon icon="mdi:magnify" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>
+       <div class="hidden xl:block relative group">
+         <input v-model="searchTerm" type="text" :placeholder="t('search')" class="pl-9 pr-4 py-2 w-32 focus:w-48 rounded-full border border-gray-300 focus:border-pink-500 outline-none transition-all duration-300 bg-white/50 text-sm">
+         <Icon icon="mdi:magnify" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+       </div>
 
           <div class="hidden lg:block relative lang-dropdown">
             <button 
@@ -134,7 +135,7 @@ onUnmounted(() => {
           </div>
 
           <div class="hidden md:flex items-center gap-2 border-r border-l px-3 border-gray-300">
-            <div class="p-1.5 bg-pink-100 rounded-full text-pink-600">
+            <div class="p-1.5 border rounded-full text-[#E93325]">
                <Icon icon="mdi:phone" width="16" />
             </div>
             <div class="flex flex-col leading-tight">
@@ -145,7 +146,7 @@ onUnmounted(() => {
 
           <button class="relative p-2 hover:bg-black/5 rounded-full transition-colors">
             <Icon icon="mdi:cart-outline" class="w-6 h-6 text-gray-700" />
-            <span class="absolute top-0 right-0 bg-pink-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">5</span>
+            <span class="absolute top-0 right-0 bg-[#E93325] text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">5</span>
           </button>
 
           <button @click="toggleMenu" class="lg:hidden p-2 text-gray-700">

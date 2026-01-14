@@ -51,7 +51,7 @@ onBeforeUnmount(() => clearInterval(interval));
             <div class="absolute bottom-8 left-6 md:bottom-16 md:left-12 max-w-[90%] md:max-w-[600px] text-white">
                <h2 class="text-2xl md:text-5xl font-bold font-serif mb-2 drop-shadow-lg">{{ slide.title }}</h2>
                <p class="text-sm md:text-lg text-gray-200 font-medium line-clamp-2 drop-shadow-md mb-4">{{ slide.subtitle }}</p>
-               <button class="bg-pink-600 text-white px-5 py-2 md:px-8 md:py-3 rounded-full font-bold hover:bg-pink-700 transition text-xs md:text-sm">
+               <button class="bg-[#E93325] text-white px-5 py-2 md:px-8 md:py-3 rounded-full font-bold hover:bg-pink-700 transition text-xs md:text-sm">
                  Batafsil
                </button>
             </div>
@@ -67,7 +67,7 @@ onBeforeUnmount(() => clearInterval(interval));
         </button>
 
         <div class="absolute bottom-4 right-4 flex gap-2">
-          <button v-for="(slide, i) in slides" :key="i" @click="goTo(i)" class="transition-all duration-300 rounded-full shadow-sm border border-white/50" :class="currentIndex === i ? 'w-6 h-2 bg-pink-500' : 'w-2 h-2 bg-white/60'"></button>
+          <button v-for="(slide, i) in slides" :key="i" @click="goTo(i)" class="transition-all duration-300 rounded-full shadow-sm border border-white/50" :class="currentIndex === i ? 'w-6 h-2 bg-[#E93325]' : 'w-2 h-2 bg-white/60'"></button>
         </div>
 
       </div>
