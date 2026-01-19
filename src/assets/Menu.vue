@@ -682,7 +682,6 @@ const menuItems = [
     },
 ];
 
-// computed filtered list based on header search (case-insensitive)
 const filteredItems = computed(() => {
     const q = (searchTerm.value || '').toString().trim().toLowerCase()
     if (!q) return menuItems
