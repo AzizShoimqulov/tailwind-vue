@@ -185,7 +185,6 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <!-- MOBILE MENU BUTTON -->
           <button @click="toggleMenu" class="lg:hidden p-2 text-gray-700">
             <Icon icon="mdi:menu" class="w-7 h-7" />
           </button>
@@ -200,7 +199,7 @@ onUnmounted(() => {
   
   <transition enter-active-class="transition duration-300 transform" enter-from-class="translate-x-full" enter-to-class="translate-x-0" leave-active-class="transition duration-200 transform" leave-from-class="translate-x-0" leave-to-class="translate-x-full">
      <aside v-if="isMobileMenuOpen" class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[70] p-6 overflow-y-auto lg:hidden flex flex-col">
-       <!-- ... Mobile menu content ... -->
+     
      </aside>
   </transition>
 </template>
@@ -213,7 +212,6 @@ onUnmounted(() => {
 .animate-fade-in-down {
   animation: fadeInDown 0.2s ease-out forwards;
 }
-/* Scrollbar styli */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
