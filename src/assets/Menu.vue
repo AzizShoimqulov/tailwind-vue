@@ -26,12 +26,9 @@
           </div>
 
           <div class="p-6 flex flex-col flex-grow">
-            <!-- NOM (TILLARGA MOSLASHADI) -->
                         <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-1">
                             {{ item.name }}
                         </h3>
-            
-            <!-- TAVSIF (TILLARGA MOSLASHADI) -->
                         <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-grow">
                             {{ item.description || '' }}
                         </p>
@@ -42,7 +39,6 @@
                 <span class="text-2xl font-bold text-gray-900">{{ item.price }}</span>
               </div>
               
-              <!-- QO'SHISH TUGMASI -->
               <button 
                 @click="handleAddToCart(item)"
                 class="flex items-center gap-2 bg-[#F4EDDD] text-[#E93325] px-6 py-3 rounded-xl font-semibold hover:bg-[#E93325] hover:text-white transition-all duration-300 active:scale-95 shadow-sm hover:shadow-md"
