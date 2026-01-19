@@ -1,6 +1,6 @@
 
 <template>
-  <div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 pt-32" id="menu">
+  <div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 pt-12" id="menu">
     <div class="max-w-7xl mx-auto">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center uppercase tracking-wide">
                     Bizning Menyular

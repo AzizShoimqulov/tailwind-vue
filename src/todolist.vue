@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
-import { searchTerm } from './searchStore' // searchStore faylingiz bor deb hisoblaymiz
+import { searchTerm } from './searchStore'
 import { cartCount, cartItems, removeFromCart, clearCart } from './cartStore'
 
 const { t, locale } = useI18n()
@@ -80,7 +80,6 @@ onUnmounted(() => {
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
         
-        <!-- LOGO -->
         <a href="/" class="flex items-center gap-2 group">
           <div class="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-pink-500">
              <img class="w-full h-full object-cover" src="./img/image copy 3.png" alt="Logo" />
@@ -90,7 +89,6 @@ onUnmounted(() => {
           </span>
         </a>
 
-        <!-- DESKTOP MENU -->
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
           <ul class="flex gap-4 xl:gap-6 text-sm font-bold text-gray-600 uppercase tracking-wide">
             <li v-for="item in navItems" :key="item.id">
@@ -101,13 +99,10 @@ onUnmounted(() => {
 
         <div class="flex items-center gap-2 sm:gap-3">
           
-          <!-- SEARCH -->
           <div class="hidden xl:block relative group">
              <input v-model="searchTerm" type="text" :placeholder="t('search')" class="pl-9 pr-4 py-2 w-32 focus:w-48 rounded-full border border-gray-300 focus:border-pink-500 outline-none transition-all duration-300 bg-white/50 text-sm">
              <Icon icon="mdi:magnify" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
-
-          <!-- LANG DROPDOWN -->
           <div class="hidden lg:block relative lang-dropdown">
             <button 
               @click="isLangMenuOpen = !isLangMenuOpen"
@@ -135,7 +130,6 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <!-- CART DROPDOWN (SAVAT) -->
           <div class="relative cart-dropdown">
             <button @click="isCartOpen = !isCartOpen" class="relative p-2 hover:bg-black/5 rounded-full transition-colors">
               <Icon icon="mdi:cart-outline" class="w-6 h-6 text-gray-700" />
