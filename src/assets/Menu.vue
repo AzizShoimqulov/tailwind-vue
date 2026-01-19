@@ -1,32 +1,40 @@
 
 <template>
-  <div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <div class="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8 pt-32" id="menu">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Bizning Menyular</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center uppercase tracking-wide">
+                    Bizning Menyular
+                </h2>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         
-                <div 
-                    v-for="item in filteredItems" 
+        <div 
+          v-for="item in filteredItems" 
           :key="item.id" 
           class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col"
         >
           <div class="relative h-64 overflow-hidden">
-            <img 
-              :src="item.image" 
-              :alt="item.name" 
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
-            />
+                        <img 
+                            :src="item.image" 
+                            :alt="item.name" 
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
+                        />
             
-            <span v-if="item.tag" class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-800 shadow-sm">
+            <span v-if="item.tag" class="absolute top-4 left-4 bg-[#E93325] text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
               {{ item.tag }}
             </span>
           </div>
 
           <div class="p-6 flex flex-col flex-grow">
-            <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-1">{{ item.name }}</h3>
+            <!-- NOM (TILLARGA MOSLASHADI) -->
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-1">
+                            {{ item.name }}
+                        </h3>
             
-            <p class="text-gray-500 text-sm mb-4 line-clamp-2">{{ item.description }}</p>
+            <!-- TAVSIF (TILLARGA MOSLASHADI) -->
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-grow">
+                            {{ item.description || '' }}
+                        </p>
 
             <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
               <div class="flex flex-col">
@@ -34,8 +42,9 @@
                 <span class="text-2xl font-bold text-gray-900">{{ item.price }}</span>
               </div>
               
+              <!-- QO'SHISH TUGMASI -->
               <button 
-                @click="addToCart(item)"
+                @click="handleAddToCart(item)"
                 class="flex items-center gap-2 bg-[#F4EDDD] text-[#E93325] px-6 py-3 rounded-xl font-semibold hover:bg-[#E93325] hover:text-white transition-all duration-300 active:scale-95 shadow-sm hover:shadow-md"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,6 +65,7 @@
 <script setup>
 import { computed } from 'vue'
 import { searchTerm } from '../searchStore'
+import { addToCart } from '../cartStore'
 import Menemen from '../menu_img/image.png'
 import Omlet from '../menu_img/image copy.png'
 import Qovurmali from '../menu_img/image copy 2.png'
@@ -687,4 +697,9 @@ const filteredItems = computed(() => {
     if (!q) return menuItems
     return menuItems.filter(item => (item.name || '').toLowerCase().includes(q))
 })
+// Savatga qo'shish wrapperi
+const handleAddToCart = (item) => {
+    // simple shallow copy to avoid mutating original
+    addToCart({ ...item })
+}
 </script>
