@@ -58,6 +58,8 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   window.addEventListener('click', closeDropdowns)
   
+  handleScroll()
+
   const savedLang = localStorage.getItem('user-locale')
   if (savedLang) {
     locale.value = savedLang
@@ -73,8 +75,9 @@ onUnmounted(() => {
 <template>
   <header 
     :class="[
-      'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent',
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-[#F4EDDD] py-4'
+      'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent py-4 lg:py-2',
+      'bg-[#F4EDDD]',
+      isScrolled ? 'lg:bg-white/95 lg:backdrop-blur-md lg:shadow-md' : ''
     ]"
   >
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
