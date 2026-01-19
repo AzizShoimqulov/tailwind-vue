@@ -12,7 +12,7 @@
 
       <h1 
         class="font-sans font-extrabold text-gray-800 leading-tight
-               text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl
+               text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl
                max-w-4xl mx-auto"
       >
         Biz sizga turk taomlaridan bahramand bo‘lishning 
