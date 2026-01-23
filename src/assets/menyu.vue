@@ -1,15 +1,13 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { searchTerm } from '../searchStore' // SearchStore bor deb hisoblaymiz
-import { addToCart } from '../cartStore'   // CartStore bor deb hisoblaymiz
+import { searchTerm } from '../searchStore'
+import { addToCart } from '../cartStore'
 
-// --- State ---
 const meals = ref([])
 const loading = ref(true)
 const error = ref(null)
-const activeCategory = ref('Barchasi') // Kategoriya filtri uchun
+const activeCategory = ref('Barchasi') 
 
-// --- API Fetch ---
 const fetchMeals = async () => {
   try {
     loading.value = true
@@ -34,24 +32,17 @@ const fetchMeals = async () => {
   }
 }
 
-// --- Computed Properties ---
-
-// 1. Unikal kategoriyalarni ajratib olish
 const categories = computed(() => {
   const cats = new Set(meals.value.map(item => item.category_info?.name || 'Boshqa'))
   return ['Barchasi', ...Array.from(cats)]
 })
 
-// 2. Filterlash (Qidiruv + Kategoriya)
 const filteredItems = computed(() => {
   let items = meals.value
 
-  // Kategoriya bo'yicha filter
   if (activeCategory.value !== 'Barchasi') {
     items = items.filter(item => (item.category_info?.name || 'Boshqa') === activeCategory.value)
   }
-
-  // Search input bo'yicha filter
   const q = (searchTerm.value || '').toString().trim().toLowerCase()
   if (q) {
     items = items.filter(item => item.name.toLowerCase().includes(q))
@@ -59,28 +50,21 @@ const filteredItems = computed(() => {
 
   return items
 })
-
-// --- Helper Functions ---
-
-// Narxni chiroyli formatlash (masalan: 300000 -> 300 000 so'm)
 const formatPrice = (price) => {
   return new Intl.NumberFormat('uz-UZ').format(price) + " so'm"
 }
 
-// Savatga qo'shish logikasi
 const handleAddToCart = (item) => {
-  // Savatga kerakli ma'lumotlarni tozalab yuboramiz
   const cartItem = {
     id: item.id,
     name: item.name,
-    price: formatPrice(item.price), // Formatlangan narxni yuboramiz
-    originalPrice: item.price,      // Asl narxni ham saqlab qo'yish yaxshi (hisob-kitob uchun)
+    price: formatPrice(item.price),
+    originalPrice: item.price,    
     image: item.image
   }
   addToCart(cartItem)
 }
 
-// Komponent yuklanganda ishga tushadi
 onMounted(() => {
   fetchMeals()
 })
@@ -94,7 +78,6 @@ onMounted(() => {
         Bizning Menyular
       </h2>
 
-      <!-- Kategoriyalar Filtr Buttons (Ixtiyoriy, lekin foydali) -->
       <div v-if="!loading && !error" class="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
         <button 
           v-for="cat in categories" 
@@ -109,24 +92,19 @@ onMounted(() => {
         </button>
       </div>
 
-      <!-- Loading holati -->
       <div v-if="loading" class="flex flex-col items-center justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-[#E93325] border-t-transparent"></div>
         <p class="mt-4 text-gray-500 font-medium">Menyu yuklanmoqda...</p>
       </div>
-
-      <!-- Xatolik holati -->
       <div v-else-if="error" class="text-center py-20 text-red-500">
-        <p class="text-xl font-bold">⚠️ {{ error }}</p>
+        <p class="text-xl font-bold"> {{ error }}</p>
         <button @click="fetchMeals" class="mt-4 px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">Qayta urinish</button>
       </div>
 
-      <!-- Bo'sh natija holati -->
       <div v-else-if="filteredItems.length === 0" class="text-center py-20 text-gray-500">
-        <p class="text-lg">Hech narsa topilmadi 😔</p>
+        <p class="text-lg">Hech narsa topilmadi </p>
       </div>
 
-      <!-- Asosiy Grid -->
       <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
         
         <div 
@@ -134,9 +112,8 @@ onMounted(() => {
           :key="item.id" 
           class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full"
         >
-          <!-- Rasm Qismi -->
           <div class="relative h-56 sm:h-64 overflow-hidden bg-gray-100">
-            <!-- Agar rasm bo'lsa ko'rsat, bo'lmasa placeholder -->
+      
             <img 
               v-if="item.image"
               :src="item.image" 
@@ -148,13 +125,11 @@ onMounted(() => {
               Rasm yo'q
             </div>
             
-            <!-- Kategoriya Tag -->
             <span v-if="item.category_info" class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#E93325] text-white px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shadow-md">
               {{ item.category_info.name }}
             </span>
           </div>
 
-          <!-- Matn Qismi -->
           <div class="p-4 sm:p-6 flex flex-col flex-grow">
             <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2 line-clamp-1 group-hover:text-[#E93325] transition-colors">
               {{ item.name }}
