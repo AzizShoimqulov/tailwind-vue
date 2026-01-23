@@ -25,9 +25,6 @@ const currentLang = computed(() => {
 const navItems = computed(() => [
   { id: 1, name: t('nav.home'), link: '#home' },
   { id: 2, name: t('nav.menu'), link: '#menu' },
-  { id: 3, name: t('nav.pages'), link: '#pages' },
-  { id: 4, name: t('nav.blog'), link: '#blog' },
-  { id: 5, name: t('nav.shop'), link: '#shop' },
 ])
 
 const handleScroll = () => {
@@ -139,7 +136,6 @@ onUnmounted(() => {
               <span v-if="cartCount > 0" class="absolute top-0 right-0 bg-[#E93325] text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-bounce">{{ cartCount }}</span>
             </button>
 
-            <!-- SAVAT ICHKI QISMI -->
             <div v-if="isCartOpen" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl p-4 z-50 border border-gray-100 transform origin-top-right transition-all">
               
               <div v-if="cartItems.length === 0" class="text-sm text-gray-500 text-center py-6 flex flex-col items-center gap-2">
