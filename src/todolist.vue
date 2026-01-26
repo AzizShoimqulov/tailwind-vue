@@ -23,8 +23,9 @@ const currentLang = computed(() => {
 })
 
 const navItems = computed(() => [
-  { id: 1, name: t('nav.home'), link: '#home' },
+  { id: 1, name: t('nav.home'), link: '#' },
   { id: 2, name: t('nav.menu'), link: '#menu' },
+  { id: 3, name: t('about'), link: '#about' },
 ])
 
 const handleScroll = () => {
@@ -80,13 +81,10 @@ onUnmounted(() => {
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
         
-        <a href="/" class="flex items-center gap-2 group">
-          <div class="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-pink-500">
-             <img class="w-full h-full object-cover" src="./img/image copy 3.png" alt="Logo" />
-          </div>
-          <span class="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
-            Beyoglu Karshi
-          </span>
+        <a href="/" class="flex items-center gap-2">
+            <div class="h-12 w-28 md:h-16 md:w-40 overflow-hidden">
+              <img class="w-full h-full object-cover" src="./img/image copy 3.png" alt="Logo" />
+            </div>
         </a>
 
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -169,8 +167,7 @@ onUnmounted(() => {
                       <button @click="clearCart" class="px-3 py-2.5 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-1">
                         <Icon icon="mdi:broom" /> Tozalash
                       </button>
-                      
-                      <!-- TELEFONGA BUYURTMA TUGMASI -->
+                    
                       <a 
                         href="tel:+998901234567" 
                         class="px-3 py-2.5 text-xs font-bold text-white bg-[#E93325] rounded-lg hover:bg-red-700 transition-colors text-center flex items-center justify-center gap-2 shadow-lg shadow-red-500/30"
