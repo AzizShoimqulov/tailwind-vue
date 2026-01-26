@@ -23,9 +23,9 @@ const currentLang = computed(() => {
 })
 
 const navItems = computed(() => [
-  { id: 1, name: t('nav.home'), link: '#home' },
-  { id: 2, name: t('nav.menu'), link: '#menu' },
-  { id: 3, name: t('about'), link: '#about' },
+  { id: 1, name: t('nav.home'), link: '/' },
+  { id: 2, name: t('nav.menu'), link: '/menyu' },
+  { id: 3, name: t('about'), link: '/about' },
 ])
 
 const handleScroll = () => {
@@ -90,7 +90,7 @@ onUnmounted(() => {
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
           <ul class="flex gap-4 xl:gap-6 text-sm font-bold text-gray-600 uppercase tracking-wide">
             <li v-for="item in navItems" :key="item.id">
-              <a :href="item.link" class="hover:text-pink-600 transition-colors">{{ item.name }}</a>
+              <router-link :to="item.link" class="hover:text-pink-600 transition-colors">{{ item.name }}</router-link>
             </li>
           </ul>
         </nav>
@@ -208,7 +208,7 @@ onUnmounted(() => {
        </div>
 
        <nav class="flex flex-col gap-4">
-         <a v-for="item in navItems" :key="item.id" :href="item.link" @click="toggleMenu" class="block text-gray-700 font-semibold py-2 border-b border-gray-100">{{ item.name }}</a>
+         <router-link v-for="item in navItems" :key="item.id" :to="item.link" @click="toggleMenu" class="block text-gray-700 font-semibold py-2 border-b border-gray-100">{{ item.name }}</router-link>
        </nav>
 
        <div class="mt-auto">
