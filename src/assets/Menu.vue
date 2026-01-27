@@ -1,5 +1,4 @@
-
-                    <script setup>
+<script setup>
 import { ref, onMounted, computed } from 'vue'
 import { searchTerm } from '../searchStore'
 
