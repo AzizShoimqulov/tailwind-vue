@@ -1,14 +1,4 @@
-Albatta, buni amalga oshirish uchun biz "Modal" (oyna) mantiqini qo'shishimiz kerak.
-Quyidagi o'zgarishlarni qilamiz:
 
-Yangi o'zgaruvchi: Tanlangan taomni saqlash uchun selectedMeal o'zgaruvchisini qo'shamiz.
-Click hodisasi: Card bosilganda selectedMealga o'sha taomni yuklaymiz.
-Modal oynasi: Agar selectedMeal bo'sh bo'lmasa, ekranda katta oyna ochiladi va taom haqida to'liq ma'lumot ko'rsatiladi.
-
-Mana to'liq va yangilangan kod:
-
-                    Html
-                    
                     <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { searchTerm } from '../searchStore'
