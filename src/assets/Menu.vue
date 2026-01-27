@@ -1,4 +1,15 @@
-<script setup>
+Albatta, buni amalga oshirish uchun biz "Modal" (oyna) mantiqini qo'shishimiz kerak.
+Quyidagi o'zgarishlarni qilamiz:
+
+Yangi o'zgaruvchi: Tanlangan taomni saqlash uchun selectedMeal o'zgaruvchisini qo'shamiz.
+Click hodisasi: Card bosilganda selectedMealga o'sha taomni yuklaymiz.
+Modal oynasi: Agar selectedMeal bo'sh bo'lmasa, ekranda katta oyna ochiladi va taom haqida to'liq ma'lumot ko'rsatiladi.
+
+Mana to'liq va yangilangan kod:
+
+                    Html
+                    
+                    <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { searchTerm } from '../searchStore'
 
@@ -7,10 +18,12 @@ const loading = ref(true)
 const error = ref(null)
 const activeCategory = ref('Barchasi')
 
+// Modal uchun yangi o'zgaruvchi
+const selectedMeal = ref(null)
+
 const fetchMeals = async () => {
   try {
     loading.value = true
-    console.log("Fetch boshlandi...")
     
     const res = await fetch('https://beyoglu-karshi.uz/api/api/meals')
     
@@ -25,7 +38,6 @@ const fetchMeals = async () => {
         let fixedImage = item.image;
         if (fixedImage) {
           fixedImage = fixedImage.replace('http://localhost:5000', 'https://beyoglu-karshi.uz/api');
-
         }
 
         return {
@@ -33,8 +45,6 @@ const fetchMeals = async () => {
           image: fixedImage
         }
       })
-      
-      console.log("Rasmlar to'g'rilandi", meals.value[0].image)
     } else {
       throw new Error("Ma'lumotlar formati noto'g'ri")
     }
@@ -46,40 +56,28 @@ const fetchMeals = async () => {
   }
 }
 
+const openMeal = (item) => {
+  selectedMeal.value = item
+  document.body.style.overflow = 'hidden'
+}
 
+const closeMeal = () => {
+  selectedMeal.value = null
+  document.body.style.overflow = 'auto'
+}
 
 const getUnifiedCategory = (originalName) => {
   if (!originalName) return 'Boshqa';
-  
   const name = originalName.toLowerCase();
-  if (name.includes('ichimlik') || 
-      name.includes('choy') || 
-      name.includes('tea') || 
-      name.includes('kofe') || 
-      name.includes('coffee')) {
-    return 'Ichimliklar';
-  }
-
-
-  if (name.includes('birinchi') || 
-      name.includes('shurva') || 
-      name.includes('mastava')) {
-    return 'Birinchi ovqatlar';
-  }
-
-  if (name.includes('shirinlik') || 
-      name.includes('desert') || 
-      name.includes('tort') || 
-      name.includes('muzqaymoq')) {
-    return 'Shirinliklar';
-  }
+  if (name.includes('ichimlik') || name.includes('choy') || name.includes('tea') || name.includes('kofe') || name.includes('coffee')) return 'Ichimliklar';
+  if (name.includes('birinchi') || name.includes('shurva') || name.includes('mastava')) return 'Birinchi ovqatlar';
+  if (name.includes('shirinlik') || name.includes('desert') || name.includes('tort') || name.includes('muzqaymoq')) return 'Shirinliklar';
   return originalName;
 }
 
 const categories = computed(() => {
   if (!meals.value) return ['Barchasi']
   const cats = new Set(meals.value.map(i => getUnifiedCategory(i.category_info?.name)))
-  
   return ['Barchasi', ...Array.from(cats).sort()]
 })
 
@@ -93,17 +91,11 @@ const filteredItems = computed(() => {
     })
   }
   const q = (searchTerm?.value || '').toString().trim().toLowerCase()
-  
   if (q) {
     items = items.filter(i => (i.name || '').toString().toLowerCase().includes(q))
   }
-  
   return items
 })
-
-
-
-
 
 const formatPrice = (p) => {
   try { 
@@ -125,14 +117,17 @@ onMounted(() => {
       <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8 text-center uppercase tracking-wide">
         Bizning Menyular
       </h2>
+
       <div v-if="loading" class="flex flex-col items-center justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-[#E93325] border-t-transparent"></div>
         <p class="mt-4 text-gray-500 font-medium">Menyu yuklanmoqda...</p>
       </div>
+
       <div v-else-if="error" class="text-center py-20 text-red-500">
         <p class="text-xl font-bold">{{ error }}</p>
         <button @click="fetchMeals" class="mt-4 px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">Qayta urinish</button>
       </div>
+
       <div v-else>
         <div class="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
           <button
@@ -147,14 +142,17 @@ onMounted(() => {
             {{ cat }}
           </button>
         </div>
+
         <div v-if="filteredItems.length === 0" class="text-center py-20 text-gray-500">
           <p class="text-lg">Hech narsa topilmadi</p>
         </div>
+
         <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
           <div
             v-for="item in filteredItems"
             :key="item.id"
-            class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full"
+            @click="openMeal(item)" 
+            class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full cursor-pointer"
           >
             <div class="relative h-56 sm:h-64 overflow-hidden bg-gray-100">
               <img
@@ -170,6 +168,7 @@ onMounted(() => {
                 {{ item.category_info.name }}
               </span>
             </div>
+            
             <div class="p-4 sm:p-6 flex flex-col flex-grow">
               <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2 line-clamp-1 group-hover:text-[#E93325] transition-colors">
                 {{ item.name }}
@@ -192,5 +191,54 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
+    <div v-if="selectedMeal" class="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6">
+      <div @click="closeMeal" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+      
+      <div class="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden transform transition-all flex flex-col md:flex-row max-h-[90vh] md:max-h-[600px]">
+        
+        <button @click="closeMeal" class="absolute top-4 right-4 z-10 p-2 bg-white/50 hover:bg-white rounded-full transition-colors text-gray-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-100 relative">
+           <img
+            v-if="selectedMeal.image"
+            :src="selectedMeal.image"
+            :alt="selectedMeal.name"
+            class="w-full h-full object-cover"
+            @error="$event.target.src = 'https://via.placeholder.com/600x600?text=Rasm+yoq'"
+          />
+           <div v-else class="w-full h-full flex items-center justify-center text-gray-400">Rasm yo'q</div>
+        </div>
+
+        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-10 flex flex-col overflow-y-auto">
+          <span v-if="selectedMeal.category_info" class="self-start bg-red-100 text-[#E93325] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+             {{ selectedMeal.category_info.name }}
+          </span>
+          
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">{{ selectedMeal.name }}</h2>
+          
+          <p class="text-gray-600 leading-relaxed text-base sm:text-lg mb-6 flex-grow">
+            {{ selectedMeal.description || '' }}
+          </p>
+
+          <div class="pt-6 border-t border-gray-100 mt-auto">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p class="text-sm text-gray-500 font-medium mb-1">Narxi:</p>
+                <p class="text-3xl font-bold text-[#E93325]">{{ formatPrice(selectedMeal.price) }}</p>
+              </div>
+               <button class="w-full sm:w-auto bg-gray-900 text-white px-8 py-3 rounded-xl hover:bg-[#E93325] transition-colors duration-300 font-semibold shadow-lg">
+                 Buyurtma berish
+               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
