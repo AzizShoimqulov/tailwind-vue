@@ -1,21 +1,14 @@
 <template>
-  <section id="about" class="py-16 sm:py-24 bg-white overflow-hidden">
+``  <section id="about" class="py-16 sm:py-24 bg-white overflow-hidden">
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div class="relative order-2 lg:order-1">
           <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
             <img 
-              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" 
+              src="https://www.beyoglu-karshi.com/assets/slider8-Dc2b-Gmr.JPG" 
               alt="Restaurant Interior" 
               class="w-full h-[400px] lg:h-[500px] object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-          <div class="absolute -bottom-10 -right-4 sm:-right-10 w-48 sm:w-64 rounded-2xl overflow-hidden shadow-xl border-4 border-white transform hover:-translate-y-2 transition-transform duration-300">
-            <img 
-              src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop" 
-              alt="Delicious Food" 
-              class="w-full h-40 sm:h-48 object-cover"
             />
           </div>
           <div class="absolute -top-6 -left-6 bg-[#E93325] text-white p-6 rounded-full shadow-lg flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 animate-bounce-slow">
