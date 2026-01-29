@@ -7,8 +7,7 @@
 </template>
 
 <script setup>
-import Footer from './assets/footer.vue';
+import Footer from './assets/footer.vue'
 import Todolist from './todolist.vue'
-import './assets/footer.vue'
 </script>
 
