@@ -100,7 +100,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-gray-50 min-h-screen py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8" id="menu">
+  <div class="bg-gray-50 min-h-screen py-8 sm:py-12 md:py-14 px-4 sm:px-6 lg:px-8" id="menu">
     <div class="max-w-[1400px] mx-auto">
       
       <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8 text-center uppercase tracking-wide">
