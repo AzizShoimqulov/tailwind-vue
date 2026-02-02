@@ -39,7 +39,7 @@
               <span class="font-bold text-gray-700">{{ item.text }}</span>
             </div>
           </div>
-          <a href="#menu" class="inline-flex items-center gap-2 bg-[#E93325] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-500/30 transform hover:-translate-y-1">
+          <a href="Menu" class="inline-flex items-center gap-2 bg-[#E93325] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-500/30 transform hover:-translate-y-1">
             <span>Menyuni ko'rish</span>
             <Icon icon="mdi:arrow-right" class="w-5 h-5" />
           </a>
@@ -52,6 +52,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
+import Menu from './Menu.vue';
 
 const features = [
   { text: "Halol Masalliqlar", icon: "mdi:check-decagram" },
