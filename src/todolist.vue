@@ -195,8 +195,6 @@ onUnmounted(() => {
   
 <transition enter-active-class="transition duration-300 transform" enter-from-class="translate-x-full" enter-to-class="translate-x-0" leave-active-class="transition duration-200 transform" leave-from-class="translate-x-0" leave-to-class="translate-x-full">
      <aside v-if="isMobileMenuOpen" class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[70] p-6 overflow-y-auto lg:hidden flex flex-col">
-       
-       <!-- 1. Tepa qism: Logo va X tugmasi -->
        <div class="flex items-center justify-between mb-6">
          <a href="/" class="flex items-center gap-2">
            <div class="h-10 w-10 rounded-full overflow-hidden border-2 border-pink-500">
@@ -208,13 +206,9 @@ onUnmounted(() => {
            <Icon icon="mdi:close" class="w-6 h-6" />
          </button>
        </div>
-
-       <!-- 2. Navigatsiya Linklari -->
        <nav class="flex flex-col gap-4">
          <router-link v-for="item in navItems" :key="item.id" :to="item.link" @click="toggleMenu" class="block text-gray-700 font-semibold py-2 border-b border-gray-100">{{ item.name }}</router-link>
        </nav>
-
-       <!-- YANGI QO'SHILGAN QISM: Mobil uchun Til tanlash -->
        <div class="mt-6 border-t border-gray-100 pt-4">
          <p class="text-sm text-gray-500 mb-3 font-medium">Tilni tanlang:</p>
          <div class="flex gap-2">
@@ -230,8 +224,6 @@ onUnmounted(() => {
            </button>
          </div>
        </div>
-
-       <!-- 3. Pastki qism: Buyurtma tugmasi -->
        <div class="mt-auto pt-6">
          <a href="tel:+998901234567" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#E93325] text-white font-bold">Buyurtma</a>
        </div>
