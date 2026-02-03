@@ -52,7 +52,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import Menu from './Menu.vue';
+import Menu from './menyu.vue';
 
 const features = [
   { text: "Halol Masalliqlar", icon: "mdi:check-decagram" },
