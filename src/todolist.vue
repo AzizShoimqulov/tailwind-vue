@@ -158,7 +158,6 @@ onUnmounted(() => {
              </div>
           </div>
 
-          <!-- MOBIL MENU TUGMASI (Uchta chiziq) - Faqat mobilda ko'rinadi -->
           <button @click="toggleMenu" class="lg:hidden p-2 text-gray-700 hover:text-pink-600 transition-colors">
             <Icon icon="mdi:menu" class="w-7 h-7" />
           </button>
@@ -168,7 +167,6 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <!-- MOBIL MENU QISMI (O'zgartirishsiz qoldirildi) -->
   <transition enter-active-class="transition duration-300" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
     <div v-if="isMobileMenuOpen" @click="toggleMenu" class="fixed inset-0 bg-black/50 z-[60] lg:hidden"></div>
   </transition>
