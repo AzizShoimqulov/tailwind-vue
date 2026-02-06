@@ -198,7 +198,7 @@ onUnmounted(() => {
        <div class="flex items-center justify-between mb-6">
          <a href="/" class="flex items-center gap-2">
            <div class="h-10 w-10 rounded-full overflow-hidden border-2 border-pink-500">
-             <img class="w-full h-full object-cover" src="./img/image copy 3.png" alt="Logo" />
+            <img class="w-full h-full object-cover" src="./img/image copy 3.png" alt="Logo" />
            </div>
            <span class="font-bold text-lg">Beyoglu Karshi</span>
          </a>
