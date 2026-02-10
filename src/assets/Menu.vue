@@ -12,7 +12,6 @@ const loading = ref(true)
 const error = ref(null)
 const activeCategory = ref('Barchasi')
 
-
 const fetchMeals = async () => {
   try {
     loading.value = true
