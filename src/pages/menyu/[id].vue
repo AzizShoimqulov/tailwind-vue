@@ -1,24 +1,17 @@
 <template>
   <div class="max-w-[1100px] mx-auto px-4 py-8">
-    <!-- Yuklanish holati -->
     <div v-if="loading" class="text-center py-20">
       <div class="animate-spin rounded-full h-10 w-10 border-4 border-[#E93325] border-t-transparent mx-auto"></div>
       <p class="mt-4 text-gray-500">Yuklanmoqda...</p>
     </div>
-
-    <!-- Xatolik yuz berganda -->
     <div v-else-if="error" class="text-center py-20">
       <p class="text-xl font-bold text-red-500 mb-4">{{ error }}</p>
       <router-link to="/menyu" class="text-[#E93325] underline">Menyuga qaytish</router-link>
     </div>
-
-    <!-- Mahsulot topilmaganda -->
     <div v-else-if="!meal" class="text-center py-20 text-gray-500">
       <p class="text-lg">Mahsulot topilmadi</p>
       <router-link to="/menyu" class="mt-4 inline-block text-[#E93325]">Orqaga qaytish</router-link>
     </div>
-
-    <!-- Mahsulot ma'lumotlari -->
     <div v-else class="bg-white rounded-2xl shadow-md overflow-hidden md:flex md:gap-6">
       <div class="md:w-1/2 bg-gray-100 h-64 md:h-auto">
         <img 
@@ -60,7 +53,6 @@
 import { ref, onMounted, watch } from 'vue'
 import { addToCart } from '../../cartStore'
 
-// Props orqali ID ni qabul qilamiz
 const props = defineProps({
   id: {
     type: [String, Number],
@@ -73,7 +65,6 @@ const loading = ref(true)
 const error = ref(null)
 const placeholder = 'https://via.placeholder.com'
 
-// Ma'lumotlarni olish funksiyasi
 const fetchMeal = async (mealId) => {
   loading.value = true
   error.value = null
@@ -85,7 +76,6 @@ const fetchMeal = async (mealId) => {
     const data = await res.json()
     const items = data.meals || []
     
-    // ID bo'yicha qidirish
     const foundMeal = items.find(m => String(m.id) === String(mealId))
     
     if (foundMeal) {
@@ -101,44 +91,31 @@ const fetchMeal = async (mealId) => {
   }
 }
 
-// Narxni chiroyli ko'rinishga keltirish (faqat UI uchun)
 const formatPrice = (p) => {
   if (!p) return "0 so'm"
   return new Intl.NumberFormat('uz-UZ').format(p) + " so'm"
 }
 
-// Savatga qo'shish
 const add = () => {
   if (!meal.value) return
   
-  // MUHIM: Savatga narxni raqam (number) holida yuboramiz
   addToCart({
     id: meal.value.id,
     name: meal.value.name,
     price: Number(meal.value.price), 
     image: meal.value.image
   })
-  
-  // Qo'shimcha: Foydalanuvchiga xabar berish (ixtiyoriy)
-  // alert('Savatchaga qo\'shildi!')
 }
 
-// Rasm yuklanmasa placeholder qo'yish
 const onImgError = (e) => {
   e.target.src = placeholder
 }
 
-// Komponent yuklanganda
 onMounted(() => {
   fetchMeal(props.id)
 })
 
-// Agar foydalanuvchi sahifani almashtirmasdan boshqa ID ga o'tsa
 watch(() => props.id, (newId) => {
   fetchMeal(newId)
 })
 </script>
-
-<style scoped>
-/* Qo'shimcha effektlar kerak bo'lsa shu yerga yozasiz */
-</style>
