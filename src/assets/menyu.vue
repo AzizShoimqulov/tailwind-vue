@@ -2,7 +2,8 @@
 import { ref, onMounted, computed } from 'vue'
 import { searchTerm } from '../searchStore'
 import { useRouter } from 'vue-router'
-const router = useRouter()
+
+const router = useRouter() 
 
 const meals = ref([])
 const loading = ref(true)
@@ -10,17 +11,11 @@ const error = ref(null)
 const activeCategory = ref('Barchasi')
 
 
-const selectedMeal = ref(null)
 const fetchMeals = async () => {
   try {
     loading.value = true
-    
     const res = await fetch('https://beyoglu-karshi.uz/api/api/meals')
-    
-    if (!res.ok) {
-      throw new Error(`HTTP xatolik: ${res.status}`)
-    }
-    
+    if (!res.ok) throw new Error(`HTTP xatolik: ${res.status}`)
     const data = await res.json()
 
     if (data && Array.isArray(data.meals)) {
@@ -29,11 +24,7 @@ const fetchMeals = async () => {
         if (fixedImage) {
           fixedImage = fixedImage.replace('http://localhost:5000', 'https://beyoglu-karshi.uz/api');
         }
-
-        return {
-          ...item,
-          image: fixedImage
-        }
+        return { ...item, image: fixedImage }
       })
     } else {
       throw new Error("Ma'lumotlar formati noto'g'ri")
@@ -48,11 +39,6 @@ const fetchMeals = async () => {
 
 const openMeal = (item) => {
   router.push({ name: 'Meal', params: { id: item.id } })
-}
-
-const closeMeal = () => {
-  selectedMeal.value = null
-  document.body.style.overflow = 'auto'
 }
 
 const getUnifiedCategory = (originalName) => {
@@ -72,7 +58,6 @@ const categories = computed(() => {
 
 const filteredItems = computed(() => {
   let items = meals.value || []
-
   if (activeCategory.value !== 'Barchasi') {
     items = items.filter(i => {
       const itemCat = getUnifiedCategory(i.category_info?.name);
@@ -87,11 +72,7 @@ const filteredItems = computed(() => {
 })
 
 const formatPrice = (p) => {
-  try { 
-    return new Intl.NumberFormat('uz-UZ').format(p) + " so'm" 
-  } catch { 
-    return p 
-  }
+  try { return new Intl.NumberFormat('uz-UZ').format(p) + " so'm" } catch { return p }
 }
 
 onMounted(() => {
@@ -180,54 +161,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
-    <div v-if="selectedMeal" class="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6">
-      <div @click="closeMeal" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
-      
-      <div class="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden transform transition-all flex flex-col md:flex-row max-h-[90vh] md:max-h-[600px]">
-        
-        <button @click="closeMeal" class="absolute top-4 right-4 z-10 p-2 bg-white/50 hover:bg-white rounded-full transition-colors text-gray-800">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-100 relative">
-           <img
-            v-if="selectedMeal.image"
-            :src="selectedMeal.image"
-            :alt="selectedMeal.name"
-            class="w-full h-full object-cover"
-            @error="$event.target.src = 'https://via.placeholder.com/600x600?text=Rasm+yoq'"
-          />
-           <div v-else class="w-full h-full flex items-center justify-center text-gray-400">Rasm yo'q</div>
-        </div>
-
-        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-10 flex flex-col overflow-y-auto">
-          <span v-if="selectedMeal.category_info" class="self-start bg-red-100 text-[#E93325] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-             {{ selectedMeal.category_info.name }}
-          </span>
-          
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">{{ selectedMeal.name }}</h2>
-          
-          <p class="text-gray-600 leading-relaxed text-base sm:text-lg mb-6 flex-grow">
-            {{ selectedMeal.description || '' }}
-          </p>
-
-          <div class="pt-6 border-t border-gray-100 mt-auto">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <p class="text-sm text-gray-500 font-medium mb-1">Narxi:</p>
-                <p class="text-3xl font-bold text-[#E93325]">{{ formatPrice(selectedMeal.price) }}</p>
-              </div>
-               <button class="w-full sm:w-auto bg-gray-900 text-white px-8 py-3 rounded-xl hover:bg-[#E93325] transition-colors duration-300 font-semibold shadow-lg">
-                 Buyurtma berish
-               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- MODAL POPUP BU YERDAN OLIB TASHLANDI -->
   </div>
 </template>
