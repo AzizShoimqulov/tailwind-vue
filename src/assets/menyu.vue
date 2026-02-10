@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { searchTerm } from '../searchStore'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const meals = ref([])
 const loading = ref(true)
@@ -46,8 +48,7 @@ const fetchMeals = async () => {
 }
 
 const openMeal = (item) => {
-  selectedMeal.value = item
-  document.body.style.overflow = 'hidden'
+  router.push({ name: 'Meal', params: { id: item.id } })
 }
 
 const closeMeal = () => {
