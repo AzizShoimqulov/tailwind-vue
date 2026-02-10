@@ -126,7 +126,6 @@ onMounted(() => {
               Yetkazib berish xizmati mavjud
             </p>
           </div>
-
         </div>
       </div>
     </div>
