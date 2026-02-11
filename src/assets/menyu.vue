@@ -1,14 +1,17 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { searchTerm } from '../searchStore'
 import { useRouter } from 'vue-router'
 
-const router = useRouter() 
+const { t } = useI18n()
+const router = useRouter()
 
 const meals = ref([])
 const loading = ref(true)
 const error = ref(null)
-const activeCategory = ref('Barchasi')
+// activeCategory holds the category key (string) or null for "all"
+const activeCategory = ref(null)
 
 
 const fetchMeals = async () => {
@@ -31,7 +34,7 @@ const fetchMeals = async () => {
     }
   } catch (e) {
     console.error("Xatolik:", e)
-    error.value = 'Menyuni yuklashda xatolik yuz berdi.'
+    error.value = t('menu.load_error')
   } finally {
     loading.value = false
   }
@@ -42,7 +45,7 @@ const openMeal = (item) => {
 }
 
 const getUnifiedCategory = (originalName) => {
-  if (!originalName) return 'Boshqa';
+  if (!originalName) return t('menu.other');
   const name = originalName.toLowerCase();
   if (name.includes('ichimlik') || name.includes('choy') || name.includes('tea') || name.includes('kofe') || name.includes('coffee')) return 'Ichimliklar';
   if (name.includes('birinchi') || name.includes('shurva') || name.includes('mastava')) return 'Birinchi ovqatlar';
@@ -51,14 +54,17 @@ const getUnifiedCategory = (originalName) => {
 }
 
 const categories = computed(() => {
-  if (!meals.value) return ['Barchasi']
-  const cats = new Set(meals.value.map(i => getUnifiedCategory(i.category_info?.name)))
-  return ['Barchasi', ...Array.from(cats).sort()]
+  if (!meals.value) return [{ key: null, label: t('menu.all') }]
+  const cats = Array.from(new Set(meals.value.map(i => getUnifiedCategory(i.category_info?.name)))).sort()
+  return [
+    { key: null, label: t('menu.all') },
+    ...cats.map(c => ({ key: c, label: c }))
+  ]
 })
 
 const filteredItems = computed(() => {
   let items = meals.value || []
-  if (activeCategory.value !== 'Barchasi') {
+  if (activeCategory.value !== null) {
     items = items.filter(i => {
       const itemCat = getUnifiedCategory(i.category_info?.name);
       return itemCat === activeCategory.value;
@@ -85,36 +91,36 @@ onMounted(() => {
     <div class="max-w-[1400px] mx-auto">
       
       <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8 text-center uppercase tracking-wide">
-        Bizning Menyular
+        {{ t('menu.title') }}
       </h2>
 
       <div v-if="loading" class="flex flex-col items-center justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-[#E93325] border-t-transparent"></div>
-        <p class="mt-4 text-gray-500 font-medium">Menyu yuklanmoqda...</p>
+        <p class="mt-4 text-gray-500 font-medium">{{ t('menu.loading') }}</p>
       </div>
 
       <div v-else-if="error" class="text-center py-20 text-red-500">
-        <p class="text-xl font-bold">{{ error }}</p>
-        <button @click="fetchMeals" class="mt-4 px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">Qayta urinish</button>
+        <p class="text-xl font-bold"> {{ error }}</p>
+        <button @click="fetchMeals" class="mt-4 px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">{{ t('menu.retry') }}</button>
       </div>
 
       <div v-else>
         <div class="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
           <button
             v-for="cat in categories"
-            :key="cat"
-            @click="activeCategory = cat"
+            :key="cat.key"
+            @click="activeCategory = cat.key"
             class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 border"
-            :class="activeCategory === cat
+            :class="activeCategory === cat.key
               ? 'bg-[#E93325] text-white border-[#E93325] shadow-lg scale-105'
               : 'bg-white text-gray-600 border-gray-200 hover:border-[#E93325] hover:text-[#E93325]'"
           >
-            {{ cat }}
+            {{ cat.label }}
           </button>
         </div>
 
         <div v-if="filteredItems.length === 0" class="text-center py-20 text-gray-500">
-          <p class="text-lg">Hech narsa topilmadi</p>
+          <p class="text-lg">{{ t('menu.no_results') }}</p>
         </div>
 
         <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
@@ -130,9 +136,9 @@ onMounted(() => {
                 :src="item.image"
                 :alt="item.name"
                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                @error="$event.target.src = 'https://via.placeholder.com/400x300?text=Rasm+yoq'"
+                @error="$event.target.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(t('menu.no_image'))"
               />
-              <div v-else class="w-full h-full flex items-center justify-center text-gray-400">Rasm yo'q</div>
+              <div v-else class="w-full h-full flex items-center justify-center text-gray-400">{{ t('menu.no_image') }}</div>
               
               <span v-if="item.category_info" class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#E93325] text-white px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shadow-md">
                 {{ item.category_info.name }}
@@ -150,7 +156,7 @@ onMounted(() => {
 
               <div class="mt-auto pt-4 border-t border-gray-100">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Narx</span>
+                  <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">{{ t('menu.price') }}</span>
                   <span class="text-xl sm:text-2xl font-bold text-gray-900 whitespace-nowrap">
                     {{ formatPrice(item.price) }}
                   </span>

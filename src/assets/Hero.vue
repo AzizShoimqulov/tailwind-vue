@@ -1,24 +1,33 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
 
-const slides = [
-  { id: 1, image: 'https://www.beyoglu-karshi.com/assets/slider11-CvMoDVWg.JPG', title: "Haqiqiy Turk Ta'mi", subtitle: "Eng saralangan masalliqlar." },
-  { id: 2, image: 'https://www.beyoglu-karshi.com/assets/slider6-BtSvGVij.JPG', title: "Mazali Nonushtalar", subtitle: "Kuningizni ajoyib boshlang." },
-  { id: 3, image: 'https://www.beyoglu-karshi.com/assets/slider13-BzaDouYa.JPG', title: "Maxsus Shirinliklar", subtitle: "San'at darajasidagi shirinliklar." },
-  { id: 4, image: 'https://www.beyoglu-karshi.com/assets/slider8-Dc2b-Gmr.JPG', title: "Oilaviy Muhit", subtitle: "Yaqinlaringiz bilan birga." },
-  { id: 5, image: 'https://www.beyoglu-karshi.com/assets/slider2-CEDuP1-F.JPG', title: "Tez va Issiq", subtitle: "Kutdirmasdan yetkazamiz." }
+const { t } = useI18n()
+
+const baseSlides = [
+  { id: 1, image: 'https://www.beyoglu-karshi.com/assets/slider11-CvMoDVWg.JPG' },
+  { id: 2, image: 'https://www.beyoglu-karshi.com/assets/slider6-BtSvGVij.JPG' },
+  { id: 3, image: 'https://www.beyoglu-karshi.com/assets/slider13-BzaDouYa.JPG' },
+  { id: 4, image: 'https://www.beyoglu-karshi.com/assets/slider8-Dc2b-Gmr.JPG' },
+  { id: 5, image: 'https://www.beyoglu-karshi.com/assets/slider2-CEDuP1-F.JPG' }
 ]
+
+const slides = computed(() => baseSlides.map((s, i) => ({
+  ...s,
+  title: t(`hero.slides.${i}.title`),
+  subtitle: t(`hero.slides.${i}.subtitle`)
+})))
 
 const currentIndex = ref(0);
 let interval = null;
 
-const next = () => currentIndex.value = (currentIndex.value + 1) % slides.length;
-const prev = () => currentIndex.value = currentIndex.value === 0 ? slides.length - 1 : currentIndex.value - 1;
+const next = () => currentIndex.value = (currentIndex.value + 1) % slides.value.length;
+const prev = () => currentIndex.value = currentIndex.value === 0 ? slides.value.length - 1 : currentIndex.value - 1;
 const goTo = (i) => currentIndex.value = i;
 const pauseAutoPlay = () => clearInterval(interval);
 const startAutoPlay = () => {
-  if (slides.length > 1) interval = setInterval(next, 5000);
+  if (slides.value.length > 1) interval = setInterval(next, 5000);
 };
 
 onMounted(() => startAutoPlay());
@@ -51,9 +60,6 @@ onBeforeUnmount(() => clearInterval(interval));
             <div class="absolute bottom-8 left-6 md:bottom-16 md:left-12 max-w-[90%] md:max-w-[600px] text-white">
                <h2 class="text-2xl md:text-5xl font-bold font-serif mb-2 drop-shadow-lg">{{ slide.title }}</h2>
                <p class="text-sm md:text-lg text-gray-200 font-medium line-clamp-2 drop-shadow-md mb-4">{{ slide.subtitle }}</p>
-               <button class="bg-[#E93325] text-white px-5 py-2 md:px-8 md:py-3 rounded-full font-bold hover:bg-pink-700 transition text-xs md:text-sm">
-                 Batafsil
-               </button>
             </div>
           </div>
         </div>
