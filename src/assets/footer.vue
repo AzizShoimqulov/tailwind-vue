@@ -3,11 +3,8 @@
     <div class="max-w-[1400px] mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div>
-          <h3 class="text-xl font-bold mb-4">Beyoglu Karshi</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-6">
-            Turkiya taomlari, fast food va nonushta taomlarini taqdim etamiz. 
-            Sifatli va mazali ovqatlar bilan xizmat ko'rsatamiz.
-          </p>
+          <h3 class="text-xl font-bold mb-4">{{ t('footer.company_name') }}</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-6">{{ t('footer.description') }}</p>
           <div class="flex space-x-3">
             <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#E93325] transition-colors duration-300 group">
 
@@ -27,7 +24,7 @@
         </div>
 
         <div>
-          <h3 class="text-lg font-bold mb-6">Bog'lanish</h3>
+          <h3 class="text-lg font-bold mb-6">{{ t('footer.contact_heading') }}</h3>
           <ul class="space-y-4 text-sm text-gray-400">
             <li class="flex items-start">
               <span class="mr-3 mt-1 text-[#E93325]">
@@ -37,9 +34,9 @@
                 </svg>
               </span>
               <div>
-                <p>Qarshi shahar,</p>
-                <p>Amir Temur ko'chasi 7/9 uy</p>
-                <p class="text-xs text-gray-500 mt-1">Mo'ljal: Qarshi davlat universiteti</p>
+                <p>{{ t('footer.address_line1') }}</p>
+                <p>{{ t('footer.address_line2') }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ t('footer.address_note') }}</p>
               </div>
             </li>
 
@@ -50,8 +47,9 @@
                 </svg>
               </span>
               <div>
-                <a href="tel:+998200051011" class="block hover:text-white transition">+998 20 005-10-11</a>
-                <a href="tel:+998200055011" class="block hover:text-white transition">+998 20 005-50-11</a>
+                <template v-for="(p, idx) in phones" :key="idx">
+                  <a :href="`tel:${p.replace(/\s+/g, '')}`" class="block hover:text-white transition">{{ p }}</a>
+                </template>
               </div>
             </li>
 
@@ -62,16 +60,16 @@
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
               </span>
-              <a href="mailto:info@beyouglikarshi.uz" class="hover:text-white transition">info@beyouglikarshi.uz</a>
+              <a :href="`mailto:${t('footer.email')}`" class="hover:text-white transition">{{ t('footer.email') }}</a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="text-lg font-bold mb-6">Ish vaqti</h3>
+          <h3 class="text-lg font-bold mb-6">{{ t('footer.hours_heading') }}</h3>
           <div class="text-sm text-gray-400">
             <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-              <span>Har kuni:</span>
+              <span>{{ t('footer.everyday') }}</span>
               <span class="text-white font-medium">08:00 - 24:00</span>
             </div>
           </div>
@@ -79,12 +77,11 @@
       </div>
 
       <div class="border-t border-gray-800 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-        <div class="mb-4 md:mb-0 text-center md:text-left">
-          &copy; 2025 Beyougli Karshi. Barcha huquqlar himoyalangan.
-        </div>
+        <div class="mb-4 md:mb-0 text-center md:text-left">{{ t('footer.copyright') }}</div>
         <div class="flex space-x-6">
-          <a href="tel:+998200051011" class="hover:text-gray-300 transition">+998 20 005-10-11</a>
-          <a href="tel:+998200055011" class="hover:text-gray-300 transition">+998 20 005-50-11</a>
+          <template v-for="(p, idx) in phones" :key="`f-${idx}`">
+            <a :href="`tel:${p.replace(/\s+/g, '')}`" class="hover:text-gray-300 transition">{{ p }}</a>
+          </template>
         </div>
       </div>
 
@@ -93,4 +90,15 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t, tm } = useI18n()
+
+const phones = computed(() => {
+  const raw = (typeof tm === 'function') ? tm('footer.phones') : t('footer.phones')
+  if (Array.isArray(raw)) return raw
+  if (raw == null) return []
+  return String(raw).split(',').map(s => s.trim()).filter(Boolean)
+})
 </script>

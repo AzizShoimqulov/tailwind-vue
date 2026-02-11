@@ -17,20 +17,16 @@
           </div>
         </div>
         <div class="order-1 lg:order-2">
-          <span class="text-[#E93325] font-bold tracking-wider uppercase text-sm mb-2 block">
-            Biz Haqimizda
-          </span>
+          <span class="text-[#E93325] font-bold tracking-wider uppercase text-sm mb-2 block">{{ t('about.overline') }}</span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-            Haqiqiy <span class="text-[#E93325]">Turk Ta'mi</span> va Mehmondo'stlik
+            {{ t('about.title_prefix') }} <span class="text-[#E93325]">{{ t('about.title_highlight') }}</span>{{ t('about.title_suffix') }}
           </h2>
-          
+
           <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-            <strong class="text-gray-800">Beyoglu Karshi</strong> — bu shunchaki restoran emas, balki Turkiyaning boy oshxona madaniyatini Qarshi shahriga olib kelgan maskan. Biz har bir taomni mehr va eng sara masalliqlar bilan tayyorlaymiz.
+            <strong class="text-gray-800">Beyoglu Karshi</strong> — {{ t('about.paragraph1') }}
           </p>
-          
-          <p class="text-gray-500 mb-8 leading-relaxed">
-            Siz bizda nafaqat mazali kaboblar va pidelarni, balki maxsus retsept asosida tayyorlangan shirinliklar va haqiqiy turk choyini ham tatib ko'rishingiz mumkin. Bizning maqsadimiz — har bir mehmonimizga o'zini xuddi Istanbulda yurgandek his qildirishdir.
-          </p>
+
+          <p class="text-gray-500 mb-8 leading-relaxed">{{ t('about.paragraph2') }}</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <div v-for="(item, index) in features" :key="index" class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-[#E93325]">
@@ -39,10 +35,10 @@
               <span class="font-bold text-gray-700">{{ item.text }}</span>
             </div>
           </div>
-          <a href="Menu" class="inline-flex items-center gap-2 bg-[#E93325] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-500/30 transform hover:-translate-y-1">
-            <span>Menyuni ko'rish</span>
+          <router-link to="/menyu" class="inline-flex items-center gap-2 bg-[#E93325] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-500/30 transform hover:-translate-y-1">
+            <span>{{ t('about.view_menu') }}</span>
             <Icon icon="mdi:arrow-right" class="w-5 h-5" />
-          </a>
+          </router-link>
         </div>
 
       </div>
@@ -62,6 +58,25 @@ const features = [
 ]
 </script>
 
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Icon } from '@iconify/vue'
+
+const { t, tm } = useI18n()
+
+// keep icons in fixed order and pull translated feature texts from i18n
+const iconList = ["mdi:check-decagram","mdi:chef-hat","mdi:moped","mdi:sofa"]
+
+const features = computed(() => {
+  const raw = (typeof tm === 'function') ? tm('about.features') : t('about.features')
+  let texts = []
+  if (Array.isArray(raw)) texts = raw
+  else if (raw == null) texts = []
+  else texts = String(raw).split('|').map(s => s.trim()).filter(Boolean)
+  return texts.map((text, i) => ({ text, icon: iconList[i] || 'mdi:check' }))
+})
+</script>
 <style scoped>
 .animate-bounce-slow {
   animation: bounce 3s infinite;
