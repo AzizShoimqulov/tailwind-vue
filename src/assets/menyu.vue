@@ -10,7 +10,6 @@ const router = useRouter()
 const meals = ref([])
 const loading = ref(true)
 const error = ref(null)
-// activeCategory holds the category key (string) or null for "all"
 const activeCategory = ref(null)
 
 
@@ -167,6 +166,5 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <!-- MODAL POPUP BU YERDAN OLIB TASHLANDI -->
   </div>
 </template>

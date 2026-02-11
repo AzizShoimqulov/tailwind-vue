@@ -53,7 +53,6 @@ import { Icon } from '@iconify/vue'
 
 const { t, tm } = useI18n()
 
-// keep icons in fixed order and pull translated feature texts from i18n
 const iconList = ["mdi:check-decagram","mdi:chef-hat","mdi:moped","mdi:sofa"]
 
 const features = computed(() => {
