@@ -47,18 +47,6 @@
 </template>
 
 <script setup>
-import { Icon } from '@iconify/vue'
-import Menu from './menyu.vue';
-
-const features = [
-  { text: "Halol Masalliqlar", icon: "mdi:check-decagram" },
-  { text: "Professional Oshpazlar", icon: "mdi:chef-hat" },
-  { text: "Tezkor Yetkazib Berish", icon: "mdi:moped" },
-  { text: "Shinam Muhit", icon: "mdi:sofa" },
-]
-</script>
-
-<script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
