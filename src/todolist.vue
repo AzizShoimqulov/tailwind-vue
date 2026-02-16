@@ -3,7 +3,9 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
 import { searchTerm } from './searchStore'
-import { cartCount, cartItems, removeFromCart, clearCart } from './cartStore'
+import { cartCount, cartItems, removeFromCart, clearCart, placeOrder } from './cartStore'
+import { selectedTable } from './tableStore'
+import { useRouter } from 'vue-router'
 
 const { t, locale } = useI18n()
 
@@ -30,6 +32,21 @@ const navItems = computed(() => [
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20
+}
+
+const router = useRouter()
+
+function handlePlaceOrder() {
+  const ok = placeOrder()
+  if (ok) {
+    isCartOpen.value = false
+    alert('Buyurtma qabul qilindi — stol band qilindi.')
+    router.push('/stol')
+    return
+  }
+  isCartOpen.value = false
+  alert('Iltimos, stol tanlang.')
+  router.push('/stol')
 }
 
 const toggleMenu = () => {
@@ -168,13 +185,13 @@ onUnmounted(() => {
                         <Icon icon="mdi:broom" /> Tozalash
                       </button>
                     
-                      <a 
-                        href="tel:+998901234567" 
+                      <button
+                        @click.prevent="handlePlaceOrder"
                         class="px-3 py-2.5 text-xs font-bold text-white bg-[#E93325] rounded-lg hover:bg-red-700 transition-colors text-center flex items-center justify-center gap-2 shadow-lg shadow-red-500/30"
                       >
                         <Icon icon="mdi:phone-forward" class="w-4 h-4" />
                         Buyurtma
-                      </a>
+                      </button>
                     </div>
                  </div>
               </div>

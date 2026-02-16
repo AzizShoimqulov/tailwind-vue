@@ -1,27 +1,47 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
 
-const router = useRouter();
+const router = useRouter()
 
-const tables = ref(
-  Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    name: `${index + 1}-Stol`,
-    status: 'available'
-  }))
-);
+const showOrders = ref(false)
+const activeOrders = ref([])
+const activeTableId = ref(null)
 
-const handleTableClick = (tableId) => {
+const handleTableClick = (table) => {
+  if (table.status === 'occupied') {
+    // show orders for this table
+    activeTableId.value = table.id
+    activeOrders.value = getOrdersForTable(table.id)
+    showOrders.value = true
+    return
+  }
+  selectTable(table.id)
+  router.push({ path: '/Menu', query: { table_id: table.id } })
+}
 
-  router.push({ path: '/menu', query: { table_id: tableId } });
-};
+function closeOrders() {
+  showOrders.value = false
+  activeOrders.value = []
+  activeTableId.value = null
+}
+
+function handleFreeTable() {
+  if (!activeTableId.value) return
+  freeTable(activeTableId.value)
+  closeOrders()
+}
 
 const getStatusColor = (status) => {
-  return status === 'available' 
+  return status === 'available'
     ? 'bg-white border-gray-200 text-gray-800 hover:border-[#F4EDDD] hover:bg-blue-50'
-    : 'bg-red-100 border-red-500 text-red-800';
-};
+    : 'bg-red-100 border-red-500 text-red-800'
+}
+
+const formatPrice = (p) => {
+  try { return new Intl.NumberFormat('uz-UZ').format(Number(p)) + " so'm" } catch { return p }
+}
 </script>
 
 <template>
@@ -31,12 +51,12 @@ const getStatusColor = (status) => {
       <p class="text-gray-500 mt-2">Buyurtma berish uchun stolni tanlang</p>
     </header>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
       
       <div 
         v-for="table in tables" 
         :key="table.id"
-        @click="handleTableClick(table.id)"
+        @click="handleTableClick(table)"
         :class="[
           'relative p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-1 flex flex-col items-center justify-center text-center h-40',
           getStatusColor(table.status)
@@ -53,6 +73,42 @@ const getStatusColor = (status) => {
         <div class="absolute inset-0 rounded-xl ring-2 ring-transparent group-hover:ring-blue-400 pointer-events-none"></div>
       </div>
 
+    </div>
+    
+    <!-- Orders modal for occupied table -->
+    <div v-if="showOrders" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div class="bg-white rounded-xl max-w-lg w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold">Stol №{{ activeTableId }} - Buyurtmalar</h3>
+          <button @click="closeOrders" class="text-gray-500 hover:text-gray-800">✕</button>
+        </div>
+        <div v-if="activeOrders.length === 0" class="py-6 text-center text-gray-500">Buyurtma topilmadi</div>
+        <div v-else class="max-h-72 overflow-y-auto pr-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div v-for="(o, idx) in activeOrders" :key="idx" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+              <div class="relative h-28 overflow-hidden bg-gray-100">
+                <img v-if="o.image" :src="o.image" :alt="o.name" class="w-full h-full object-cover" @error="$event.target.src = 'https://via.placeholder.com/400x300?text=No+Image'" />
+                <div v-else class="w-full h-full flex items-center justify-center text-gray-400">Rasm yo'q</div>
+              </div>
+              <div class="p-3 flex flex-col flex-grow">
+                <div class="flex justify-between items-start gap-2">
+                  <div class="text-sm font-bold text-gray-800 line-clamp-1">{{ o.name }}</div>
+                  <div v-if="o.qty" class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">x{{ o.qty }}</div>
+                </div>
+                <div class="text-xs text-gray-500 line-clamp-2 mt-1">{{ o.description || '' }}</div>
+                <div class="mt-auto pt-3 flex items-center justify-between">
+                  <div class="text-sm text-gray-400 uppercase tracking-wider">Jami</div>
+                  <div class="text-lg font-bold text-[#E93325]">{{ formatPrice((o.originalPrice || 0) * (o.qty || 1)) }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-end gap-2">
+          <button @click="handleFreeTable" class="px-3 py-2 bg-red-100 text-red-600 rounded">Bo'shatish</button>
+          <button @click="closeOrders" class="px-3 py-2 bg-gray-100 rounded">Yopish</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

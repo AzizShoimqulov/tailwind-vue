@@ -170,7 +170,7 @@ onMounted(() => {
               </div>
               
               <button 
-                @click="handleAddToCart(item)"
+                @click.stop="handleAddToCart(item)"
                 class="flex items-center justify-center gap-1.5 sm:gap-2 bg-[#F4EDDD] text-[#E93325] px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold hover:bg-[#E93325] hover:text-white transition-all duration-300 active:scale-95 shadow-sm hover:shadow-md text-sm sm:text-base w-full sm:w-auto"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
