@@ -3,6 +3,7 @@ import Home from '../pages/Home.vue'
 import About from '../assets/about.vue'
 import ErrorPage from '../assets/error.vue'
 import menyu from '../assets/menyu.vue' 
+import stol from '../assets/stol.vue'
 
 const routes = [
   { 
@@ -35,6 +36,11 @@ const routes = [
     path: '/:pathMatch(.*)*', 
     name: 'NotFound', 
     component: ErrorPage 
+  },
+    { 
+    path: '/stol', 
+    name: 'Stol', 
+    component: () => import('../assets/stol.vue') 
   },
 ]
 
