@@ -26,7 +26,7 @@ const currentLang = computed(() => {
 
 const navItems = computed(() => [
   { id: 1, name: t('nav.home'), link: '/' },
-  { id: 2,         name: t('nav.menu'), link: '/menyu' },
+  { id: 2, name: t('nav.menu'), link: '/menyu' },
   { id: 3, name: t('nav.about'), link: '/about' },
 ])
 
