@@ -11,7 +11,6 @@ const activeTableId = ref(null)
 
 const handleTableClick = (table) => {
   if (table.status === 'occupied') {
-    // show orders for this table
     activeTableId.value = table.id
     activeOrders.value = getOrdersForTable(table.id)
     showOrders.value = true
@@ -75,7 +74,6 @@ const formatPrice = (p) => {
 
     </div>
     
-    <!-- Orders modal for occupied table -->
     <div v-if="showOrders" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div class="bg-white rounded-xl max-w-lg w-full p-6">
         <div class="flex justify-between items-center mb-4">

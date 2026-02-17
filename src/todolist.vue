@@ -226,6 +226,12 @@ onUnmounted(() => {
        <nav class="flex flex-col gap-4">
          <router-link v-for="item in navItems" :key="item.id" :to="item.link" @click="toggleMenu" class="block text-gray-700 font-semibold py-2 border-b border-gray-100">{{ item.name }}</router-link>
        </nav>
+      <div class="mt-4">
+        <div class="relative">
+          <input v-model="searchTerm" type="text" :placeholder="t('search')" class="w-full px-3 py-2 rounded-md border border-gray-200 focus:ring-0 focus:border-pink-500" />
+          <Icon icon="mdi:magnify" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        </div>
+      </div>
        <div class="mt-6 border-t border-gray-100 pt-4">
          <p class="text-sm text-gray-500 mb-3 font-medium">Tilni tanlang:</p>
          <div class="flex gap-2">
