@@ -1,19 +1,18 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import { state } from '../tableStore'
+import { ref, computed } from 'vue'
 import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
 
 const router = useRouter()
 
 const showOrders = ref(false)
-const activeOrders = ref([])
 const activeTableId = ref(null)
+// derive active orders reactively so updates show immediately
+const activeOrders = computed(() => activeTableId.value ? getOrdersForTable(activeTableId.value) : [])
 
 const handleTableClick = (table) => {
   if (table.status === 'occupied') {
     activeTableId.value = table.id
-    activeOrders.value = getOrdersForTable(table.id)
     showOrders.value = true
     return
   }
@@ -23,7 +22,6 @@ const handleTableClick = (table) => {
 
 function closeOrders() {
   showOrders.value = false
-  activeOrders.value = []
   activeTableId.value = null
 }
 

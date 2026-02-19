@@ -1,21 +1,22 @@
-import { ref, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { occupyTable, selectedTable, addOrderToTable } from './tableStore'
 
-export const cartItems = ref([])
-export const cartCount = computed(() => cartItems.value.reduce((s, it) => s + (it.qty || 1), 0))
+// Use a reactive array so deep mutations (adding keys on items) are observed immediately
+export const cartItems = reactive([])
+export const cartCount = computed(() => cartItems.reduce((s, it) => s + (Number(it.qty) || 1), 0))
 
 export function addToCart(item, qty = 1) {
   if (!item || !item.id) return
-  const idx = cartItems.value.findIndex(i => i.id === item.id)
+  const idx = cartItems.findIndex(i => i.id === item.id)
   if (idx !== -1) {
-    cartItems.value[idx].qty = (cartItems.value[idx].qty || 1) + qty
+    cartItems[idx].qty = (Number(cartItems[idx].qty) || 1) + qty
   } else {
-    cartItems.value.push({
+    cartItems.push({
       id: item.id,
       name: item.name,
       image: item.image,
-      originalPrice: item.originalPrice ?? item.price ?? 0,
-      price: item.price ?? item.originalPrice ?? item.price,
+      originalPrice: Number(item.originalPrice ?? item.price) || 0,
+      price: Number(item.price ?? item.originalPrice) || 0,
       qty: qty,
       description: item.description || ''
     })
@@ -23,20 +24,20 @@ export function addToCart(item, qty = 1) {
 }
 
 export function removeFromCart(index) {
-  if (index >= 0 && index < cartItems.value.length) {
-    cartItems.value.splice(index, 1)
+  if (index >= 0 && index < cartItems.length) {
+    cartItems.splice(index, 1)
   }
 }
 
 export function clearCart() {
-  cartItems.value.splice(0)
+  cartItems.splice(0)
 }
 
 export function placeOrder() {
   const tableId = selectedTable.value
   if (!tableId) return false
-  if (cartItems.value.length > 0) {
-    addOrderToTable(tableId, cartItems.value.slice())
+  if (cartItems.length > 0) {
+    addOrderToTable(tableId, cartItems.slice())
   }
   occupyTable(tableId)
   clearCart()

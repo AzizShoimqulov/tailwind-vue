@@ -7,7 +7,8 @@ import { tables, getOrdersForTable, freeTable as freeTableStore } from '../table
 const filterStatus = ref('all') 
 const showModal = ref(false)
 const selectedTable = ref(null)
-const tableOrders = ref([])
+// derive orders for the selected table reactively so changes reflect immediately
+const tableOrders = computed(() => selectedTable.value ? getOrdersForTable(selectedTable.value.id) : [])
 
 const filteredTables = computed(() => {
   if (filterStatus.value === 'all') return tables.value
@@ -28,7 +29,6 @@ const modalTotalSum = computed(() => {
 
 const openOrderModal = (table) => {
   selectedTable.value = table
-  tableOrders.value = getOrdersForTable ? getOrdersForTable(table.id) : [] 
   showModal.value = true
 }
 
