@@ -7,7 +7,6 @@ const router = useRouter()
 
 const showOrders = ref(false)
 const activeTableId = ref(null)
-// derive active orders reactively so updates show immediately
 const activeOrders = computed(() => activeTableId.value ? getOrdersForTable(activeTableId.value) : [])
 
 const handleTableClick = (table) => {
