@@ -1,107 +1,261 @@
-<template>
-  <div class="min-h-screen pt-20 bg-gray-50 p-6">
-    <div class="max-w-[1200px] mx-auto">
-      <h1 class="text-2xl font-extrabold mb-6">Admin Panel — Stol holati</h1>
+<script setup>
+import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
+import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore' // tableStore manzili to'g'riligini tekshiring
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="table in tables" :key="table.id" class="p-4 bg-white rounded-lg shadow">
-          <div class="flex items-start justify-between gap-4">
+const filterStatus = ref('all') 
+const showModal = ref(false)
+const selectedTable = ref(null)
+const tableOrders = ref([])
+
+const filteredTables = computed(() => {
+  if (filterStatus.value === 'all') return tables.value
+  return tables.value.filter(t => t.status === filterStatus.value)
+})
+
+const totalTables = computed(() => tables.value.length)
+const occupiedCount = computed(() => tables.value.filter(t => t.status === 'occupied').length)
+const availableCount = computed(() => totalTables.value - occupiedCount.value)
+
+const modalTotalSum = computed(() => {
+  return tableOrders.value.reduce((sum, item) => sum + (item.price * item.qty), 0)
+})
+
+const openOrderModal = (table) => {
+  selectedTable.value = table
+  tableOrders.value = getOrdersForTable ? getOrdersForTable(table.id) : [] 
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+  setTimeout(() => {
+    selectedTable.value = null
+    tableOrders.value = []
+  }, 300)
+}
+
+const handleFreeTable = (id) => {
+  if(confirm(`№${id}-stolni bo'shatmoqchimisiz?`)) {
+    freeTableStore(id)
+    if (selectedTable.value?.id === id) closeModal()
+  }
+}
+
+const formatPrice = (p) => {
+  return new Intl.NumberFormat('uz-UZ').format(p) + " so'm"
+}
+
+const formatTime = (dateStr) => {
+  if (!dateStr) return '-'
+  const date = new Date(dateStr)
+  return date.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+}
+</script>
+
+<template>
+  <div class="min-h-screen bg-gray-100 p-4 md:p-8 font-sans">
+    <div class="max-w-7xl mx-auto">
+      
+      <header class="mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <Icon icon="mdi:monitor-dashboard" class="text-blue-600" />
+          Restoran Boshqaruv Paneli
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <div class="text-sm text-gray-500">Stol</div>
-              <div class="text-2xl font-bold">№{{ table.id }}</div>
+              <p class="text-gray-500 text-sm font-medium">Jami Stollar</p>
+              <p class="text-3xl font-bold text-gray-800">{{ totalTables }}</p>
             </div>
-            <div class="text-right">
-              <div :class="table.status === 'occupied' ? 'text-red-600 font-semibold' : 'text-green-600 font-semibold'">{{ table.status === 'occupied' ? 'Band' : 'Bo\'sh' }}</div>
-              <div class="text-xs text-gray-400 mt-1">{{ table.occupiedAt ? formatDate(table.occupiedAt) : '-' }}</div>
+            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+              <Icon icon="mdi:table-furniture" class="w-8 h-8" />
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm font-medium">Band qilingan</p>
+              <p class="text-3xl font-bold text-red-500">{{ occupiedCount }}</p>
+            </div>
+            <div class="p-3 bg-red-50 text-red-500 rounded-xl">
+              <Icon icon="mdi:account-group" class="w-8 h-8" />
             </div>
           </div>
 
-          <div class="mt-4 flex gap-2">
-            <button v-if="table.status === 'occupied'" @click="viewOrders(table.id)" class="px-3 py-2 bg-blue-600 text-white rounded">Buyurtmalar</button>
-            <button v-if="table.status === 'occupied'" @click="freeTable(table.id)" class="px-3 py-2 bg-red-100 text-red-600 rounded">Bo'shatish</button>
-            <button v-else @click="selectForTest(table.id)" class="px-3 py-2 bg-gray-100 rounded">Tanlash</button>
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm font-medium">Bo'sh joylar</p>
+              <p class="text-3xl font-bold text-green-500">{{ availableCount }}</p>
+            </div>
+            <div class="p-3 bg-green-50 text-green-500 rounded-xl">
+              <Icon icon="mdi:check-circle" class="w-8 h-8" />
+            </div>
           </div>
         </div>
+      </header>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button 
+          v-for="stat in ['all', 'available', 'occupied']" 
+          :key="stat"
+          @click="filterStatus = stat"
+          class="px-5 py-2 rounded-full text-sm font-bold transition-all"
+          :class="filterStatus === stat ? 'bg-gray-800 text-white shadow-lg' : 'bg-white text-gray-600 hover:bg-gray-200'"
+        >
+          {{ stat === 'all' ? 'Barchasi' : (stat === 'available' ? "Bo'sh" : "Band") }}
+        </button>
       </div>
 
-      <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-        <div class="bg-white rounded-xl max-w-3xl w-full p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold">Stol №{{ modalTableId }} — Buyurtmalar</h2>
-            <button @click="closeModal" class="text-gray-500">✕</button>
-          </div>
-
-          <div v-if="modalOrders.length === 0" class="text-center py-8 text-gray-500">Buyurtma topilmadi</div>
-          <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div v-for="(o, idx) in modalOrders" :key="idx" class="bg-white rounded-lg shadow p-3 flex gap-3 items-center">
-              <img v-if="o.image" :src="o.image" :alt="o.name" class="w-20 h-16 object-cover rounded" @error="$event.target.src='https://via.placeholder.com/120x90?text=No+Image'" />
-              <div class="flex-1">
-                <div class="font-bold">{{ o.name }}</div>
-                <div class="text-sm text-gray-500 mt-1">{{ o.description || '' }}</div>
-                <div class="mt-2 flex items-center justify-between">
-                  <div class="text-sm text-gray-600">Qty: {{ o.qty || 1 }}</div>
-                  <div class="font-semibold text-[#E93325]">{{ formatPrice((o.originalPrice || 0) * (o.qty || 1)) }}</div>
-                </div>
-              </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div 
+          v-for="table in filteredTables" 
+          :key="table.id"
+          class="bg-white rounded-2xl border transition-all duration-300 hover:shadow-lg flex flex-col overflow-hidden"
+          :class="table.status === 'occupied' ? 'border-red-200' : 'border-gray-200'"
+        >
+          <div 
+            class="p-4 flex justify-between items-start border-b border-gray-50"
+            :class="table.status === 'occupied' ? 'bg-red-50/50' : ''"
+          >
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">№{{ table.id }} Stol</h3>
+              <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                <Icon icon="mdi:clock-outline" v-if="table.status === 'occupied'" />
+                {{ table.status === 'occupied' ? formatTime(table.occupiedAt) + ' da band qilindi' : 'Hozircha bo\'sh' }}
+              </p>
             </div>
+            <span 
+              class="px-2 py-1 text-xs font-bold uppercase rounded-md"
+              :class="table.status === 'occupied' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'"
+            >
+              {{ table.status === 'occupied' ? 'Band' : 'Bo\'sh' }}
+            </span>
           </div>
 
-          <div class="mt-4 flex justify-end">
-            <button @click="closeModal" class="px-4 py-2 bg-gray-100 rounded">Yopish</button>
+          <div class="p-4 flex-1 flex flex-col justify-end gap-3">
+             <div v-if="table.status === 'occupied'" class="text-sm text-gray-600 mb-2">
+                Buyurtmalar mavjud
+             </div>
+             <div v-else class="text-sm text-gray-400 italic mb-2">
+                Buyurtma yo'q
+             </div>
+
+             <div class="grid grid-cols-2 gap-2 mt-auto">
+               <button 
+                 v-if="table.status === 'occupied'"
+                 @click="openOrderModal(table)"
+                 class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors"
+               >
+                 <Icon icon="mdi:eye" /> Ko'rish
+               </button>
+               
+               <button 
+                 v-if="table.status === 'occupied'"
+                 @click="handleFreeTable(table.id)"
+                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-1"
+               >
+                 <Icon icon="mdi:lock-open-variant" /> Bo'shatish
+               </button>
+
+               <div v-else class="col-span-2 text-center text-xs text-gray-400 py-2 bg-gray-50 rounded-lg">
+                 Mijoz kutilmoqda...
+               </div>
+             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <transition name="fade">
+      <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+          
+          <div class="bg-gray-50 p-4 border-b border-gray-100 flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-bold text-gray-800">№{{ selectedTable?.id }} - Stol hisobi</h2>
+              <p class="text-xs text-gray-500">Buyurtmalar ro'yxati</p>
+            </div>
+            <button @click="closeModal" class="p-2 bg-white rounded-full hover:bg-gray-200 transition-colors">
+              <Icon icon="mdi:close" class="text-gray-600" />
+            </button>
+          </div>
+
+          <div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
+            <div v-if="tableOrders.length === 0" class="text-center py-10 text-gray-400 flex flex-col items-center">
+              <Icon icon="mdi:cart-off" class="w-12 h-12 mb-2 opacity-50" />
+              <p>Hozircha buyurtmalar yo'q</p>
+            </div>
+
+            <div v-else class="space-y-3">
+              <div v-for="(item, idx) in tableOrders" :key="idx" class="flex gap-3 bg-white p-2 rounded-xl border border-gray-100 hover:shadow-sm transition-shadow">
+                <div class="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                  <img 
+                    v-if="item.image" 
+                    :src="item.image" 
+                    class="w-full h-full object-cover" 
+                    @error="$event.target.src='https://via.placeholder.com/150'" 
+                  />
+                  <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
+                    <Icon icon="mdi:image-off" />
+                  </div>
+                </div>
+                <div class="flex-1 flex flex-col justify-center">
+                  <h4 class="font-bold text-gray-800 text-sm line-clamp-1">{{ item.name }}</h4>
+                  <div class="flex justify-between items-center mt-1">
+                    <span class="text-xs text-gray-500">{{ item.qty || 1 }} x {{ formatPrice(item.price) }}</span>
+                    <span class="font-bold text-[#E93325] text-sm">{{ formatPrice(item.price * (item.qty || 1)) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-gray-50 border-t border-gray-100">
+            <div class="flex justify-between items-center mb-4 text-lg">
+              <span class="font-bold text-gray-700">Jami summa:</span>
+              <span class="font-extrabold text-[#E93325] text-xl">{{ formatPrice(modalTotalSum) }}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+               <button @click="handleFreeTable(selectedTable.id)" class="py-3 rounded-xl bg-red-100 text-red-600 font-bold text-sm hover:bg-red-200 transition-colors">
+                 Hisobni yopish
+               </button>
+               <button class="py-3 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                 <Icon icon="mdi:printer" /> Chek chiqarish
+               </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </transition>
+
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { tables, getOrdersForTable, freeTableWithTime, selectTable } from '../tableStore'
-
-const showModal = ref(false)
-const modalOrders = ref([])
-const modalTableId = ref(null)
-
-function viewOrders(tableId) {
-  modalTableId.value = tableId
-  modalOrders.value = getOrdersForTable(tableId)
-  showModal.value = true
-}
-
-function closeModal() {
-  showModal.value = false
-  modalOrders.value = []
-  modalTableId.value = null
-}
-
-function freeTable(id) {
-  freeTableWithTime(id)
-}
-function selectForTest(id) {
-  selectTable(id)
-  alert('Stol ' + id + ' tanlandi (test)')
-}
-
-const formatPrice = (p) => {
-  try { return new Intl.NumberFormat('uz-UZ').format(Number(p)) + " so'm" } catch { return p }
-}
-
-const formatDate = (iso) => {
-  try {
-    const d = new Date(iso)
-    return d.toLocaleString()
-  } catch { return iso }
-}
-</script>
-
 <style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
-<template>
-
-</template>
-
-
-<script setup>
-
-</script>

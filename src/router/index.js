@@ -4,6 +4,7 @@ import About from '../assets/about.vue'
 import ErrorPage from '../assets/error.vue'
 import menyu from '../assets/menyu.vue' 
 import stol from '../assets/stol.vue'
+import AdminPanel from '../assets/AdminPanel.vue'
 
 const routes = [
   { 
@@ -42,6 +43,11 @@ const routes = [
     name: 'Stol', 
     component: () => import('../assets/stol.vue') 
   },
+  {
+    path: '/admin',
+    name: 'AdminPanel',
+    component: AdminPanel
+  }
 ]
 
 const router = createRouter({
