@@ -18,7 +18,11 @@ const occupiedCount = computed(() => tables.value.filter(t => t.status === 'occu
 const availableCount = computed(() => totalTables.value - occupiedCount.value)
 
 const modalTotalSum = computed(() => {
-  return tableOrders.value.reduce((sum, item) => sum + (item.price * item.qty), 0)
+  return tableOrders.value.reduce((sum, item) => {
+    const price = Number(item.price ?? item.originalPrice) || 0
+    const qty = Number(item.qty) || 1
+    return sum + price * qty
+  }, 0)
 })
 
 const openOrderModal = (table) => {
@@ -205,8 +209,8 @@ const formatTime = (dateStr) => {
                 <div class="flex-1 flex flex-col justify-center">
                   <h4 class="font-bold text-gray-800 text-sm line-clamp-1">{{ item.name }}</h4>
                   <div class="flex justify-between items-center mt-1">
-                    <span class="text-xs text-gray-500">{{ item.qty || 1 }} x {{ formatPrice(item.price) }}</span>
-                    <span class="font-bold text-[#E93325] text-sm">{{ formatPrice(item.price * (item.qty || 1)) }}</span>
+                      <span class="text-xs text-gray-500">{{ item.qty || 1 }} x {{ formatPrice(Number(item.price ?? item.originalPrice) || 0) }}</span>
+                      <span class="font-bold text-[#E93325] text-sm">{{ formatPrice((Number(item.price ?? item.originalPrice) || 0) * (Number(item.qty) || 1)) }}</span>
                   </div>
                 </div>
               </div>
