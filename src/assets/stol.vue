@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { state } from '../tableStore'
 import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
 
 const router = useRouter()

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
+import { state } from '../tableStore'
 import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore'
 
 const filterStatus = ref('all') 
