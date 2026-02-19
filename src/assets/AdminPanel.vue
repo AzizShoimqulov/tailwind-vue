@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
-import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore' // tableStore manzili to'g'riligini tekshiring
+import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore'
 
 const filterStatus = ref('all') 
 const showModal = ref(false)
