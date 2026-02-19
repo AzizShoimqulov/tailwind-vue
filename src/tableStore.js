@@ -24,7 +24,28 @@ const loadOrders = () => {
   const stored = localStorage.getItem(ORDERS_KEY)
   if (stored) {
     try {
-      return JSON.parse(stored)
+      const raw = JSON.parse(stored)
+      // migrate/normalize stored orders: ensure numeric price/originalPrice and qty
+      const normalizePrice = (p) => {
+        if (p == null) return 0
+        if (typeof p === 'number') return p
+        // remove non-digit characters (spaces, currency symbols, apostrophes)
+        const cleaned = String(p).replace(/[^0-9.-]+/g, '')
+        const n = Number(cleaned)
+        return Number.isFinite(n) ? n : 0
+      }
+
+      const normalized = {}
+      Object.keys(raw).forEach(k => {
+        const arr = Array.isArray(raw[k]) ? raw[k] : []
+        normalized[k] = arr.map(it => ({
+          ...it,
+          price: normalizePrice(it.price ?? it.originalPrice),
+          originalPrice: normalizePrice(it.originalPrice ?? it.price),
+          qty: Number(it.qty) || 1
+        }))
+      })
+      return normalized
     } catch (e) {
       console.error('Buyurtma ma\'lumotlarini o\'qishda xatolik', e)
     }
