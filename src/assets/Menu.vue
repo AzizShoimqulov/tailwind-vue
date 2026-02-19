@@ -76,7 +76,6 @@ const filteredItems = computed(() => {
   return items
 })
 const handleAddToCart = (item) => {
-  // store numeric price values in the cart; formatting should happen in the UI only
   const cartItem = {
     id: item.id,
     name: item.name,
