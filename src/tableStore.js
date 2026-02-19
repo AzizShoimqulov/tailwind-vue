@@ -4,7 +4,8 @@ export const tables = ref(
   Array.from({ length: 20 }, (_, index) => ({
     id: index + 1,
     name: `${index + 1}-Stol`,
-    status: 'available'
+    status: 'available',
+    occupiedAt: null
   }))
 )
 
@@ -16,12 +17,18 @@ export function selectTable(id) {
 
 export function occupyTable(id) {
   const t = tables.value.find(x => x.id === id)
-  if (t) t.status = 'occupied'
+  if (t) {
+    t.status = 'occupied'
+    t.occupiedAt = new Date().toISOString()
+  }
 }
 
 export function freeTable(id) {
   const t = tables.value.find(x => x.id === id)
-  if (t) t.status = 'available'
+  if (t) {
+    t.status = 'available'
+    t.occupiedAt = null
+  }
 }
 export const tableOrders = ref({})
 
