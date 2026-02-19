@@ -28,7 +28,6 @@ const loadOrders = () => {
       const normalizePrice = (p) => {
         if (p == null) return 0
         if (typeof p === 'number') return p
-        // remove non-digit characters (spaces, currency symbols, apostrophes)
         const cleaned = String(p).replace(/[^0-9.-]+/g, '')
         const n = Number(cleaned)
         return Number.isFinite(n) ? n : 0
@@ -53,7 +52,6 @@ const loadOrders = () => {
 }
 
 export const tables = ref(loadTables())
-// store orders keyed by table id as strings to avoid type-mismatch between query/string and numeric ids
 export const tableOrders = ref(loadOrders())
 export const selectedTable = ref(null)
 
