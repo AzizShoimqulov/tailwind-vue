@@ -1,7 +1,6 @@
 import { reactive, computed } from 'vue'
 import { occupyTable, selectedTable, addOrderToTable } from './tableStore'
 
-// Use a reactive array so deep mutations (adding keys on items) are observed immediately
 export const cartItems = reactive([])
 export const cartCount = computed(() => cartItems.reduce((s, it) => s + (Number(it.qty) || 1), 0))
 

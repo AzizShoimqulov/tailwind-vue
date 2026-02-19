@@ -33,7 +33,6 @@ const loadOrders = () => {
   return {}
 }
 
-// normalize orders object (ensure numeric prices and qty)
 function normalizeOrders(raw) {
   if (!raw || typeof raw !== 'object') return {}
   const normalized = {}
@@ -56,7 +55,6 @@ function normalizeOrders(raw) {
   return normalized
 }
 
-// Listen for localStorage changes (cross-tab) and merge into reactive state
 if (typeof window !== 'undefined' && window.addEventListener) {
   window.addEventListener('storage', (e) => {
     try {
@@ -64,14 +62,12 @@ if (typeof window !== 'undefined' && window.addEventListener) {
       if (e.key === TABLES_KEY) {
         const parsed = JSON.parse(e.newValue || 'null')
         if (Array.isArray(parsed)) {
-          // replace array content reactively
           state.tables.splice(0, state.tables.length, ...parsed)
         }
       }
       if (e.key === ORDERS_KEY) {
         const parsed = JSON.parse(e.newValue || '{}')
         const normalized = normalizeOrders(parsed)
-        // replace object keys reactively
         Object.keys(state.orders).forEach(k => delete state.orders[k])
         Object.keys(normalized).forEach(k => { state.orders[k] = normalized[k] })
       }
