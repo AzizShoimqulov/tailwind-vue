@@ -7,7 +7,6 @@ import { tables, getOrdersForTable, freeTable as freeTableStore } from '../table
 const filterStatus = ref('all') 
 const showModal = ref(false)
 const selectedTable = ref(null)
-// derive orders for the selected table reactively so changes reflect immediately
 const tableOrders = computed(() => selectedTable.value ? getOrdersForTable(selectedTable.value.id) : [])
 
 const filteredTables = computed(() => {
