@@ -25,7 +25,6 @@ const loadOrders = () => {
   if (stored) {
     try {
       const raw = JSON.parse(stored)
-      // migrate/normalize stored orders: ensure numeric price/originalPrice and qty
       const normalizePrice = (p) => {
         if (p == null) return 0
         if (typeof p === 'number') return p
