@@ -33,6 +33,7 @@ const loadOrders = () => {
 }
 
 export const tables = ref(loadTables())
+// store orders keyed by table id as strings to avoid type-mismatch between query/string and numeric ids
 export const tableOrders = ref(loadOrders())
 export const selectedTable = ref(null)
 
@@ -49,11 +50,12 @@ watch(tableOrders, (newVal) => {
 
 
 export function selectTable(id) {
-  selectedTable.value = id
+  selectedTable.value = Number(id)
 }
 
 export function occupyTable(id) {
-  const t = tables.value.find(x => x.id === id)
+  const nid = Number(id)
+  const t = tables.value.find(x => x.id === nid)
   if (t) {
     t.status = 'occupied'
     if (!t.occupiedAt) {
@@ -63,42 +65,45 @@ export function occupyTable(id) {
 }
 
 export function freeTable(id) {
-  const t = tables.value.find(x => x.id === id)
+  const nid = Number(id)
+  const t = tables.value.find(x => x.id === nid)
   if (t) {
     t.status = 'available'
     t.occupiedAt = null
-    
-    if (tableOrders.value[id]) {
-      delete tableOrders.value[id]
+
+    const key = String(nid)
+    if (tableOrders.value[key]) {
+      delete tableOrders.value[key]
     }
   }
 }
 
 export function addOrderToTable(id, items) {
   if (!id) return
-  
-  if (!tableOrders.value[id]) {
-    tableOrders.value[id] = []
+  const key = String(id)
+
+  if (!tableOrders.value[key]) {
+    tableOrders.value[key] = []
   }
-  
+
   items.forEach(i => {
     const itemId = i.id
     if (!itemId) {
-      tableOrders.value[id].push({ ...i })
+      tableOrders.value[key].push({ ...i })
       return
     }
-    
-    const existing = tableOrders.value[id].find(x => x.id === itemId)
+
+    const existing = tableOrders.value[key].find(x => x.id === itemId)
     if (existing) {
       existing.qty = (existing.qty || 1) + (i.qty || 1)
     } else {
-      tableOrders.value[id].push({ ...i, qty: i.qty || 1 })
+      tableOrders.value[key].push({ ...i, qty: i.qty || 1 })
     }
   })
 }
 
 export function getOrdersForTable(id) {
-  return tableOrders.value[id] || []
+  return tableOrders.value[String(id)] || []
 }
 
 export default {
