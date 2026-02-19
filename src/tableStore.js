@@ -33,6 +33,54 @@ const loadOrders = () => {
   return {}
 }
 
+// normalize orders object (ensure numeric prices and qty)
+function normalizeOrders(raw) {
+  if (!raw || typeof raw !== 'object') return {}
+  const normalized = {}
+  const normalizePrice = (p) => {
+    if (p == null) return 0
+    if (typeof p === 'number') return p
+    const cleaned = String(p).replace(/[^0-9.-]+/g, '')
+    const n = Number(cleaned)
+    return Number.isFinite(n) ? n : 0
+  }
+  Object.keys(raw).forEach(k => {
+    const arr = Array.isArray(raw[k]) ? raw[k] : []
+    normalized[k] = arr.map(it => ({
+      ...it,
+      price: normalizePrice(it.price ?? it.originalPrice),
+      originalPrice: normalizePrice(it.originalPrice ?? it.price),
+      qty: Number(it.qty) || 1
+    }))
+  })
+  return normalized
+}
+
+// Listen for localStorage changes (cross-tab) and merge into reactive state
+if (typeof window !== 'undefined' && window.addEventListener) {
+  window.addEventListener('storage', (e) => {
+    try {
+      if (!e.key) return
+      if (e.key === TABLES_KEY) {
+        const parsed = JSON.parse(e.newValue || 'null')
+        if (Array.isArray(parsed)) {
+          // replace array content reactively
+          state.tables.splice(0, state.tables.length, ...parsed)
+        }
+      }
+      if (e.key === ORDERS_KEY) {
+        const parsed = JSON.parse(e.newValue || '{}')
+        const normalized = normalizeOrders(parsed)
+        // replace object keys reactively
+        Object.keys(state.orders).forEach(k => delete state.orders[k])
+        Object.keys(normalized).forEach(k => { state.orders[k] = normalized[k] })
+      }
+    } catch (err) {
+      console.error('storage event handling error', err)
+    }
+  })
+}
+
 export const state = reactive({
   tables: loadTables(),
   orders: loadOrders(),

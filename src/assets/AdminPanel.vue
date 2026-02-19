@@ -36,7 +36,6 @@ const closeModal = () => {
   showModal.value = false
   setTimeout(() => {
     selectedTable.value = null
-    tableOrders.value = []
   }, 300)
 }
 
