@@ -6,6 +6,8 @@ import { searchTerm } from './searchStore'
 import { cartCount, cartItems, removeFromCart, clearCart, placeOrder } from './cartStore'
 import { selectedTable } from './tableStore'
 import { useRouter } from 'vue-router'
+import { db } from './firebase'
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const { t, locale } = useI18n()
 

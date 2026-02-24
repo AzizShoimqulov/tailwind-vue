@@ -9,5 +9,7 @@
 <script setup>
 import Footer from './assets/footer.vue'
 import Todolist from './todolist.vue'
+import { db } from './firebase'
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 </script>
 
