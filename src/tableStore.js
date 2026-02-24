@@ -190,7 +190,6 @@ export function addOrderToTable(id, items) {
       state.orders[key].push({ ...i, qty: i.qty || 1 })
     }
   })
-  // persist orders to Firestore for this table
   if (isFirebaseConfigured) {
     try {
       setDoc(doc(db, 'orders', key), { items: state.orders[key] }).catch(console.error)
