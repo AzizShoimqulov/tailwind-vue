@@ -15,12 +15,18 @@ const routes = [
   { 
     path: '/Menu', 
     name: 'Menu', 
-    component: () => import('../assets/Menu.vue')
+    component: () => import('../assets/Menu.vue') 
   },
   { 
     path: '/menyu', 
     name: 'Menyu', 
     component: menyu 
+  },
+  { 
+    path: '/menyu/:id', 
+    name: 'Meal', 
+    component: () => import('../pages/menyu/[id].vue'), 
+    props: true 
   },
   { 
     path: '/about', 
