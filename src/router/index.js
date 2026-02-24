@@ -23,9 +23,9 @@ const routes = [
     component: menyu 
   },
   { 
-    path: '/menyu/:id', 
+    path: '/Menu/:id', 
     name: 'Meal', 
-    component: () => import('../pages/menyu/[id].vue'), 
+    component: () => import('../pages/Menu/id.vue'), 
     props: true 
   },
   { 
