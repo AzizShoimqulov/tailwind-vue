@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
-
+//aa
 const router = useRouter()
 
 const showOrders = ref(false)
