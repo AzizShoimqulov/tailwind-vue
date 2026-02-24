@@ -44,5 +44,4 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* small spacing tweaks if needed */
 </style>
