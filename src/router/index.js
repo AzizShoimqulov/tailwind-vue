@@ -7,41 +7,41 @@ import stol from '../assets/stol.vue'
 import AdminPanel from '../assets/AdminPanel.vue'
 
 const routes = [
-  { 
-    path: '/', 
-    name: 'Home', 
-    component: Home 
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
   },
-  { 
-    path: '/Menu', 
-    name: 'Menu', 
-    component: () => import('../assets/Menu.vue') 
+  {
+    path: '/Menu',
+    name: 'Menu',
+    component: () => import('../assets/Menu.vue')
   },
-  { 
-    path: '/menyu', 
-    name: 'Menyu', 
-    component: menyu 
+  {
+    path: '/menyu',
+    name: 'Menyu',
+    component: menyu
   },
-  { 
-    path: '/Menu/:id', 
-    name: 'Meal', 
-    component: () => import('../pages/Menu/id.vue'), 
-    props: true 
+  {
+    path: '/menyu/:id',
+    name: 'Meal',
+    component: () => import('../pages/menyu/id.vue'),
+    props: true
   },
-  { 
-    path: '/about', 
-    name: 'About', 
-    component: About 
+  {
+    path: '/about',
+    name: 'About',
+    component: About
   },
-  { 
-    path: '/:pathMatch(.*)*', 
-    name: 'NotFound', 
-    component: ErrorPage 
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: ErrorPage
   },
-    { 
-    path: '/stol', 
-    name: 'Stol', 
-    component: () => import('../assets/stol.vue') 
+  {
+    path: '/stol',
+    name: 'Stol',
+    component: () => import('../assets/stol.vue')
   },
   {
     path: '/admin',
