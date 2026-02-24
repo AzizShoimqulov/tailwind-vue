@@ -25,7 +25,8 @@ const routes = [
   { 
     path: '/menyu/:id', 
     name: 'Meal', 
-    component: () => import('../pages/menyu/[id].vue'), 
+    // Use a plain filename so Vite can resolve it reliably during dev
+    component: () => import('../pages/menyu/id.vue'), 
     props: true 
   },
   { 
