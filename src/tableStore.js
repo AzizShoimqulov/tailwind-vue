@@ -1,4 +1,6 @@
 import { reactive, watch, toRef } from 'vue'
+import { db, isFirebaseConfigured } from './firebase'
+import { collection, doc, setDoc, deleteDoc, onSnapshot } from 'firebase/firestore'
 
 const TABLES_KEY = 'restaurant_tables_data'
 const ORDERS_KEY = 'restaurant_orders_data'
@@ -100,6 +102,31 @@ watch(
   { deep: true }
 )
 
+// If Firebase is configured, setup realtime listeners to keep state in sync
+if (isFirebaseConfigured) {
+  try {
+    const tablesCol = collection(db, 'tables')
+    const ordersCol = collection(db, 'orders')
+
+    onSnapshot(tablesCol, (snap) => {
+      const arr = snap.docs.map(d => d.data()).filter(Boolean)
+      if (arr.length) {
+        state.tables.splice(0, state.tables.length, ...arr)
+      }
+    }, (err) => console.error('tables onSnapshot error', err))
+
+    onSnapshot(ordersCol, (snap) => {
+      const parsed = {}
+      snap.docs.forEach(d => { parsed[d.id] = d.data().items || [] })
+      // replace object keys reactively
+      Object.keys(state.orders).forEach(k => delete state.orders[k])
+      Object.keys(parsed).forEach(k => { state.orders[k] = parsed[k] })
+    }, (err) => console.error('orders onSnapshot error', err))
+  } catch (err) {
+    console.error('Firebase realtime setup error', err)
+  }
+}
+
 
 export function selectTable(id) {
   state.selectedTableId = Number(id)
@@ -112,6 +139,10 @@ export function occupyTable(id) {
     t.status = 'occupied'
     if (!t.occupiedAt) {
       t.occupiedAt = new Date().toISOString()
+    }
+    // persist to Firestore if configured
+    if (isFirebaseConfigured) {
+      try { setDoc(doc(db, 'tables', String(nid)), { ...t }).catch(console.error) } catch(e) { console.error(e) }
     }
   }
 }
@@ -126,6 +157,12 @@ export function freeTable(id) {
     const key = String(nid)
     if (state.orders[key]) {
       delete state.orders[key]
+    }
+    if (isFirebaseConfigured) {
+      try {
+        setDoc(doc(db, 'tables', String(nid)), { ...t }).catch(console.error)
+        deleteDoc(doc(db, 'orders', key)).catch(console.error)
+      } catch(e) { console.error(e) }
     }
   }
 }
@@ -153,6 +190,12 @@ export function addOrderToTable(id, items) {
       state.orders[key].push({ ...i, qty: i.qty || 1 })
     }
   })
+  // persist orders to Firestore for this table
+  if (isFirebaseConfigured) {
+    try {
+      setDoc(doc(db, 'orders', key), { items: state.orders[key] }).catch(console.error)
+    } catch(e) { console.error(e) }
+  }
 }
 
 export function getOrdersForTable(id) {
