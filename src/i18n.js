@@ -43,7 +43,7 @@ const messages = {
       address_line2: "Amir Temur street 7/9",
       address_note: "Landmark: Karshi State University",
       phones: ['+998 20 005-10-11', '+998 20 005-50-11'],
-      email: 'info@beyouglikarshi.uz',
+      email: "info{'@'}beyouglikarshi.uz",
       hours_heading: 'Opening hours',
       everyday: 'Every day:',
       copyright: '© 2025 Beyougli Karshi. All rights reserved.'
@@ -101,7 +101,7 @@ const messages = {
       address_line2: "Amir Temur ko'chasi 7/9 uy",
       address_note: "Mo'ljal: Qarshi davlat universiteti",
       phones: ['+998 20 005-10-11', '+998 20 005-50-11'],
-      email: 'info@beyouglikarshi.uz',
+      email: "info{'@'}beyouglikarshi.uz",
       hours_heading: 'Ish vaqti',
       everyday: 'Har kuni:',
       copyright: '© 2025 Beyoglu Karshi. Barcha huquqlar himoyalangan.'
@@ -159,7 +159,7 @@ const messages = {
       address_line2: 'Amir Temur caddesi 7/9',
       address_note: 'Referans: Karshi Devlet Üniversitesi',
       phones: ['+998 20 005-10-11', '+998 20 005-50-11'],
-      email: 'info@beyouglikarshi.uz',
+      email: "info{'@'}beyouglikarshi.uz",
       hours_heading: 'Çalışma saatleri',
       everyday: 'Her gün:',
       copyright: '© 2025 Beyoglu Karshi. Tüm hakları saklıdır.'
