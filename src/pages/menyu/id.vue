@@ -1,63 +1,135 @@
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+
+const meal = ref(null)
+const loading = ref(true)
+const error = ref(null)
+
+const mealId = route.params.id
+
+const formatPrice = (p) => {
+  try { 
+    return new Intl.NumberFormat('uz-UZ').format(p) + " so'm" 
+  } catch { 
+    return p 
+  }
+}
+
+const fetchMealById = async () => {
+  try {
+    loading.value = true
+    const res = await fetch('https://beyoglu-karshi.uz/api/api/meals')
+    
+    if (!res.ok) {
+      throw new Error(`HTTP xatolik: ${res.status}`)
+    }
+    
+    const data = await res.json()
+
+    if (data && Array.isArray(data.meals)) {
+      const foundMeal = data.meals.find(item => item.id == mealId)
+
+      if (foundMeal) {
+        let fixedImage = foundMeal.image;
+        if (fixedImage) {
+          fixedImage = fixedImage.replace('http://localhost:5000', 'https://beyoglu-karshi.uz/api');
+        }
+        
+        meal.value = {
+          ...foundMeal,
+          image: fixedImage
+        }
+      } else {
+        throw new Error("Bunday ovqat topilmadi")
+      }
+    } else {
+      throw new Error("Ma'lumotlar formati noto'g'ri")
+    }
+  } catch (e) {
+    console.error("Xatolik:", e)
+    error.value = 'Ma\'lumotni yuklashda xatolik yuz berdi yoki ovqat topilmadi.'
+  } finally {
+    loading.value = false
+  }
+}
+
+const goBack = () => {
+  router.back() 
+}
+
+onMounted(() => {
+  fetchMealById()
+})
+</script>
+
 <template>
-  <section class="min-h-screen pt-28 sm:pt-32 pb-10 px-4 bg-gray-50">
-    <div class="max-w-3xl mx-auto">
-      <div class="mb-4">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Meal details</h1>
-        <p class="text-sm text-gray-500 mt-1">ID: {{ id }}</p>
-      </div>
+  <div class="bg-gray-50 min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <div v-if="loading" class="flex flex-col items-center justify-center min-h-[50vh]">
+      <div class="animate-spin rounded-full h-12 w-12 border-4 border-[#E93325] border-t-transparent"></div>
+      <p class="mt-4 text-gray-500 font-medium">Yuklanmoqda...</p>
+    </div>
 
-      <div v-if="error" class="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
-        Error loading meal: {{ errorMessage }}
-      </div>
+    <div v-else-if="error" class="flex flex-col items-center justify-center min-h-[50vh] text-center">
+      <p class="text-xl font-bold text-red-500 mb-4">{{ error }}</p>
+      <button @click="goBack" class="px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">
+        Ortga qaytish
+      </button>
+    </div>
 
-      <div v-else-if="meal" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div v-else class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+      
+      <div class="relative h-[300px] sm:h-[400px] md:h-[500px]">
+        <button 
+          @click="goBack" 
+          class="absolute top-4 left-4 z-10 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+
         <img
           v-if="meal.image"
           :src="meal.image"
           :alt="meal.name"
-          class="w-full h-64 object-cover"
+          class="w-full h-full object-cover"
+          @error="$event.target.src = 'https://via.placeholder.com/800x600?text=Rasm+yoq'"
         />
-        <div class="p-5 sm:p-6">
-          <h2 class="text-xl sm:text-2xl font-bold text-gray-900">{{ meal.name }}</h2>
-          <p class="mt-3 text-gray-600">{{ meal.description || 'No description' }}</p>
-          <p class="mt-4 text-lg font-semibold text-[#E93325]">Price: {{ meal.price }}</p>
+        <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-xl">
+          Rasm mavjud emas
         </div>
       </div>
+      <div class="p-6 sm:p-10">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+          
+          <div class="flex-1">
+            <span v-if="meal.category_info" class="inline-block bg-red-50 text-[#E93325] px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider mb-4 border border-red-100">
+              {{ meal.category_info.name }}
+            </span>
 
-      <div v-else class="rounded-xl border border-gray-200 bg-white p-4 text-gray-600">
-        Loading...
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
+              {{ meal.name }}
+            </h1>
+
+            <div class="prose prose-lg text-gray-600 mb-8">
+              <p>{{ meal.description || 'Tavsif mavjud emas.' }}</p>
+            </div>
+          </div>
+          <div class="w-full md:w-80 bg-gray-50 p-6 rounded-2xl border border-gray-100 sticky top-4">
+            <p class="text-sm text-gray-500 font-medium mb-1 uppercase tracking-wide">Jami narx</p>
+            <p class="text-3xl font-bold text-[#E93325] mb-6">{{ formatPrice(meal.price) }}</p>
+            <p class="text-xs text-gray-400 text-center mt-4">
+              Yetkazib berish xizmati mavjud
+            </p>
+          </div>
+
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
-
-<script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
-
-const route = useRoute()
-const id = route.params.id
-const meal = ref(null)
-const error = ref(false)
-const errorMessage = ref('')
-
-onMounted(async () => {
-  try {
-    const res = await axios.get(`https://beyoglu-karshi.uz/api/api/meals/${id}`)
-    const payload = res.data
-    meal.value = payload?.meal || payload?.data || payload
-  } catch (err) {
-    error.value = true
-    if (err.response) {
-      errorMessage.value = `Status ${err.response.status}: ${err.response.statusText}`
-    } else {
-      errorMessage.value = err.message
-    }
-    console.error('Failed to load meal', err)
-  }
-})
-</script>
-
-<style scoped>
-</style>
