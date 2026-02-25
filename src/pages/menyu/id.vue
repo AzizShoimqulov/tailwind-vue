@@ -2,9 +2,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n()
 
 const meal = ref(null)
 const loading = ref(true)
@@ -45,14 +47,14 @@ const fetchMealById = async () => {
           image: fixedImage
         }
       } else {
-        throw new Error("Bunday ovqat topilmadi")
+        throw new Error(t('meal.not_found'))
       }
     } else {
-      throw new Error("Ma'lumotlar formati noto'g'ri")
+      throw new Error(t('meal.bad_format'))
     }
   } catch (e) {
     console.error("Xatolik:", e)
-    error.value = 'Ma\'lumotni yuklashda xatolik yuz berdi yoki ovqat topilmadi.'
+    error.value = t('meal.load_error')
   } finally {
     loading.value = false
   }
@@ -71,13 +73,13 @@ onMounted(() => {
   <div class="bg-gray-50 min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8">
     <div v-if="loading" class="flex flex-col items-center justify-center min-h-[50vh]">
       <div class="animate-spin rounded-full h-12 w-12 border-4 border-[#E93325] border-t-transparent"></div>
-      <p class="mt-4 text-gray-500 font-medium">Yuklanmoqda...</p>
+      <p class="mt-4 text-gray-500 font-medium">{{ t('meal.loading') }}</p>
     </div>
 
     <div v-else-if="error" class="flex flex-col items-center justify-center min-h-[50vh] text-center">
       <p class="text-xl font-bold text-red-500 mb-4">{{ error }}</p>
       <button @click="goBack" class="px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">
-        Ortga qaytish
+        {{ t('meal.back') }}
       </button>
     </div>
 
@@ -98,10 +100,10 @@ onMounted(() => {
           :src="meal.image"
           :alt="meal.name"
           class="w-full h-full object-cover"
-          @error="$event.target.src = 'https://via.placeholder.com/800x600?text=Rasm+yoq'"
+          @error="$event.target.src = 'https://via.placeholder.com/800x600?text=' + encodeURIComponent(t('tables.no_image'))"
         />
         <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-xl">
-          Rasm mavjud emas
+          {{ t('tables.no_image') }}
         </div>
       </div>
       <div class="p-6 sm:p-10">
@@ -117,14 +119,14 @@ onMounted(() => {
             </h1>
 
             <div class="prose prose-lg text-gray-600 mb-8">
-              <p>{{ meal.description || 'Tavsif mavjud emas.' }}</p>
+              <p>{{ meal.description || t('meal.no_description') }}</p>
             </div>
           </div>
           <div class="w-full md:w-80 bg-gray-50 p-6 rounded-2xl border border-gray-100 sticky top-4">
-            <p class="text-sm text-gray-500 font-medium mb-1 uppercase tracking-wide">Jami narx</p>
+            <p class="text-sm text-gray-500 font-medium mb-1 uppercase tracking-wide">{{ t('meal.total_price') }}</p>
             <p class="text-3xl font-bold text-[#E93325] mb-6">{{ formatPrice(meal.price) }}</p>
             <p class="text-xs text-gray-400 text-center mt-4">
-              Yetkazib berish xizmati mavjud
+              {{ t('meal.delivery_available') }}
             </p>
           </div>
 

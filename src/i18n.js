@@ -22,6 +22,12 @@ const messages = {
       ]
     },
     read_more: 'Read more',
+    categories: {
+      lead: 'We serve the most delicious Turkish dishes',
+      title_prefix: 'We offer you the most enjoyable and convenient way',
+      title_highlight: 'delicious',
+      title_suffix: 'to enjoy Turkish cuisine.'
+    },
     menu: {
       title: 'Our Menus',
       loading: 'Menu is loading...',
@@ -58,6 +64,38 @@ const messages = {
       paragraph2: "Here you can enjoy not only delicious kebabs and pides, but also desserts made from special recipes and authentic Turkish tea. Our goal is to make every guest feel like they are walking the streets of Istanbul.",
       features: ['Halal Ingredients','Professional Chefs','Fast Delivery','Cozy Atmosphere'],
       view_menu: "View Menu"
+    },
+    tables: {
+      title: 'Restaurant Hall',
+      subtitle: 'Choose a table to place an order',
+      table: 'Table',
+      orders_title: 'Orders',
+      no_orders: 'No orders found',
+      total: 'Total',
+      free: 'Free table',
+      close: 'Close',
+      no_image: 'No image'
+    },
+    error_page: {
+      badge: 'Error!',
+      not_found: 'Page not found',
+      server_error: 'Server error',
+      unknown: 'Unknown error',
+      description: 'Sorry, the page you are looking for was not found or may have been moved.',
+      home: 'Home',
+      back: 'Go back'
+    },
+    meal: {
+      details: 'Meal details',
+      no_description: 'No description',
+      price: 'Price',
+      total_price: 'Total price',
+      delivery_available: 'Delivery service available',
+      back: 'Go back',
+      not_found: 'Meal not found',
+      bad_format: 'Invalid data format',
+      load_error: 'Failed to load meal details.',
+      loading: 'Loading...'
     }
   },
   uz: {
@@ -80,6 +118,12 @@ const messages = {
       ]
     },
     read_more: 'Batafsil',
+    categories: {
+      lead: 'Turk oshxonasining eng mazali taomlarini taqdim etamiz',
+      title_prefix: 'Sizga turk taomlaridan bahramand bo‘lishning',
+      title_highlight: 'eng mazali',
+      title_suffix: 'va qulay usulini taklif qilamiz.'
+    },
     menu: {
       title: 'Bizning Menyular',
       loading: "Menyu yuklanmoqda...",
@@ -116,6 +160,38 @@ const messages = {
       paragraph2: "Siz bizda nafaqat mazali kaboblar va pidelarni, balki maxsus retsept asosida tayyorlangan shirinliklar va haqiqiy turk choyini ham tatib ko'rishingiz mumkin. Bizning maqsadimiz — har bir mehmonimizga o'zini xuddi Istanbulda yurgandek his qildirishdir.",
       features: ['Halol Masalliqlar','Professional Oshpazlar','Tezkor Yetkazib Berish','Shinam Muhit'],
       view_menu: "Menyuni ko'rish"
+    },
+    tables: {
+      title: 'Restoran Zali',
+      subtitle: 'Buyurtma berish uchun stolni tanlang',
+      table: 'Stol',
+      orders_title: 'Buyurtmalar',
+      no_orders: 'Buyurtma topilmadi',
+      total: 'Jami',
+      free: "Bo'shatish",
+      close: 'Yopish',
+      no_image: "Rasm yo'q"
+    },
+    error_page: {
+      badge: 'Xatolik!',
+      not_found: 'Sahifa topilmadi',
+      server_error: 'Server xatosi',
+      unknown: "Noma'lum xatolik",
+      description: "Kechirasiz, siz qidirayotgan sahifa topilmadi yoki ko'chirilgan bo'lishi mumkin.",
+      home: 'Bosh sahifa',
+      back: 'Orqaga qaytish'
+    },
+    meal: {
+      details: 'Taom tafsilotlari',
+      no_description: "Tavsif yo'q",
+      price: 'Narx',
+      total_price: 'Jami narx',
+      delivery_available: 'Yetkazib berish xizmati mavjud',
+      back: 'Ortga qaytish',
+      not_found: 'Bunday ovqat topilmadi',
+      bad_format: "Ma'lumotlar formati noto'g'ri",
+      load_error: "Ma'lumotni yuklashda xatolik yuz berdi yoki ovqat topilmadi.",
+      loading: 'Yuklanmoqda...'
     }
   },
   tr: {
@@ -138,6 +214,12 @@ const messages = {
       ]
     },
     read_more: 'Daha fazla',
+    categories: {
+      lead: 'En lezzetli Türk yemeklerini sunuyoruz',
+      title_prefix: 'Size Türk mutfağının tadını çıkarmanın',
+      title_highlight: 'en lezzetli',
+      title_suffix: 've en pratik yolunu sunuyoruz.'
+    },
     menu: {
       title: 'Menülerimiz',
       loading: 'Menü yükleniyor...',
@@ -174,13 +256,48 @@ const messages = {
       paragraph2: "Burada sadece lezzetli kebaplar ve pideleri değil, aynı zamanda özel tariflerle hazırlanan tatlıları ve gerçek Türk çayını da tadabilirsiniz. Amacımız, her konuğumuzu İstanbul'da gibi hissettirmektir.",
       features: ['Helal Malzemeler','Profesyonel Aşçılar','Hızlı Teslimat','Sıcak Ortam'],
       view_menu: 'Menüyü Gör'
+    },
+    tables: {
+      title: 'Restoran Salonu',
+      subtitle: 'Sipariş vermek için masa seçin',
+      table: 'Masa',
+      orders_title: 'Siparişler',
+      no_orders: 'Sipariş bulunamadı',
+      total: 'Toplam',
+      free: 'Boşalt',
+      close: 'Kapat',
+      no_image: 'Görsel yok'
+    },
+    error_page: {
+      badge: 'Hata!',
+      not_found: 'Sayfa bulunamadı',
+      server_error: 'Sunucu hatası',
+      unknown: 'Bilinmeyen hata',
+      description: 'Üzgünüz, aradığınız sayfa bulunamadı veya taşınmış olabilir.',
+      home: 'Ana sayfa',
+      back: 'Geri dön'
+    },
+    meal: {
+      details: 'Yemek detayları',
+      no_description: 'Açıklama yok',
+      price: 'Fiyat',
+      total_price: 'Toplam fiyat',
+      delivery_available: 'Teslimat hizmeti mevcut',
+      back: 'Geri dön',
+      not_found: 'Yemek bulunamadı',
+      bad_format: 'Geçersiz veri formatı',
+      load_error: 'Yemek detayları yüklenemedi.',
+      loading: 'Yükleniyor...'
     }
   }
 }
 
+const savedLocale =
+  typeof window !== 'undefined' ? localStorage.getItem('user-locale') : null
+
 const i18n = createI18n({
   legacy: false,
-  locale: 'uz',
+  locale: savedLocale || 'uz',
   fallbackLocale: 'en',
   messages
 })

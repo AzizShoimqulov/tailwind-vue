@@ -1,9 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const showOrders = ref(false)
 const activeTableId = ref(null)
@@ -44,8 +46,8 @@ const formatPrice = (p) => {
 <template>
   <div class="min-h-screen mt-20 bg-gray-50 p-8">
     <header class="mb-8 text-center">
-      <h1 class="text-3xl font-bold text-gray-800">Restoran Zali</h1>
-      <p class="text-gray-500 mt-2">Buyurtma berish uchun stolni tanlang</p>
+      <h1 class="text-3xl font-bold text-gray-800">{{ t('tables.title') }}</h1>
+      <p class="text-gray-500 mt-2">{{ t('tables.subtitle') }}</p>
     </header>
 
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
@@ -66,7 +68,7 @@ const formatPrice = (p) => {
         </div>
 
         <h2 class="text-2xl font-bold">№{{ table.id }}</h2>
-        <p class="text-sm text-gray-500 font-medium">Stol</p>
+        <p class="text-sm text-gray-500 font-medium">{{ t('tables.table') }}</p>
         <div class="absolute inset-0 rounded-xl ring-2 ring-transparent group-hover:ring-blue-400 pointer-events-none"></div>
       </div>
 
@@ -75,16 +77,16 @@ const formatPrice = (p) => {
     <div v-if="showOrders" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div class="bg-white rounded-xl max-w-lg w-full p-6">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-bold">Stol №{{ activeTableId }} - Buyurtmalar</h3>
+          <h3 class="text-lg font-bold">{{ t('tables.table') }} №{{ activeTableId }} - {{ t('tables.orders_title') }}</h3>
           <button @click="closeOrders" class="text-gray-500 hover:text-gray-800">✕</button>
         </div>
-        <div v-if="activeOrders.length === 0" class="py-6 text-center text-gray-500">Buyurtma topilmadi</div>
+        <div v-if="activeOrders.length === 0" class="py-6 text-center text-gray-500">{{ t('tables.no_orders') }}</div>
         <div v-else class="max-h-72 overflow-y-auto pr-2">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div v-for="(o, idx) in activeOrders" :key="idx" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
               <div class="relative h-28 overflow-hidden bg-gray-100">
-                <img v-if="o.image" :src="o.image" :alt="o.name" class="w-full h-full object-cover" @error="$event.target.src = 'https://via.placeholder.com/400x300?text=No+Image'" />
-                <div v-else class="w-full h-full flex items-center justify-center text-gray-400">Rasm yo'q</div>
+                <img v-if="o.image" :src="o.image" :alt="o.name" class="w-full h-full object-cover" @error="$event.target.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(t('tables.no_image'))" />
+                <div v-else class="w-full h-full flex items-center justify-center text-gray-400">{{ t('tables.no_image') }}</div>
               </div>
               <div class="p-3 flex flex-col flex-grow">
                 <div class="flex justify-between items-start gap-2">
@@ -93,7 +95,7 @@ const formatPrice = (p) => {
                 </div>
                 <div class="text-xs text-gray-500 line-clamp-2 mt-1">{{ o.description || '' }}</div>
                 <div class="mt-auto pt-3 flex items-center justify-between">
-                  <div class="text-sm text-gray-400 uppercase tracking-wider">Jami</div>
+                  <div class="text-sm text-gray-400 uppercase tracking-wider">{{ t('tables.total') }}</div>
                   <div class="text-lg font-bold text-[#E93325]">{{ formatPrice((o.originalPrice || 0) * (o.qty || 1)) }}</div>
                 </div>
               </div>
@@ -101,8 +103,8 @@ const formatPrice = (p) => {
           </div>
         </div>
         <div class="mt-4 flex justify-end gap-2">
-          <button @click="handleFreeTable" class="px-3 py-2 bg-red-100 text-red-600 rounded">Bo'shatish</button>
-          <button @click="closeOrders" class="px-3 py-2 bg-gray-100 rounded">Yopish</button>
+          <button @click="handleFreeTable" class="px-3 py-2 bg-red-100 text-red-600 rounded">{{ t('tables.free') }}</button>
+          <button @click="closeOrders" class="px-3 py-2 bg-gray-100 rounded">{{ t('tables.close') }}</button>
         </div>
       </div>
     </div>

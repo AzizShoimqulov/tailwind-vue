@@ -7,7 +7,7 @@
                text-sm sm:text-base md:text-lg lg:text-xl
                animate-fade-up"
       >
-        Türk mutfağının en lezzetli yemeklerini sunuyoruz
+        {{ t('categories.lead') }}
       </p>
 
       <h1 
@@ -15,8 +15,8 @@
                text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl
                max-w-4xl mx-auto"
       >
-        Biz sizga turk taomlaridan bahramand bo‘lishning 
-        <span class="text-[#E93325]">eng mazali</span> va qulay usulini taklif qilamiz.
+        {{ t('categories.title_prefix') }} 
+        <span class="text-[#E93325]">{{ t('categories.title_highlight') }}</span> {{ t('categories.title_suffix') }}
       </h1>
 
       <div class="w-24 h-1.5 bg-[#E93325] mx-auto mt-8 rounded-full opacity-80"></div>
@@ -26,6 +26,9 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>

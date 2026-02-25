@@ -26,11 +26,15 @@ const currentLang = computed(() => {
   return languages.find(lang => lang.code === locale.value) || languages[0]
 })
 
-const navItems = computed(() => [
-  { id: 1, name: t('nav.home'), link: '/' },
-  { id: 2, name: t('nav.menu'), link: '/menyu' },
-  { id: 3, name: t('nav.about'), link: '/about' },
-])
+const navItems = computed(() => {
+  // make locale an explicit reactive dependency
+  locale.value
+  return [
+    { id: 1, name: t('nav.home'), link: '/' },
+    { id: 2, name: t('nav.menu'), link: '/menyu' },
+    { id: 3, name: t('nav.about'), link: '/about' }
+  ]
+})
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20
