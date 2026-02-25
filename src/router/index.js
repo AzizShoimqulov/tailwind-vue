@@ -13,14 +13,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/Menu',
-    name: 'Menu',
-    component: () => import('../assets/Menu.vue')
-  },
-  {
     path: '/menyu',
     name: 'Menyu',
     component: menyu
+  },
+  {
+    path: '/Menu',
+    name: 'Menu',
+    component: () => import('../assets/Menu.vue')
   },
   {
     path: '/menyu/:id',

@@ -9,8 +9,6 @@ import * as firebase from './firebase'
 
 const app = createApp(App)
 
-// make Firebase services available globally in components as:
-// this.$firebase (object), this.$db, this.$auth, this.$storage, this.$rtdb
 app.config.globalProperties.$firebase = firebase.default || firebase
 app.config.globalProperties.$db = firebase.db
 app.config.globalProperties.$auth = firebase.auth
