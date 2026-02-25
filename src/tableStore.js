@@ -5,22 +5,42 @@ import { collection, doc, setDoc, deleteDoc, onSnapshot } from 'firebase/firesto
 const TABLES_KEY = 'restaurant_tables_data'
 const ORDERS_KEY = 'restaurant_orders_data'
 
+const createDefaultTable = (id) => ({
+  id,
+  name: `${id}-Stol`,
+  status: 'available',
+  occupiedAt: null
+})
+
+const normalizeTables = (raw) => {
+  const source = Array.isArray(raw) ? raw : []
+  const byId = new Map()
+
+  source.forEach((t) => {
+    const id = Number(t?.id)
+    if (Number.isFinite(id) && id >= 1 && id <= 20) {
+      byId.set(id, {
+        ...createDefaultTable(id),
+        ...t,
+        id
+      })
+    }
+  })
+
+  return Array.from({ length: 20 }, (_, i) => byId.get(i + 1) || createDefaultTable(i + 1))
+}
+
 
 const loadTables = () => {
   const stored = localStorage.getItem(TABLES_KEY)
   if (stored) {
     try {
-      return JSON.parse(stored)
+      return normalizeTables(JSON.parse(stored))
     } catch (e) {
       console.error('Stol ma\'lumotlarini o\'qishda xatolik', e)
     }
   }
-  return Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    name: `${index + 1}-Stol`,
-    status: 'available',
-    occupiedAt: null
-  }))
+  return normalizeTables([])
 }
 
 const loadOrders = () => {
@@ -64,7 +84,7 @@ if (typeof window !== 'undefined' && window.addEventListener) {
       if (e.key === TABLES_KEY) {
         const parsed = JSON.parse(e.newValue || 'null')
         if (Array.isArray(parsed)) {
-          state.tables.splice(0, state.tables.length, ...parsed)
+          state.tables.splice(0, state.tables.length, ...normalizeTables(parsed))
         }
       }
       if (e.key === ORDERS_KEY) {
@@ -110,9 +130,7 @@ if (isFirebaseConfigured) {
 
     onSnapshot(tablesCol, (snap) => {
       const arr = snap.docs.map(d => d.data()).filter(Boolean)
-      if (arr.length) {
-        state.tables.splice(0, state.tables.length, ...arr)
-      }
+      state.tables.splice(0, state.tables.length, ...normalizeTables(arr))
     }, (err) => console.error('tables onSnapshot error', err))
 
     onSnapshot(ordersCol, (snap) => {
