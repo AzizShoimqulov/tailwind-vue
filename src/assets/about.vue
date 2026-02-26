@@ -40,7 +40,6 @@
             <Icon icon="mdi:arrow-right" class="w-5 h-5" />
           </router-link>
         </div>
-
       </div>
     </div>
   </section>
