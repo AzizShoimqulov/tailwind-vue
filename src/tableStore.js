@@ -154,7 +154,6 @@ if (isFirebaseConfigured) {
         const hasLocalTs = Number.isFinite(localTs)
         const hasIncomingTs = Number.isFinite(incomingTs)
 
-        // Ignore stale remote snapshots if local state is newer.
         if (hasLocalTs && (!hasIncomingTs || incomingTs < localTs)) {
           return table
         }
@@ -169,9 +168,24 @@ if (isFirebaseConfigured) {
       const parsed = {}
       snap.docs.forEach(d => { parsed[d.id] = d.data().items || [] })
       const normalized = normalizeOrders(parsed)
-      // replace object keys reactively
-      Object.keys(state.orders).forEach(k => delete state.orders[k])
-      Object.keys(normalized).forEach(k => { state.orders[k] = normalized[k] })
+
+      // Keep local occupied table orders if remote snapshot is temporarily empty/stale.
+      const incomingKeys = new Set(Object.keys(normalized))
+
+      Object.keys(state.orders).forEach((k) => {
+        if (incomingKeys.has(k)) return
+        const tableId = Number(k)
+        const table = state.tables.find((t) => t.id === tableId)
+        const isOccupied = table?.status === 'occupied'
+
+        if (!isOccupied) {
+          delete state.orders[k]
+        }
+      })
+
+      Object.keys(normalized).forEach((k) => {
+        state.orders[k] = normalized[k]
+      })
     }, (err) => console.error('orders onSnapshot error', err))
   } catch (err) {
     console.error('Firebase realtime setup error', err)
