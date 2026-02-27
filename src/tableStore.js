@@ -47,7 +47,7 @@ const loadOrders = () => {
   const stored = localStorage.getItem(ORDERS_KEY)
   if (stored) {
     try {
-      return JSON.parse(stored)
+      return normalizeOrders(JSON.parse(stored))
     } catch (e) {
       console.error('Buyurtma xatoligi', e)
     }
@@ -129,16 +129,36 @@ if (isFirebaseConfigured) {
     const ordersCol = collection(db, 'orders')
 
     onSnapshot(tablesCol, (snap) => {
-      const arr = snap.docs.map(d => d.data()).filter(Boolean)
-      state.tables.splice(0, state.tables.length, ...normalizeTables(arr))
+      const byId = new Map()
+      snap.docs.forEach((d) => {
+        const raw = d.data()
+        if (!raw) return
+        const id = Number(raw.id ?? d.id)
+        if (!Number.isFinite(id) || id < 1 || id > 20) return
+        byId.set(id, {
+          ...createDefaultTable(id),
+          ...raw,
+          id
+        })
+      })
+
+      if (byId.size === 0) return
+
+      const merged = state.tables.map((table) => {
+        const incoming = byId.get(table.id)
+        return incoming ? { ...table, ...incoming, id: table.id } : table
+      })
+
+      state.tables.splice(0, state.tables.length, ...merged)
     }, (err) => console.error('tables onSnapshot error', err))
 
     onSnapshot(ordersCol, (snap) => {
       const parsed = {}
       snap.docs.forEach(d => { parsed[d.id] = d.data().items || [] })
+      const normalized = normalizeOrders(parsed)
       // replace object keys reactively
       Object.keys(state.orders).forEach(k => delete state.orders[k])
-      Object.keys(parsed).forEach(k => { state.orders[k] = parsed[k] })
+      Object.keys(normalized).forEach(k => { state.orders[k] = normalized[k] })
     }, (err) => console.error('orders onSnapshot error', err))
   } catch (err) {
     console.error('Firebase realtime setup error', err)
