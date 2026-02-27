@@ -64,6 +64,15 @@ const formatPrice = (p) => {
   return new Intl.NumberFormat('uz-UZ').format(p) + " so'm"
 }
 
+const getTableTotal = (tableId) => {
+  const orders = getOrdersForTable(tableId)
+  return orders.reduce((sum, item) => {
+    const price = Number(item.price ?? item.originalPrice) || 0
+    const qty = Number(item.qty) || 1
+    return sum + price * qty
+  }, 0)
+}
+
 const formatTime = (dateStr) => {
   if (!dateStr) return '-'
   const date = new Date(dateStr)
@@ -153,8 +162,25 @@ const formatTime = (dateStr) => {
           </div>
 
           <div class="p-4 flex-1 flex flex-col justify-end gap-3">
-             <div v-if="table.status === 'occupied'" class="text-sm text-gray-600 mb-2">
-                Buyurtmalar mavjud
+             <div v-if="table.status === 'occupied'" class="mb-2">
+                <div v-if="getOrdersForTable(table.id).length === 0" class="text-sm text-gray-400 italic">
+                  Hozircha buyurtmalar yo'q
+                </div>
+                <div v-else class="space-y-2">
+                  <div class="max-h-28 overflow-y-auto custom-scrollbar rounded-lg border border-gray-100 bg-gray-50 p-2 space-y-1">
+                    <div
+                      v-for="(item, idx) in getOrdersForTable(table.id)"
+                      :key="idx"
+                      class="flex items-center justify-between gap-2 text-xs"
+                    >
+                      <span class="text-gray-700 truncate">{{ item.name }}</span>
+                      <span class="font-bold text-gray-800 shrink-0">{{ item.qty || 1 }}x</span>
+                    </div>
+                  </div>
+                  <div class="text-xs font-semibold text-gray-700">
+                    Jami: <span class="text-[#E93325]">{{ formatPrice(getTableTotal(table.id)) }}</span>
+                  </div>
+                </div>
              </div>
              <div v-else class="text-sm text-gray-400 italic mb-2">
                 Buyurtma yo'q
@@ -163,16 +189,8 @@ const formatTime = (dateStr) => {
              <div class="grid grid-cols-2 gap-2 mt-auto">
                <button 
                  v-if="table.status === 'occupied'"
-                 @click="openOrderModal(table)"
-                 class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors"
-               >
-                 <Icon icon="mdi:eye" /> Ko'rish
-               </button>
-               
-               <button 
-                 v-if="table.status === 'occupied'"
                  @click="handleFreeTable(table.id)"
-                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-1"
+                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-2"
                >
                  <Icon icon="mdi:lock-open-variant" /> Bo'shatish
                </button>
