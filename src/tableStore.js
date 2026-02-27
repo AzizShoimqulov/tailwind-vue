@@ -169,7 +169,6 @@ if (isFirebaseConfigured) {
       snap.docs.forEach(d => { parsed[d.id] = d.data().items || [] })
       const normalized = normalizeOrders(parsed)
 
-      // Keep local occupied table orders if remote snapshot is temporarily empty/stale.
       const incomingKeys = new Set(Object.keys(normalized))
 
       Object.keys(state.orders).forEach((k) => {

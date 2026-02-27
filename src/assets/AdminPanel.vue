@@ -135,46 +135,46 @@ const formatTime = (dateStr) => {
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
         <div 
           v-for="table in filteredTables" 
           :key="table.id"
-          class="bg-white rounded-2xl border transition-all duration-300 hover:shadow-lg flex flex-col overflow-hidden"
+          class="bg-white rounded-2xl border transition-all duration-300 hover:shadow-lg flex flex-col overflow-hidden min-h-[340px]"
           :class="table.status === 'occupied' ? 'border-red-200' : 'border-gray-200'"
         >
           <div 
-            class="p-4 flex justify-between items-start border-b border-gray-50"
+            class="p-5 flex justify-between items-start border-b border-gray-50"
             :class="table.status === 'occupied' ? 'bg-red-50/50' : ''"
           >
             <div>
-              <h3 class="text-lg font-bold text-gray-800">№{{ table.id }} Stol</h3>
-              <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+              <h3 class="text-xl font-bold text-gray-800">№{{ table.id }} Stol</h3>
+              <p class="text-sm text-gray-500 mt-1.5 flex items-center gap-1">
                 <Icon icon="mdi:clock-outline" v-if="table.status === 'occupied'" />
                 {{ table.status === 'occupied' ? formatTime(table.occupiedAt) + ' da band qilindi' : 'Hozircha bo\'sh' }}
               </p>
             </div>
             <span 
-              class="px-2 py-1 text-xs font-bold uppercase rounded-md"
+              class="px-3 py-1.5 text-xs font-bold uppercase rounded-md"
               :class="table.status === 'occupied' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'"
             >
               {{ table.status === 'occupied' ? 'Band' : 'Bo\'sh' }}
             </span>
           </div>
 
-          <div class="p-4 flex-1 flex flex-col justify-end gap-3">
+          <div class="p-5 flex-1 flex flex-col justify-end gap-4">
              <div v-if="table.status === 'occupied'" class="mb-2">
-                <div v-if="getOrdersForTable(table.id).length === 0" class="text-sm text-gray-400 italic">
+                <div v-if="getOrdersForTable(table.id).length === 0" class="text-base text-gray-400 italic">
                   Hozircha buyurtmalar yo'q
                 </div>
                 <div v-else class="space-y-2">
-                  <div class="max-h-28 overflow-y-auto custom-scrollbar rounded-lg border border-gray-100 bg-gray-50 p-2 space-y-1">
+                  <div class="max-h-40 overflow-y-auto custom-scrollbar rounded-lg border border-gray-100 bg-gray-50 p-3 space-y-2">
                     <div
                       v-for="(item, idx) in getOrdersForTable(table.id)"
                       :key="idx"
-                      class="flex items-center justify-between gap-2 text-xs"
+                      class="flex items-center justify-between gap-3 text-sm"
                     >
                       <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-md bg-white border border-gray-200 overflow-hidden shrink-0">
+                        <div class="w-12 h-12 rounded-md bg-white border border-gray-200 overflow-hidden shrink-0">
                           <img
                             v-if="item.image"
                             :src="item.image"
@@ -185,24 +185,24 @@ const formatTime = (dateStr) => {
                             <Icon icon="mdi:image-off" />
                           </div>
                         </div>
-                        <span class="text-gray-700 truncate">{{ item.name }}</span>
+                        <span class="text-gray-700 truncate font-medium">{{ item.name }}</span>
                       </div>
-                      <span class="font-bold text-gray-800 shrink-0">{{ item.qty || 1 }}x</span>
+                      <span class="font-bold text-gray-800 shrink-0 text-sm">{{ item.qty || 1 }}x</span>
                     </div>
                   </div>
-                  <div class="text-xs font-semibold text-gray-700">
-                    Jami: <span class="text-[#E93325]">{{ formatPrice(getTableTotal(table.id)) }}</span>
+                  <div class="text-sm font-semibold text-gray-700">
+                    Jami: <span class="text-[#E93325] text-base">{{ formatPrice(getTableTotal(table.id)) }}</span>
                   </div>
                 </div>
              </div>
-             <div v-else class="text-sm text-gray-400 italic mb-2">
+             <div v-else class="text-base text-gray-400 italic mb-2">
                 Buyurtma yo'q
              </div>
 
-             <div class="grid grid-cols-2 gap-2 mt-auto">
+             <div class="grid grid-cols-2 gap-3 mt-auto">
                <button
                  v-if="table.status === 'occupied'"
-                 class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors"
+                 class="flex items-center justify-center gap-1 px-3 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg transition-colors"
                >
                  <Icon icon="mdi:printer" /> Chek chiqarish
                </button>
@@ -210,12 +210,12 @@ const formatTime = (dateStr) => {
                <button 
                  v-if="table.status === 'occupied'"
                  @click="handleFreeTable(table.id)"
-                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-1"
+                 class="flex items-center justify-center gap-1 px-3 py-3 bg-red-100 hover:bg-red-200 text-red-600 text-sm font-bold rounded-lg transition-colors col-span-1"
                >
                  <Icon icon="mdi:lock-open-variant" /> Bo'shatish
                </button>
 
-               <div v-else class="col-span-2 text-center text-xs text-gray-400 py-2 bg-gray-50 rounded-lg">
+               <div v-else class="col-span-2 text-center text-sm text-gray-400 py-3 bg-gray-50 rounded-lg">
                  Mijoz kutilmoqda...
                </div>
              </div>
