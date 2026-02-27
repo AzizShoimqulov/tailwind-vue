@@ -9,7 +9,8 @@ const createDefaultTable = (id) => ({
   id,
   name: `${id}-Stol`,
   status: 'available',
-  occupiedAt: null
+  occupiedAt: null,
+  updatedAt: null
 })
 
 const normalizeTables = (raw) => {
@@ -146,7 +147,19 @@ if (isFirebaseConfigured) {
 
       const merged = state.tables.map((table) => {
         const incoming = byId.get(table.id)
-        return incoming ? { ...table, ...incoming, id: table.id } : table
+        if (!incoming) return table
+
+        const localTs = Date.parse(table.updatedAt || '')
+        const incomingTs = Date.parse(incoming.updatedAt || '')
+        const hasLocalTs = Number.isFinite(localTs)
+        const hasIncomingTs = Number.isFinite(incomingTs)
+
+        // Ignore stale remote snapshots if local state is newer.
+        if (hasLocalTs && (!hasIncomingTs || incomingTs < localTs)) {
+          return table
+        }
+
+        return { ...table, ...incoming, id: table.id }
       })
 
       state.tables.splice(0, state.tables.length, ...merged)
@@ -174,10 +187,12 @@ export function occupyTable(id) {
   const nid = Number(id)
   const t = state.tables.find(x => x.id === nid)
   if (t) {
+    const now = new Date().toISOString()
     t.status = 'occupied'
     if (!t.occupiedAt) {
-      t.occupiedAt = new Date().toISOString()
+      t.occupiedAt = now
     }
+    t.updatedAt = now
     // persist to Firestore if configured
     if (isFirebaseConfigured) {
       try { setDoc(doc(db, 'tables', String(nid)), { ...t }).catch(console.error) } catch(e) { console.error(e) }
@@ -189,8 +204,10 @@ export function freeTable(id) {
   const nid = Number(id)
   const t = state.tables.find(x => x.id === nid)
   if (t) {
+    const now = new Date().toISOString()
     t.status = 'available'
     t.occupiedAt = null
+    t.updatedAt = now
 
     const key = String(nid)
     if (state.orders[key]) {
