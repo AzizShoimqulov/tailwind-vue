@@ -135,7 +135,7 @@ const formatTime = (dateStr) => {
         </button>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div 
           v-for="table in filteredTables" 
           :key="table.id"
@@ -173,7 +173,20 @@ const formatTime = (dateStr) => {
                       :key="idx"
                       class="flex items-center justify-between gap-2 text-xs"
                     >
-                      <span class="text-gray-700 truncate">{{ item.name }}</span>
+                      <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-md bg-white border border-gray-200 overflow-hidden shrink-0">
+                          <img
+                            v-if="item.image"
+                            :src="item.image"
+                            class="w-full h-full object-cover"
+                            @error="$event.target.src='https://via.placeholder.com/150'"
+                          />
+                          <div v-else class="w-full h-full flex items-center justify-center text-[10px] text-gray-400">
+                            <Icon icon="mdi:image-off" />
+                          </div>
+                        </div>
+                        <span class="text-gray-700 truncate">{{ item.name }}</span>
+                      </div>
                       <span class="font-bold text-gray-800 shrink-0">{{ item.qty || 1 }}x</span>
                     </div>
                   </div>
@@ -187,10 +200,17 @@ const formatTime = (dateStr) => {
              </div>
 
              <div class="grid grid-cols-2 gap-2 mt-auto">
+               <button
+                 v-if="table.status === 'occupied'"
+                 class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors"
+               >
+                 <Icon icon="mdi:printer" /> Chek chiqarish
+               </button>
+
                <button 
                  v-if="table.status === 'occupied'"
                  @click="handleFreeTable(table.id)"
-                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-2"
+                 class="flex items-center justify-center gap-1 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-xs font-bold rounded-lg transition-colors col-span-1"
                >
                  <Icon icon="mdi:lock-open-variant" /> Bo'shatish
                </button>
