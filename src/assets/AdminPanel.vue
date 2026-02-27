@@ -10,8 +10,23 @@ const selectedTable = ref(null)
 const tableOrders = computed(() => selectedTable.value ? getOrdersForTable(selectedTable.value.id) : [])
 
 const filteredTables = computed(() => {
-  if (filterStatus.value === 'all') return tables.value
-  return tables.value.filter(t => t.status === filterStatus.value)
+  const list = [...tables.value]
+
+  if (filterStatus.value === 'all') {
+    return list.sort((a, b) => Number(a.id) - Number(b.id))
+  }
+
+  const filtered = list.filter(t => t.status === filterStatus.value)
+
+  if (filterStatus.value === 'occupied') {
+    return filtered.sort((a, b) => {
+      const aTime = a.occupiedAt ? new Date(a.occupiedAt).getTime() : 0
+      const bTime = b.occupiedAt ? new Date(b.occupiedAt).getTime() : 0
+      return bTime - aTime
+    })
+  }
+
+  return filtered.sort((a, b) => Number(a.id) - Number(b.id))
 })
 
 const totalTables = computed(() => tables.value.length)
