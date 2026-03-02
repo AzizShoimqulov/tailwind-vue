@@ -42,8 +42,8 @@ const handleScroll = () => {
 
 const router = useRouter()
 
-function handlePlaceOrder() {
-  const ok = placeOrder()
+async function handlePlaceOrder() {
+  const ok = await placeOrder()
   if (ok) {
     isCartOpen.value = false
     alert('Buyurtma qabul qilindi — stol band qilindi.')
@@ -51,7 +51,11 @@ function handlePlaceOrder() {
     return
   }
   isCartOpen.value = false
-  alert('Iltimos, stol tanlang.')
+  if (!selectedTable.value) {
+    alert('Iltimos, stol tanlang.')
+  } else {
+    alert('Band qilishda xatolik bo‘ldi. Internet yoki Firebase sozlamasini tekshiring.')
+  }
   router.push('/stol')
 }
 

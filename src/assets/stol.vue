@@ -26,9 +26,13 @@ function closeOrders() {
   activeTableId.value = null
 }
 
-function handleFreeTable() {
+async function handleFreeTable() {
   if (!activeTableId.value) return
-  freeTable(activeTableId.value)
+  const ok = await Promise.resolve(freeTable(activeTableId.value))
+  if (!ok) {
+    alert('Stolni bo\'shatishda xatolik bo\'ldi. Internet yoki Firebase sozlamasini tekshiring.')
+    return
+  }
   closeOrders()
 }
 

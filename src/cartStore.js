@@ -32,13 +32,15 @@ export function clearCart() {
   cartItems.splice(0)
 }
 
-export function placeOrder() {
+export async function placeOrder() {
   const tableId = selectedTable.value
   if (!tableId) return false
   if (cartItems.length > 0) {
-    addOrderToTable(tableId, cartItems.slice())
+    const ordersSaved = await Promise.resolve(addOrderToTable(tableId, cartItems.slice()))
+    if (!ordersSaved) return false
   }
-  occupyTable(tableId)
+  const tableSaved = await Promise.resolve(occupyTable(tableId))
+  if (!tableSaved) return false
   clearCart()
   return true
 }
