@@ -199,79 +199,45 @@ export function selectTable(id) {
 export function occupyTable(id) {
   const nid = Number(id)
   const t = state.tables.find(x => x.id === nid)
-  if (!t) return false
-
-  const prev = { ...t }
-  const now = new Date().toISOString()
-  t.status = 'occupied'
-  if (!t.occupiedAt) {
-    t.occupiedAt = now
-  }
-  t.updatedAt = now
-
-  if (isFirebaseConfigured) {
-    try {
-      return setDoc(doc(db, 'tables', String(nid)), { ...t })
-        .then(() => true)
-        .catch((e) => {
-          console.error(e)
-          Object.assign(t, prev)
-          return false
-        })
-    } catch (e) {
-      console.error(e)
-      Object.assign(t, prev)
-      return false
+  if (t) {
+    const now = new Date().toISOString()
+    t.status = 'occupied'
+    if (!t.occupiedAt) {
+      t.occupiedAt = now
+    }
+    t.updatedAt = now
+    // persist to Firestore if configured
+    if (isFirebaseConfigured) {
+      try { setDoc(doc(db, 'tables', String(nid)), { ...t }).catch(console.error) } catch(e) { console.error(e) }
     }
   }
-
-  return true
 }
 
 export function freeTable(id) {
   const nid = Number(id)
   const t = state.tables.find(x => x.id === nid)
-  if (!t) return false
+  if (t) {
+    const now = new Date().toISOString()
+    t.status = 'available'
+    t.occupiedAt = null
+    t.updatedAt = now
 
-  const key = String(nid)
-  const prev = { ...t }
-  const prevOrders = state.orders[key] ? [...state.orders[key]] : null
-  const now = new Date().toISOString()
-
-  t.status = 'available'
-  t.occupiedAt = null
-  t.updatedAt = now
-
-  if (state.orders[key]) {
-    delete state.orders[key]
-  }
-
-  if (isFirebaseConfigured) {
-    try {
-      return Promise.all([
-        setDoc(doc(db, 'tables', String(nid)), { ...t }),
-        deleteDoc(doc(db, 'orders', key))
-      ]).then(() => true).catch((e) => {
-        console.error(e)
-        Object.assign(t, prev)
-        if (prevOrders) state.orders[key] = prevOrders
-        return false
-      })
-    } catch (e) {
-      console.error(e)
-      Object.assign(t, prev)
-      if (prevOrders) state.orders[key] = prevOrders
-      return false
+    const key = String(nid)
+    if (state.orders[key]) {
+      delete state.orders[key]
+    }
+    if (isFirebaseConfigured) {
+      try {
+        setDoc(doc(db, 'tables', String(nid)), { ...t }).catch(console.error)
+        deleteDoc(doc(db, 'orders', key)).catch(console.error)
+      } catch(e) { console.error(e) }
     }
   }
-
-  return true
 }
 
 export function addOrderToTable(id, items) {
-  if (!id) return false
+  if (!id) return
   const key = String(id)
-  const prevOrders = state.orders[key] ? state.orders[key].map((item) => ({ ...item })) : null
 
   if (!state.orders[key]) {
     state.orders[key] = []
@@ -294,29 +260,9 @@ export function addOrderToTable(id, items) {
   })
   if (isFirebaseConfigured) {
     try {
-      return setDoc(doc(db, 'orders', key), { items: state.orders[key] })
-        .then(() => true)
-        .catch((e) => {
-          console.error(e)
-          if (prevOrders) {
-            state.orders[key] = prevOrders
-          } else {
-            delete state.orders[key]
-          }
-          return false
-        })
-    } catch (e) {
-      console.error(e)
-      if (prevOrders) {
-        state.orders[key] = prevOrders
-      } else {
-        delete state.orders[key]
-      }
-      return false
-    }
+      setDoc(doc(db, 'orders', key), { items: state.orders[key] }).catch(console.error)
+    } catch(e) { console.error(e) }
   }
-
-  return true
 }
 
 export function getOrdersForTable(id) {

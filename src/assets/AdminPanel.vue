@@ -53,13 +53,9 @@ const closeModal = () => {
   }, 300)
 }
 
-const handleFreeTable = async (id) => {
+const handleFreeTable = (id) => {
   if(confirm(`№${id}-stolni bo'shatmoqchimisiz?`)) {
-    const ok = await Promise.resolve(freeTableStore(id))
-    if (!ok) {
-      alert("Stolni bo'shatishda xatolik bo'ldi. Internet yoki Firebase sozlamasini tekshiring.")
-      return
-    }
+    freeTableStore(id)
     if (selectedTable.value?.id === id) closeModal()
   }
 }
