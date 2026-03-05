@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { tables, selectTable, getOrdersForTable, freeTable } from '../tableStore'
 
@@ -10,6 +10,30 @@ const { t } = useI18n()
 const showOrders = ref(false)
 const activeTableId = ref(null)
 const activeOrders = computed(() => activeTableId.value ? getOrdersForTable(activeTableId.value) : [])
+const preparedItems = ref({})
+const PREPARED_ITEMS_KEY = 'admin_prepared_items'
+
+const loadPreparedItems = () => {
+  try {
+    const saved = localStorage.getItem(PREPARED_ITEMS_KEY)
+    preparedItems.value = saved ? JSON.parse(saved) : {}
+  } catch {
+    preparedItems.value = {}
+  }
+}
+
+const handleStorageChange = (e) => {
+  if (e.key === PREPARED_ITEMS_KEY) loadPreparedItems()
+}
+
+onMounted(() => {
+  loadPreparedItems()
+  window.addEventListener('storage', handleStorageChange)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('storage', handleStorageChange)
+})
 
 const handleTableClick = (table) => {
   if (table.status === 'occupied') {
@@ -40,6 +64,11 @@ const getStatusColor = (status) => {
 
 const formatPrice = (p) => {
   try { return new Intl.NumberFormat('uz-UZ').format(Number(p)) + " so'm" } catch { return p }
+}
+
+const isPrepared = (orderIndex) => {
+  if (!activeTableId.value) return false
+  return Boolean(preparedItems.value[`${activeTableId.value}-${orderIndex}`])
 }
 </script>
 
@@ -91,7 +120,12 @@ const formatPrice = (p) => {
               <div class="p-3 flex flex-col flex-grow">
                 <div class="flex justify-between items-start gap-2">
                   <div class="text-sm font-bold text-gray-800 line-clamp-1">{{ o.name }}</div>
-                  <div v-if="o.qty" class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">x{{ o.qty }}</div>
+                  <div class="flex items-center gap-1">
+                    <div class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">x{{ o.qty || 1 }}</div>
+                    <div v-if="isPrepared(idx)" class="text-xs bg-green-100 px-2 py-1 rounded text-green-700 font-medium">
+                      {{ t('tables.prepared') }}
+                    </div>
+                  </div>
                 </div>
                 <div class="text-xs text-gray-500 line-clamp-2 mt-1">{{ o.description || '' }}</div>
                 <div class="mt-auto pt-3 flex items-center justify-between">

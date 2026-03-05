@@ -74,7 +74,8 @@ const messages = {
       total: 'Total',
       free: 'Free table',
       close: 'Close',
-      no_image: 'No image'
+      no_image: 'No image',
+      prepared: 'Prepared'
     },
     admin: {
       title: 'Restaurant Management Panel',
@@ -198,7 +199,8 @@ const messages = {
       total: 'Jami',
       free: "Bo'shatish",
       close: 'Yopish',
-      no_image: "Rasm yo'q"
+      no_image: "Rasm yo'q",
+      prepared: 'Tayyorlandi'
     },
     admin: {
       title: 'Restoran Boshqaruv Paneli',
@@ -322,7 +324,8 @@ const messages = {
       total: 'Toplam',
       free: 'Boşalt',
       close: 'Kapat',
-      no_image: 'Görsel yok'
+      no_image: 'Görsel yok',
+      prepared: 'Hazırlandı'
     },
     admin: {
       title: 'Restoran Yönetim Paneli',
