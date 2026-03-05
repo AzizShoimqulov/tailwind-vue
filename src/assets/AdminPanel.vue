@@ -8,6 +8,7 @@ const filterStatus = ref('all')
 const showModal = ref(false)
 const selectedTable = ref(null)
 const tableOrders = computed(() => selectedTable.value ? getOrdersForTable(selectedTable.value.id) : [])
+const preparedItems = ref({})
 
 const filteredTables = computed(() => {
   const list = [...tables.value]
@@ -56,8 +57,22 @@ const closeModal = () => {
 const handleFreeTable = (id) => {
   if(confirm(`№${id}-stolni bo'shatmoqchimisiz?`)) {
     freeTableStore(id)
+    Object.keys(preparedItems.value).forEach((key) => {
+      if (key.startsWith(`${id}-`)) delete preparedItems.value[key]
+    })
     if (selectedTable.value?.id === id) closeModal()
   }
+}
+
+const getPreparedKey = (tableId, itemIndex) => `${tableId}-${itemIndex}`
+
+const isPrepared = (tableId, itemIndex) => {
+  return Boolean(preparedItems.value[getPreparedKey(tableId, itemIndex)])
+}
+
+const togglePrepared = (tableId, itemIndex) => {
+  const key = getPreparedKey(tableId, itemIndex)
+  preparedItems.value[key] = !preparedItems.value[key]
 }
 
 const formatPrice = (p) => {
@@ -172,6 +187,7 @@ const formatTime = (dateStr) => {
                       v-for="(item, idx) in getOrdersForTable(table.id)"
                       :key="idx"
                       class="flex items-center justify-between gap-3 text-sm"
+                      :class="isPrepared(table.id, idx) ? 'opacity-60' : ''"
                     >
                       <div class="flex items-center gap-2 min-w-0">
                         <div class="w-12 h-12 rounded-md bg-white border border-gray-200 overflow-hidden shrink-0">
@@ -185,9 +201,28 @@ const formatTime = (dateStr) => {
                             <Icon icon="mdi:image-off" />
                           </div>
                         </div>
-                        <span class="text-gray-700 truncate font-medium">{{ item.name }}</span>
+                        <span
+                          class="truncate font-medium"
+                          :class="isPrepared(table.id, idx) ? 'text-gray-400 line-through' : 'text-gray-700'"
+                        >
+                          {{ item.name }}
+                        </span>
                       </div>
-                      <span class="font-bold text-gray-800 shrink-0 text-sm">{{ item.qty || 1 }}x</span>
+                      <div class="flex items-center gap-2 shrink-0">
+                        <span
+                          class="font-bold text-sm"
+                          :class="isPrepared(table.id, idx) ? 'text-gray-400 line-through' : 'text-gray-800'"
+                        >
+                          {{ item.qty || 1 }}x
+                        </span>
+                        <button
+                          @click="togglePrepared(table.id, idx)"
+                          class="px-2 py-1 rounded-md text-xs font-semibold transition-colors"
+                          :class="isPrepared(table.id, idx) ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-green-100 text-green-700 hover:bg-green-200'"
+                        >
+                          {{ isPrepared(table.id, idx) ? 'Bekor qilish' : 'Tayyorlandi' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div class="text-sm font-semibold text-gray-700">
