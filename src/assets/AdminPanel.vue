@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
 import { state } from '../tableStore'
 import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore'
 
+const { t, locale } = useI18n()
 const filterStatus = ref('all') 
 const showModal = ref(false)
 const selectedTable = ref(null)
@@ -73,7 +75,7 @@ const closeModal = () => {
 }
 
 const handleFreeTable = (id) => {
-  if(confirm(`№${id}-stolni bo'shatmoqchimisiz?`)) {
+  if(confirm(t('admin.free_table_confirm', { id }))) {
     freeTableStore(id)
     Object.keys(preparedItems.value).forEach((key) => {
       if (key.startsWith(`${id}-`)) delete preparedItems.value[key]
@@ -93,8 +95,16 @@ const togglePrepared = (tableId, itemIndex) => {
   preparedItems.value[key] = !preparedItems.value[key]
 }
 
+const localeMap = {
+  uz: 'uz-UZ',
+  en: 'en-US',
+  tr: 'tr-TR'
+}
+
+const activeLocale = computed(() => localeMap[locale.value] || 'uz-UZ')
+
 const formatPrice = (p) => {
-  return new Intl.NumberFormat('uz-UZ').format(p) + " so'm"
+  return new Intl.NumberFormat(activeLocale.value).format(p) + ` ${t('admin.currency')}`
 }
 
 const getTableTotal = (tableId) => {
@@ -109,7 +119,7 @@ const getTableTotal = (tableId) => {
 const formatTime = (dateStr) => {
   if (!dateStr) return '-'
   const date = new Date(dateStr)
-  return date.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+  return date.toLocaleTimeString(activeLocale.value, { hour: '2-digit', minute: '2-digit' })
 }
 </script>
 
@@ -120,13 +130,13 @@ const formatTime = (dateStr) => {
       <header class="mb-8">
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
           <Icon icon="mdi:monitor-dashboard" class="text-blue-600" />
-          Restoran Boshqaruv Paneli
+          {{ t('admin.title') }}
         </h1>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <p class="text-gray-500 text-sm font-medium">Jami Stollar</p>
+              <p class="text-gray-500 text-sm font-medium">{{ t('admin.total_tables') }}</p>
               <p class="text-3xl font-bold text-gray-800">{{ totalTables }}</p>
             </div>
             <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
@@ -136,7 +146,7 @@ const formatTime = (dateStr) => {
           
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <p class="text-gray-500 text-sm font-medium">Band qilingan</p>
+              <p class="text-gray-500 text-sm font-medium">{{ t('admin.occupied_tables') }}</p>
               <p class="text-3xl font-bold text-red-500">{{ occupiedCount }}</p>
             </div>
             <div class="p-3 bg-red-50 text-red-500 rounded-xl">
@@ -146,7 +156,7 @@ const formatTime = (dateStr) => {
 
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <p class="text-gray-500 text-sm font-medium">Bo'sh joylar</p>
+              <p class="text-gray-500 text-sm font-medium">{{ t('admin.free_tables') }}</p>
               <p class="text-3xl font-bold text-green-500">{{ availableCount }}</p>
             </div>
             <div class="p-3 bg-green-50 text-green-500 rounded-xl">
@@ -164,7 +174,7 @@ const formatTime = (dateStr) => {
           class="px-5 py-2 rounded-full text-sm font-bold transition-all"
           :class="filterStatus === stat ? 'bg-gray-800 text-white shadow-lg' : 'bg-white text-gray-600 hover:bg-gray-200'"
         >
-          {{ stat === 'all' ? 'Barchasi' : (stat === 'available' ? "Bo'sh" : "Band") }}
+          {{ stat === 'all' ? t('admin.filter_all') : (stat === 'available' ? t('admin.filter_free') : t('admin.filter_occupied')) }}
         </button>
       </div>
 
@@ -180,24 +190,24 @@ const formatTime = (dateStr) => {
             :class="table.status === 'occupied' ? 'bg-red-50/50' : ''"
           >
             <div>
-              <h3 class="text-xl font-bold text-gray-800">№{{ table.id }} Stol</h3>
+              <h3 class="text-xl font-bold text-gray-800">{{ t('admin.table_title', { id: table.id }) }}</h3>
               <p class="text-sm text-gray-500 mt-1.5 flex items-center gap-1">
                 <Icon icon="mdi:clock-outline" v-if="table.status === 'occupied'" />
-                {{ table.status === 'occupied' ? formatTime(table.occupiedAt) + ' da band qilindi' : 'Hozircha bo\'sh' }}
+                {{ table.status === 'occupied' ? t('admin.occupied_at', { time: formatTime(table.occupiedAt) }) : t('admin.currently_free') }}
               </p>
             </div>
             <span 
               class="px-3 py-1.5 text-xs font-bold uppercase rounded-md"
               :class="table.status === 'occupied' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'"
             >
-              {{ table.status === 'occupied' ? 'Band' : 'Bo\'sh' }}
+              {{ table.status === 'occupied' ? t('admin.status_occupied') : t('admin.status_free') }}
             </span>
           </div>
 
           <div class="p-5 flex-1 flex flex-col justify-end gap-4">
              <div v-if="table.status === 'occupied'" class="mb-2">
                 <div v-if="getOrdersForTable(table.id).length === 0" class="text-base text-gray-400 italic">
-                  Hozircha buyurtmalar yo'q
+                  {{ t('admin.no_orders_yet') }}
                 </div>
                 <div v-else class="space-y-2">
                   <div class="max-h-40 overflow-y-auto custom-scrollbar rounded-lg border border-gray-100 bg-gray-50 p-3 space-y-2">
@@ -238,18 +248,18 @@ const formatTime = (dateStr) => {
                           class="px-2 py-1 rounded-md text-xs font-semibold transition-colors"
                           :class="isPrepared(table.id, idx) ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-green-100 text-green-700 hover:bg-green-200'"
                         >
-                          {{ isPrepared(table.id, idx) ? 'Bekor qilish' : 'Tayyorlandi' }}
+                          {{ isPrepared(table.id, idx) ? t('admin.cancel') : t('admin.prepared') }}
                         </button>
                       </div>
                     </div>
                   </div>
                   <div class="text-sm font-semibold text-gray-700">
-                    Jami: <span class="text-[#E93325] text-base">{{ formatPrice(getTableTotal(table.id)) }}</span>
+                    {{ t('admin.total') }}: <span class="text-[#E93325] text-base">{{ formatPrice(getTableTotal(table.id)) }}</span>
                   </div>
                 </div>
              </div>
              <div v-else class="text-base text-gray-400 italic mb-2">
-                Buyurtma yo'q
+                {{ t('admin.no_order') }}
              </div>
 
              <div class="grid grid-cols-2 gap-3 mt-auto">
@@ -257,7 +267,7 @@ const formatTime = (dateStr) => {
                  v-if="table.status === 'occupied'"
                  class="flex items-center justify-center gap-1 px-3 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg transition-colors"
                >
-                 <Icon icon="mdi:printer" /> Chek chiqarish
+                 <Icon icon="mdi:printer" /> {{ t('admin.print_receipt') }}
                </button>
 
                <button 
@@ -265,11 +275,11 @@ const formatTime = (dateStr) => {
                  @click="handleFreeTable(table.id)"
                  class="flex items-center justify-center gap-1 px-3 py-3 bg-red-100 hover:bg-red-200 text-red-600 text-sm font-bold rounded-lg transition-colors col-span-1"
                >
-                 <Icon icon="mdi:lock-open-variant" /> Bo'shatish
+                 <Icon icon="mdi:lock-open-variant" /> {{ t('admin.free_table') }}
                </button>
 
                <div v-else class="col-span-2 text-center text-sm text-gray-400 py-3 bg-gray-50 rounded-lg">
-                 Mijoz kutilmoqda...
+                 {{ t('admin.waiting_customer') }}
                </div>
              </div>
           </div>
@@ -284,8 +294,8 @@ const formatTime = (dateStr) => {
           
           <div class="bg-gray-50 p-4 border-b border-gray-100 flex justify-between items-center">
             <div>
-              <h2 class="text-xl font-bold text-gray-800">№{{ selectedTable?.id }} - Stol hisobi</h2>
-              <p class="text-xs text-gray-500">Buyurtmalar ro'yxati</p>
+              <h2 class="text-xl font-bold text-gray-800">{{ t('admin.bill_title', { id: selectedTable?.id }) }}</h2>
+              <p class="text-xs text-gray-500">{{ t('admin.order_list') }}</p>
             </div>
             <button @click="closeModal" class="p-2 bg-white rounded-full hover:bg-gray-200 transition-colors">
               <Icon icon="mdi:close" class="text-gray-600" />
@@ -295,7 +305,7 @@ const formatTime = (dateStr) => {
           <div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
             <div v-if="tableOrders.length === 0" class="text-center py-10 text-gray-400 flex flex-col items-center">
               <Icon icon="mdi:cart-off" class="w-12 h-12 mb-2 opacity-50" />
-              <p>Hozircha buyurtmalar yo'q</p>
+              <p>{{ t('admin.no_orders_yet') }}</p>
             </div>
 
             <div v-else class="space-y-3">
@@ -323,15 +333,15 @@ const formatTime = (dateStr) => {
           </div>
           <div class="p-4 bg-gray-50 border-t border-gray-100">
             <div class="flex justify-between items-center mb-4 text-lg">
-              <span class="font-bold text-gray-700">Jami summa:</span>
+              <span class="font-bold text-gray-700">{{ t('admin.total_amount') }}</span>
               <span class="font-extrabold text-[#E93325] text-xl">{{ formatPrice(modalTotalSum) }}</span>
             </div>
             <div class="grid grid-cols-2 gap-3">
                <button @click="handleFreeTable(selectedTable.id)" class="py-3 rounded-xl bg-red-100 text-red-600 font-bold text-sm hover:bg-red-200 transition-colors">
-                 Hisobni yopish
+                 {{ t('admin.close_bill') }}
                </button>
                <button class="py-3 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-                 <Icon icon="mdi:printer" /> Chek chiqarish
+                 <Icon icon="mdi:printer" /> {{ t('admin.print_receipt') }}
                </button>
             </div>
           </div>
