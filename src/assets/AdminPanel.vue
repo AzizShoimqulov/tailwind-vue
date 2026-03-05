@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import { state } from '../tableStore'
 import { tables, getOrdersForTable, freeTable as freeTableStore } from '../tableStore'
@@ -9,6 +9,24 @@ const showModal = ref(false)
 const selectedTable = ref(null)
 const tableOrders = computed(() => selectedTable.value ? getOrdersForTable(selectedTable.value.id) : [])
 const preparedItems = ref({})
+const PREPARED_ITEMS_KEY = 'admin_prepared_items'
+
+onMounted(() => {
+  try {
+    const saved = localStorage.getItem(PREPARED_ITEMS_KEY)
+    preparedItems.value = saved ? JSON.parse(saved) : {}
+  } catch {
+    preparedItems.value = {}
+  }
+})
+
+watch(
+  preparedItems,
+  (val) => {
+    localStorage.setItem(PREPARED_ITEMS_KEY, JSON.stringify(val))
+  },
+  { deep: true }
+)
 
 const filteredTables = computed(() => {
   const list = [...tables.value]
