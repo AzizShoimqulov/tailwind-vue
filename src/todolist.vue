@@ -27,7 +27,6 @@ const currentLang = computed(() => {
 })
 
 const navItems = computed(() => {
-  // make locale an explicit reactive dependency
   locale.value
   return [
     { id: 1, name: t('nav.home'), link: '/' },
